@@ -1,0 +1,68 @@
+{
+  "name": "Paccino'S",
+  "nameAr": "باتشينوس",
+  "tagline": "Coffee & Food Experience",
+  "category": "مطعم إيطالي · مقهى · أطعمة ومشروبات",
+  "categoryEn": "Italian restaurant · Coffee shop · Food & beverage",
+  "followers": "51K",
+  "following": "2",
+  "recommendations": "88% recommend (584 reviews)",
+  "priceRange": "££",
+  "featuredText": "باتشينوس عشرة من 2010 — Coffee & Food Experience",
+  "since": "2010",
+  "bio": "باتشينوس… حكاية بدأت من حب الاكل. وراء كل طبق بيتقدم في قصة شغف، تعب، وتجارب. باتشينوس عشرة من ٢٠١٠",
+  "branches": [
+    {
+      "id": 1,
+      "name": "المنيا - طه حسين",
+      "nameEn": "Minya - Taha Hussein",
+      "address": "المنيا، شارع طه حسين (أمام وابور النور)",
+      "addressFull": "1- المنيا طه حسين ( أمام وابور النور) - 61661",
+      "delivery": "01007811378"
+    },
+    {
+      "id": 2,
+      "name": "المنيا الجديدة - مول كورنر بلازا",
+      "nameEn": "New Minya - Corner Plaza Mall",
+      "address": "المنيا الجديدة، الحي الثالث، مول كورنر بلازا",
+      "addressFull": "2- المنيا الجديدة الحي الثالث مول كورنر بلازا",
+      "delivery": ""
+    }
+  ],
+  "contact": {
+    "phone": "+20 12 28784569",
+    "phoneRaw": "01228784569",
+    "whatsapp": "+20 12 28784569",
+    "email": "paccinoscafe@gmail.com",
+    "instagram": "paccino_s",
+    "instagramUrl": "https://www.instagram.com/paccino_s",
+    "facebook": "https://www.facebook.com/PaccinosCoffee",
+    "messenger": "https://www.facebook.com/messages/t/PaccinosCoffee/"
+  },
+  "specialties": [
+    "جلوس في الهواء الطلق",
+    "Outdoor seating"
+  ],
+  "social": {
+    "facebook": "https://www.facebook.com/PaccinosCoffee",
+    "instagram": "https://www.instagram.com/paccino_s"
+  },
+  "photos": [
+    "https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/763902557_1022539740647971_1621365836154026651_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080",
+    "https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/764833190_4353950958192100_8784334542758240201_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080",
+    "https://scontent-mrs2-2.xx.fbcdn.net/v/t39.99422-6/764693634_1712713686685896_5703920541295721369_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080",
+    "https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/764300353_1588375519622138_927281693261749974_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080",
+    "https://scontent-mrs2-2.xx.fbcdn.net/v/t39.99422-6/763103854_1697309138198236_439776793323018994_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080",
+    "https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/764006161_1971011970254282_650594096417315599_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080",
+    "https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/763119731_1556248809292715_1163673481670694428_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080",
+    "https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/759479792_2148671919396403_7404041056685333809_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080"
+  ],
+  "reviews": [
+    {
+      "author": "Miral Robert",
+      "text": "One of the best places for serving foods high quality with reasonable price. The staff is so friendly and helpful. 10/10 for the staff and the chef. God bless your hands he is making delicious food and the portion is so good it could fit up to 3 persons for the one plate. Always my favorite place ❤️❤️❤️",
+      "textAr": "من أفضل الأماكن للأكل بجودة عالية وأسعار مناسبة. الفريق ودود ومساعد جدًا. 10/10 للشيف، الأكل لذيذ والكمية كبيرة تكفي 3 أشخاص. دائمًا مكاني المفضل ❤️"
+    }
+  ],
+  "community": "Paccino'S Family — Channel · 365 members"
+}
