@@ -93,11 +93,45 @@
       margin: 0 0.75rem;                 /* مسافة يمين وشمال */
       transform: translateY(-0.35rem);   /* رفع الخط شوية لمحاذاة النص */
     }
+
+    /* ===================== شريط إخباري ثابت - Fixed Banner ===================== */
+    .fixed-banner {
+      background-color: #D4A373;          /* ذهبي/كراميل */
+      color: #2B1B17;                     /* بني داكن */
+      height: 45px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;                      /* فوق كل العناصر */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      font-size: 15px;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* نزّل الـ navbar تحت البانر */
+    #navbar { top: 45px; }
+
+    /* أضف مسافة أعلى الـ body حتى لا يختفي المحتوى تحت البانر */
+    body { padding-top: 45px; }
   </style>
 </head>
 
 <!-- جسم الصفحة: خط Inter + خلفية كريمية + لون نص بني + تحسين شكل الخط -->
 <body class="font-body bg-cream text-espresso antialiased">
+
+  <!-- ===== شريط إخباري ثابت في أعلى الصفحة — خلفية ذهبية/كراميل + نص بني داكن ===== -->
+  <header class="fixed-banner">
+    📍 Made with passion in Oak Lawn, IL | Our new domain Pacinos.engaz.tech will be live soon
+  </header>
+
 
   <!-- ======================================================================
        القسم 1: شريط التنقل العلوي (Navbar ثابت)
