@@ -50,9 +50,9 @@
         extend: {
           // ألوان الهوية البصرية للبراند
           colors: {
-            espresso: '#3B1F2B', // بني إسبريسو غامق -> خلفيات الأقسام الداكنة
-            cream: '#F5EFE9',    // بيج كريمي فاتح -> خلفيات الأقسام الفاتحة
-            caramel: '#C9782C',  // ذهبي/كراميل -> الأزرار والأسعار والتفاصيل
+            espresso: '#3D0A17', // بني إسبريسو غامق -> خلفيات الأقسام الداكنة
+            cream: '#FAF6F0',    // بيج كريمي فاتح -> خلفيات الأقسام الفاتحة
+            caramel: '#EAD5C1',  // ذهبي/كراميل -> الأزرار والأسعار والتفاصيل
           },
           fontFamily: {
             heading: ['"Playfair Display"', '"Cairo"', 'serif'], // كلاس font-heading
@@ -65,34 +65,62 @@
 
   <!-- ================= تنسيقات CSS مخصصة (اللي Tailwind مش بيعملها) ================= -->
   <style>
-    /* الحالة الابتدائية لأي عنصر عليه كلاس .reveal
-       (مخفي ومنزول شوية لتحت — قبل ما أنيميشن الظهور يشتغل) */
-    .reveal {
-      opacity: 0;                       /* شفاف تماماً */
-      transform: translateY(2.5rem);    /* منزول 40px لتحت */
-      transition: opacity 0.8s ease, transform 0.8s ease; /* حركة ناعمة */
-      will-change: opacity, transform;  /* تحسين أداء الأنيميشن */
+    :root {
+      /* Brand Color Palette */
+      --color-primary: #5C1425;
+      --color-primary-dark: #3D0A17;
+      --color-accent: #EAD5C1;
+      --color-accent-hover: #F5E4D3;
+      --color-bg-light: #FAF6F0;
+      --color-bg-dark: #2B0610;
+      --color-text-light: #EAD5C1;
+      --color-text-dark: #2B0610;
+      --border-cream: rgba(234, 213, 193, 0.3);
+      --shadow-subtle: 0 10px 30px rgba(61, 10, 23, 0.15);
     }
 
-    /* الحالة النهائية: لما الجافاسكريبت يضيف كلاس .visible */
-    .reveal.visible {
-      opacity: 1;            /* ظاهر بالكامل */
-      transform: translateY(0); /* راجع لمكانه الطبيعي */
+    body {
+      background-color: var(--color-primary);
+      color: var(--color-text-light);
+      font-family: 'Cairo', 'Inter', system-ui, sans-serif;
     }
 
-    /* كلاسات التأخير عشان العناصر تظهر واحدة ورا التانية (تأثير متتابع) */
+    /* ================== REVEAL ANIMATIONS ================== */
+    .reveal { opacity: 0; transform: translateY(2.5rem); transition: opacity 0.8s ease, transform 0.8s ease; will-change: opacity, transform; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
 
-    /* الخط المنقط اللي بيربط اسم الصنف بسعره في قسم المنيو
-       (flex: 1 بيخلي الخط ياخد المساحة الفاضية بين الاسم والسعر) */
-    .menu-dots {
-      flex: 1 1 auto;
-      border-bottom: 2px dotted rgba(43, 27, 23, 0.35); /* نقاط بنية شفافة */
-      margin: 0 0.75rem;                 /* مسافة يمين وشمال */
-      transform: translateY(-0.35rem);   /* رفع الخط شوية لمحاذاة النص */
+    /* ================== COMPONENTS ================== */
+    header { background-color: var(--color-primary); }
+
+    .btn-primary {
+      background-color: var(--color-primary); color: var(--color-accent);
+      border: 1.5px solid var(--color-accent); padding: 12px 24px;
+      border-radius: 8px; transition: all 0.3s ease; font-weight: 600;
     }
+    .btn-primary:hover {
+      background-color: var(--color-accent); color: var(--color-primary-dark);
+      transform: translateY(-2px); box-shadow: var(--shadow-subtle);
+    }
+
+    .menu-dots { flex: 1 1 auto; border-bottom: 2px dotted var(--border-cream); margin: 0 0.75rem; transform: translateY(-0.35rem); }
+
+    .floating-btn {
+      position: fixed; bottom: 24px; left: 24px;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: #25D366; color: white; display: flex;
+      align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      transition: all 0.3s ease; z-index: 9999; text-decoration: none;
+    }
+    .floating-btn:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6); background: #128C7E; }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--color-primary-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 4px; }
   </style>
 </head>
 
@@ -250,7 +278,7 @@
                alt="باتشينوس لاتيه" loading="lazy" class="w-full h-64 object-cover" />
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
-              <h3 class="font-heading text-2xl font-semibold">Caramel Latte</h3> <!-- اسم المشروب -->
+              <h3 class="font-heading text-2xl font-semibold">باتشينوس لاتيه</h3> <!-- اسم المشروب -->
               <span class="text-caramel font-bold text-xl">★</span>           <!-- السعر -->
             </div>
             <p class="text-espresso/70 leading-relaxed">إسبريسو إيطالي مع كراميل غني — ساخن أو مثلج.</p>
@@ -263,7 +291,7 @@
                alt="باستا ألفريدو" loading="lazy" class="w-full h-64 object-cover" />
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
-              <h3 class="font-heading text-2xl font-semibold">Mocha Latte</h3>
+              <h3 class="font-heading text-2xl font-semibold">باستا ألفريدو</h3>
               <span class="text-caramel font-bold text-xl">★</span>
             </div>
             <p class="text-espresso/70 leading-relaxed">باستا بكريمة الألفريدو والدجاج — من أشهر أطباقنا.</p>
@@ -276,7 +304,7 @@
                alt="بيتزا باتشينوس" loading="lazy" class="w-full h-64 object-cover" />
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
-              <h3 class="font-heading text-2xl font-semibold">Lono Matcha</h3>
+              <h3 class="font-heading text-2xl font-semibold">بيتزا باتشينوس</h3>
               <span class="text-caramel font-bold text-xl">★</span>
             </div>
             <p class="text-espresso/70 leading-relaxed">بيتزا إيطالية بعجينة طازة يوميًا على طريقتنا.</p>
@@ -306,22 +334,10 @@
       <h2 class="reveal font-heading text-4xl md:text-5xl font-bold mb-4">عن باتشينوس</h2>
       <div class="reveal w-20 h-1 bg-caramel mx-auto mb-10 rounded-full"></div>
 
-      <!-- Bio from Instagram -->
-      <p class="reveal reveal-delay-1 text-lg md:text-xl text-cream/90 leading-relaxed mb-6">
-        "Crafted To Be Remembered ✨" — مطعم إيطالي ومقهى في قلب المنيا.<br>
-        باتشينوس عشرة من ٢٠١٠، بنقدم قهوة مختصة وأكل إيطالي بجودة عالية.
-      </p>
+      <!-- Bio removed by user request -->
 
-      <!-- Stats -->
-      <div class="reveal reveal-delay-2 grid grid-cols-2 gap-8 max-w-lg mx-auto my-10">
-        <div class="text-caramel">
-          <p class="font-heading text-4xl font-bold">5K+</p>
-          <p class="text-cream/70 text-sm mt-1">متابع على إنستجرام</p>
-        </div>
-        <div class="text-caramel">
-          <p class="font-heading text-4xl font-bold">2</p>
-          <p class="text-cream/70 text-sm mt-1">فرع في المنيا</p>
-        </div>
+      
+        
       </div>
 
       <!-- Branches -->
@@ -359,8 +375,8 @@
           <h3 class="font-heading text-2xl md:text-3xl font-semibold mb-6 pb-3 border-b-2 border-caramel inline-block">المشروبات المختصة</h3>
           <ul class="space-y-5 mt-4">
             <!-- كل سطر: الاسم يمين + خط منقط في النص + السعر شمال -->
-            <li class="flex items-end text-lg"><span class="font-medium">Caramel Latte</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
-            <li class="flex items-end text-lg"><span class="font-medium">Mocha Latte</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium">باتشينوس لاتيه</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium">موكا لاتيه</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
             <li class="flex items-end text-lg"><span class="font-medium">فانيليا لاتيه</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
             <li class="flex items-end text-lg"><span class="font-medium">سبانيش لاتيه</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
           </ul>
