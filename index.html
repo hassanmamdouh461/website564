@@ -1,7 +1,7 @@
 <!-- ==========================================================================
-     Brew Bucket Coffee — موقع صفحة واحدة (Single Page Website)
+     Paccino's | Minya — موقع صفحة واحدة
      --------------------------------------------------------------------------
-     الفكرة: موقع كافيه اسمه "Brew Bucket Coffee" في منطقة Oak Lawn
+     الفكرة: موقع Paccino's — مقهى ومطعم إيطالي في المنيا، مصر (من 2010)
      التقنيات المستخدمة:
        1) HTML5         -> هيكلة الصفحة
        2) Tailwind CSS  -> التنسيقات (عن طريق CDN من غير أي تثبيت)
@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 
 <!-- لغة الصفحة إنجليزية + تفعيل التمرير السلس عند الضغط على روابط الأقسام -->
-<html lang="en" class="scroll-smooth">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 
 <head>
   <!-- ترميز الحروف: UTF-8 عشان يدعم كل اللغات والرموز -->
@@ -22,10 +22,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- عنوان الصفحة اللي بيظهر في تبويب المتصفح ونتائج جوجل -->
-  <title>Brew Bucket Coffee — Cold Brew &amp; Beyond in Oak Lawn</title>
+  <title>Paccino's — Coffee &amp; Food Experience — Minya</title>
 
   <!-- وصف الموقع لمحركات البحث (SEO) -->
-  <meta name="description" content="Brew Bucket Coffee is Oak Lawn's spot for hand-crafted lattes, iced matchas, and bold refreshers, made fresh every time." />
+  <meta name="description" content="Paccino's — Coffee & Food Experience in Minya since 2010. Italian restaurant & café serving hand-crafted coffee and delicious food." />
 
   <!-- ================= تحميل الخطوط من Google Fonts ================= -->
 
@@ -50,9 +50,9 @@
         extend: {
           // ألوان الهوية البصرية للبراند
           colors: {
-            espresso: '#2B1B17', // بني إسبريسو غامق -> خلفيات الأقسام الداكنة
-            cream: '#F5EBE1',    // بيج كريمي فاتح -> خلفيات الأقسام الفاتحة
-            caramel: '#D4A373',  // ذهبي/كراميل -> الأزرار والأسعار والتفاصيل
+            espresso: '#1C2B1A', // بني إسبريسو غامق -> خلفيات الأقسام الداكنة
+            cream: '#F3EFE4',    // بيج كريمي فاتح -> خلفيات الأقسام الفاتحة
+            caramel: '#A98A4B',  // ذهبي/كراميل -> الأزرار والأسعار والتفاصيل
           },
           fontFamily: {
             heading: ['"Playfair Display"', 'serif'], // كلاس font-heading
@@ -109,25 +109,25 @@
 
       <!-- شعار الموقع (نص) — بيرجع لقسم الهيرو لما تضغط عليه -->
       <a href="#home" class="font-heading text-2xl md:text-3xl font-bold text-white tracking-wide hover:text-caramel transition-colors duration-300">
-        Brew Bucket Coffee
+        Paccino's
       </a>
 
       <!-- روابط التنقل — مخفية على الموبايل (hidden) وظاهرة على الشاشات الكبيرة (lg:flex) -->
       <ul class="hidden lg:flex items-center gap-8 text-white text-sm font-medium tracking-wider uppercase">
         <!-- كل رابط بينزل بسلاسة للقسم المطلوب (بسبب scroll-smooth) -->
-        <li><a href="#home" class="hover:text-caramel transition-colors duration-300">Home</a></li>
-        <li><a href="#about" class="hover:text-caramel transition-colors duration-300">About</a></li>
-        <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">Menu</a></li>
-        <li><a href="#gallery" class="hover:text-caramel transition-colors duration-300">Gallery</a></li>
-        <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">Reviews</a></li>
-        <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">Contact</a></li>
+        <li><a href="#home" class="hover:text-caramel transition-colors duration-300">الرئيسية</a></li>
+        <li><a href="#about" class="hover:text-caramel transition-colors duration-300">عننا</a></li>
+        <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">المنيو</a></li>
+        <li><a href="#gallery" class="hover:text-caramel transition-colors duration-300">الصور</a></li>
+        <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">الآراء</a></li>
+        <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">تواصل</a></li>
       </ul>
 
       <!-- زر "اطلب أونلاين" — رابط خارجي بيفتح في تبويب جديد (محاكاة لـ DoorDash)
            hidden lg:inline-block -> ظاهر على الكمبيوتر بس (على الموبايل جوه القائمة) -->
-      <a href="https://www.doordash.com/" target="_blank" rel="noopener noreferrer"
+      <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
          class="hidden lg:inline-block bg-caramel text-espresso font-semibold px-6 py-2.5 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-md">
-        Order Online
+        اطلب واتساب
       </a>
 
       <!-- زر الهامبرغر (☰) — ظاهر على الموبايل والتابلت بس (lg:hidden) -->
@@ -147,17 +147,17 @@
     <div id="mobile-menu" class="lg:hidden hidden bg-espresso border-t border-white/10">
       <ul class="flex flex-col px-6 py-4 gap-1 text-white text-base font-medium">
         <!-- كل رابط عليه كلاس .mobile-link عشان القائمة تقفل لوحدها بعد الضغط -->
-        <li><a href="#home" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Home</a></li>
-        <li><a href="#about" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">About</a></li>
-        <li><a href="#menu" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Menu</a></li>
-        <li><a href="#gallery" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Gallery</a></li>
-        <li><a href="#reviews" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Reviews</a></li>
-        <li><a href="#contact" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Contact</a></li>
+        <li><a href="#home" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">الرئيسية</a></li>
+        <li><a href="#about" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">عننا</a></li>
+        <li><a href="#menu" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">المنيو</a></li>
+        <li><a href="#gallery" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">الصور</a></li>
+        <li><a href="#reviews" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">الآراء</a></li>
+        <li><a href="#contact" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">تواصل</a></li>
         <!-- زر "اطلب أونلاين" داخل قائمة الموبايل -->
         <li class="pt-2 pb-3">
-          <a href="https://www.doordash.com/" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
              class="block text-center bg-caramel text-espresso font-semibold px-6 py-3 rounded-full hover:bg-white transition-all duration-300">
-            Order Online
+            اطلب واتساب
           </a>
         </li>
       </ul>
@@ -173,8 +173,8 @@
     <!-- صورة الخلفية + طبقة تعتيم فوقها -->
     <div class="absolute inset-0">
       <!-- صورة كاونتر كافيه مودرن من Unsplash -->
-      <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1920&q=80"
-           alt="Modern coffee shop counter" class="w-full h-full object-cover" />
+      <img src="https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/763902557_1022539740647971_1621365836154026651_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080&ctp=s206x206&_nc_cat=103&ccb=1-7&_nc_sid=714c7a&_nc_ohc=j9DM3oxbRv8Q7kNvwFhAd27&_nc_oc=Adq0jHNslvWbqMZnTH2m6MQMrs_fF-rqIead1T8_iSaiohsqgnnIMstEVx2ZD-rBsLOoXOjQAJOQPd2cQdXhqbqd&_nc_zt=14&_nc_ht=scontent-mrs2-1.xx&_nc_gid=TEfQghfojvPZb7BBeZtKfA&_nc_ss=792a8&oh=00_AQFel9vif8kRs5SSNfkszVoyYLFRrQ9wvMaY3Tw3IL9nCw&oe=6A7ECEB7"
+           alt="Paccino's café" class="w-full h-full object-cover" />
       <!-- طبقة بنية شفافة 70% عشان النص الأبيض يبقى واضح -->
       <div class="absolute inset-0 bg-espresso/70"></div>
     </div>
@@ -183,11 +183,11 @@
     <div class="relative z-10 px-6 max-w-4xl mx-auto reveal visible pt-24 pb-16">
 
       <!-- العنوان الرئيسي -->
-      <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">Brew Bucket Coffee</h1>
+      <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">Paccino's</h1>
 
       <!-- السطر التعريفي تحت العنوان -->
       <p class="text-lg md:text-2xl text-cream/90 mb-10 font-light max-w-2xl mx-auto">
-        Cold Brew &amp; Beyond – hand-crafted lattes, iced matchas, and bold refreshers in Oak Lawn.
+        Coffee &amp; Food Experience — باتشينوس عشرة من 2010. قهوة مختصة وأكل إيطالي في قلب المنيا.
       </p>
 
       <!-- الزرارين جنب بعض على الكمبيوتر، وتحت بعض على الموبايل -->
@@ -195,19 +195,19 @@
         <!-- زر داخلي: بينزل لقسم المنيو -->
         <a href="#menu"
            class="bg-caramel text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg w-56 sm:w-auto text-center">
-          View Menu
+          شوف المنيو
         </a>
         <!-- زر خارجي: بيفتح موقع الديليفري في تبويب جديد -->
-        <a href="https://www.doordash.com/" target="_blank" rel="noopener noreferrer"
+        <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
            class="border-2 border-caramel text-caramel font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 w-56 sm:w-auto text-center">
-          Order Online
+          اطلب واتساب
         </a>
       </div>
 
       <!-- أيقونات السوشيال ميديا (SVG مرسوم بالكود — مش ملفات) -->
       <div class="flex items-center justify-center gap-6 text-cream/80">
         <!-- أيقونة إنستجرام -->
-        <a href="#" aria-label="Instagram" class="hover:text-caramel hover:scale-110 transition-all duration-300">
+        <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-caramel hover:scale-110 transition-all duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
             <rect x="3" y="3" width="18" height="18" rx="5" />
             <circle cx="12" cy="12" r="4" />
@@ -215,13 +215,13 @@
           </svg>
         </a>
         <!-- أيقونة فيسبوك -->
-        <a href="#" aria-label="Facebook" class="hover:text-caramel hover:scale-110 transition-all duration-300">
+        <a href="https://www.facebook.com/PaccinosCoffee" target="_blank" rel="noopener" aria-label="Facebook" class="hover:text-caramel hover:scale-110 transition-all duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V9H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h2z" />
           </svg>
         </a>
         <!-- أيقونة تيك توك -->
-        <a href="#" aria-label="TikTok" class="hover:text-caramel hover:scale-110 transition-all duration-300">
+        <a href="https://wa.me/201228784569" target="_blank" rel="noopener" aria-label="WhatsApp" class="hover:text-caramel hover:scale-110 transition-all duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
             <path d="M16.6 2h3c.2 1.9 1.4 3.6 3.4 4.1v3.2c-1.4 0-2.6-.4-3.7-1.2v6.9a6.3 6.3 0 1 1-6.3-6.3c.4 0 .8 0 1.2.1v3.3a3 3 0 1 0 2.4 2.9V2z"/>
           </svg>
@@ -237,7 +237,7 @@
     <div class="max-w-7xl mx-auto">
 
       <!-- عنوان القسم -->
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">Signature Picks</h2>
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">أشهر الأصناف</h2>
       <!-- الخط الذهبي الصغير تحت العنوان -->
       <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
 
@@ -246,40 +246,40 @@
 
         <!-- الكارت الأول: كراميل لاتيه -->
         <article class="reveal reveal-delay-1 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=800&q=80"
-               alt="Caramel Latte" loading="lazy" class="w-full h-64 object-cover" />
+          <img src="https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/764833190_4353950958192100_8784334542758240201_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080&ctp=s206x206&_nc_cat=103&ccb=1-7&_nc_sid=714c7a&_nc_ohc=ciKGcPB0N4EQ7kNvwE2oO5I&_nc_oc=AdosJXRJ1yATI2RJe_f6F1VeWzevRUrU3wVqKWExfpXRVtxSWuB-jSitl5IPVvrR6JHBDP7qxPzFlNRycBNXc-Od&_nc_zt=14&_nc_ht=scontent-mrs2-1.xx&_nc_gid=TEfQghfojvPZb7BBeZtKfA&_nc_ss=792a8&oh=00_AQG7Rer8PXWIwS96PNKWwiGHcNDhEeGP4coniycLSgo3EA&oe=6A7EC56C"
+               alt="باتشينوس لاتيه" loading="lazy" class="w-full h-64 object-cover" />
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
               <h3 class="font-heading text-2xl font-semibold">Caramel Latte</h3> <!-- اسم المشروب -->
-              <span class="text-caramel font-bold text-xl">$5.99</span>           <!-- السعر -->
+              <span class="text-caramel font-bold text-xl">★</span>           <!-- السعر -->
             </div>
-            <p class="text-espresso/70 leading-relaxed">Espresso paired with rich caramel, served hot or iced.</p>
+            <p class="text-espresso/70 leading-relaxed">إسبريسو إيطالي مع كراميل غني — ساخن أو مثلج.</p>
           </div>
         </article>
 
         <!-- الكارت التاني: موكا لاتيه -->
         <article class="reveal reveal-delay-2 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80"
-               alt="Mocha Latte" loading="lazy" class="w-full h-64 object-cover" />
+          <img src="https://scontent-mrs2-2.xx.fbcdn.net/v/t39.99422-6/764693634_1712713686685896_5703920541295721369_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080&ctp=s206x206&_nc_cat=101&ccb=1-7&_nc_sid=714c7a&_nc_ohc=XLsu7b4OuvUQ7kNvwEvJTU8&_nc_oc=Adqf07EPO9banozvLxIvdXL8mvscwfXtMV5bkb1ZosS3THkJGkU5mmxbcmRnvwEah7gYamIc861OhCLztN46NKt2&_nc_zt=14&_nc_ht=scontent-mrs2-2.xx&_nc_gid=TEfQghfojvPZb7BBeZtKfA&_nc_ss=792a8&oh=00_AQEQsjjxrH7aVf5rZKPuHke371aiLjIBmrPl_lkADnfh3Q&oe=6A7ED1C4"
+               alt="باستا ألفريدو" loading="lazy" class="w-full h-64 object-cover" />
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
               <h3 class="font-heading text-2xl font-semibold">Mocha Latte</h3>
-              <span class="text-caramel font-bold text-xl">$6.49</span>
+              <span class="text-caramel font-bold text-xl">★</span>
             </div>
-            <p class="text-espresso/70 leading-relaxed">Espresso blended with rich chocolates, perfect balance of sweet.</p>
+            <p class="text-espresso/70 leading-relaxed">باستا بكريمة الألفريدو والدجاج — من أشهر أطباقنا.</p>
           </div>
         </article>
 
         <!-- الكارت التالت: لونو ماتشا -->
         <article class="reveal reveal-delay-3 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-          <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=800&q=80"
-               alt="Lono Matcha" loading="lazy" class="w-full h-64 object-cover" />
+          <img src="https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/764300353_1588375519622138_927281693261749974_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080&ctp=s206x206&_nc_cat=105&ccb=1-7&_nc_sid=714c7a&_nc_ohc=YJdOnrPMtcsQ7kNvwEhD9tB&_nc_oc=AdqrleD53ILZQgHaxp8SAIPerqLPC60bcXRk4EhFI-0uo34C4iugaz70y14ue3Bfji_si5BsuuKUpFJUmWPCN7FL&_nc_zt=14&_nc_ht=scontent-mrs2-1.xx&_nc_gid=TEfQghfojvPZb7BBeZtKfA&_nc_ss=792a8&oh=00_AQGr0IMdFPDPqm-nfCmNepqwXgSvJ8t-R88CTXWHKtjcqQ&oe=6A7ED45B"
+               alt="بيتزا باتشينوس" loading="lazy" class="w-full h-64 object-cover" />
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
               <h3 class="font-heading text-2xl font-semibold">Lono Matcha</h3>
-              <span class="text-caramel font-bold text-xl">$6.29</span>
+              <span class="text-caramel font-bold text-xl">★</span>
             </div>
-            <p class="text-espresso/70 leading-relaxed">Creamy matcha with a crisp hint of vanilla, incredibly smooth.</p>
+            <p class="text-espresso/70 leading-relaxed">بيتزا إيطالية بعجينة طازة يوميًا على طريقتنا.</p>
           </div>
         </article>
       </div>
@@ -288,11 +288,11 @@
       <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4 mt-14">
         <a href="#menu"
            class="bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md w-64 sm:w-auto text-center">
-          View Full Menu
+          المنيو كامل
         </a>
-        <a href="https://www.doordash.com/" target="_blank" rel="noopener noreferrer"
+        <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
            class="bg-caramel text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-espresso hover:text-white hover:scale-105 transition-all duration-300 shadow-md w-64 sm:w-auto text-center">
-          Order Online
+          اطلب واتساب
         </a>
       </div>
     </div>
@@ -303,14 +303,14 @@
        ====================================================================== -->
   <section id="about" class="bg-espresso text-white py-24 px-6">
     <div class="max-w-3xl mx-auto text-center">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold mb-8">Cold Brew. And So Much Beyond.</h2>
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold mb-8">باتشينوس… حكاية بدأت من حب الأكل</h2>
       <!-- قصة البراند -->
       <p class="reveal reveal-delay-1 text-lg md:text-xl text-cream/85 leading-relaxed mb-10">
-        Brew Bucket Coffee is Oak Lawn's spot for hand-crafted lattes, iced matchas, and bold refreshers, made fresh every time. Coffee is always a good idea – come see why the neighborhood keeps coming back.
+        باتشينوس عشرة من 2010 — وراء كل طبق بيتقدم قصة شغف وتجارب. قهوة مختصة وأكل إيطالي بجودة عالية في قلب المنيا. تفضل زورنا في فرع طه حسين أو المنيا الجديدة — مول كورنر بلازا.
       </p>
       <a href="#contact"
          class="reveal reveal-delay-2 inline-block bg-caramel text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-md">
-        Read Our Story
+        اعرف قصتنا
       </a>
     </div>
   </section>
@@ -320,7 +320,7 @@
        ====================================================================== -->
   <section id="menu" class="bg-cream py-24 px-6">
     <div class="max-w-5xl mx-auto">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">A Taste Of Our Menu</h2>
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">من قائمتنا</h2>
       <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
 
       <!-- عمودين على الكمبيوتر / عمود واحد موبايل -->
@@ -328,24 +328,24 @@
 
         <!-- الفئة الأولى: اللاتيه ساخن أو مثلج -->
         <div class="reveal reveal-delay-1">
-          <h3 class="font-heading text-2xl md:text-3xl font-semibold mb-6 pb-3 border-b-2 border-caramel inline-block">Iced or Hot Lattes</h3>
+          <h3 class="font-heading text-2xl md:text-3xl font-semibold mb-6 pb-3 border-b-2 border-caramel inline-block">المشروبات المختصة</h3>
           <ul class="space-y-5 mt-4">
             <!-- كل سطر: الاسم يمين + خط منقط في النص + السعر شمال -->
-            <li class="flex items-end text-lg"><span class="font-medium">Caramel Latte</span><span class="menu-dots"></span><span class="font-bold text-caramel">$5.99</span></li>
-            <li class="flex items-end text-lg"><span class="font-medium">Mocha Latte</span><span class="menu-dots"></span><span class="font-bold text-caramel">$6.49</span></li>
-            <li class="flex items-end text-lg"><span class="font-medium">Vanilla Latte</span><span class="menu-dots"></span><span class="font-bold text-caramel">$5.99</span></li>
-            <li class="flex items-end text-lg"><span class="font-medium">Spanish Latte</span><span class="menu-dots"></span><span class="font-bold text-caramel">$6.49</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium">Caramel Latte</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium">Mocha Latte</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium">فانيليا لاتيه</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium">سبانيش لاتيه</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
           </ul>
         </div>
 
         <!-- الفئة التانية: المشروبات المنعشة -->
         <div class="reveal reveal-delay-2">
-          <h3 class="font-heading text-2xl md:text-3xl font-semibold mb-6 pb-3 border-b-2 border-caramel inline-block">Refreshers</h3>
+          <h3 class="font-heading text-2xl md:text-3xl font-semibold mb-6 pb-3 border-b-2 border-caramel inline-block">الأطباق الإيطالية</h3>
           <ul class="space-y-5 mt-4">
-            <li class="flex items-end text-lg"><span class="font-medium">Lemon Mint</span><span class="menu-dots"></span><span class="font-bold text-caramel">$5.50</span></li>
-            <li class="flex items-end text-lg"><span class="font-medium">Watermelon Wave</span><span class="menu-dots"></span><span class="font-bold text-caramel">$5.99</span></li>
-            <li class="flex items-end text-lg"><span class="font-medium">Mango Refresher</span><span class="menu-dots"></span><span class="font-bold text-caramel">$5.99</span></li>
-            <li class="flex items-end text-lg"><span class="font-medium">Dragonfruit Blast</span><span class="menu-dots"></span><span class="font-bold text-caramel">$6.29</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium">ليمون بالنعناع</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium">فراولة ميلك شيك</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium">مانجو سموذي</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium">آيس موكا</span><span class="menu-dots"></span><span class="font-bold text-caramel">·</span></li>
           </ul>
         </div>
       </div>
@@ -357,29 +357,29 @@
        ====================================================================== -->
   <section id="gallery" class="bg-white py-24 px-6">
     <div class="max-w-7xl mx-auto">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">A Glimpse Inside</h2>
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">لقطات من عندنا</h2>
       <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
 
       <!-- الشبكة: عمودين موبايل / 3 أعمدة كمبيوتر، وكل صورة بتكبر عند التمرير عليها -->
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-        <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=800&q=80" alt="Iced matcha" loading="lazy"
+        <img src="https://scontent-mrs2-2.xx.fbcdn.net/v/t39.99422-6/763103854_1697309138198236_439776793323018994_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080&ctp=s206x206&_nc_cat=101&ccb=1-7&_nc_sid=714c7a&_nc_ohc=WVbCXXyCuD0Q7kNvwGofB4N&_nc_oc=Adp2m6QVak85WOR05BvTUXTyFNfoNENVAACWK3-eMNFOTmKgKYU8nIVfEEZ9gGuqQ587_v6Juoda3vepC_xQgskP&_nc_zt=14&_nc_ht=scontent-mrs2-2.xx&_nc_gid=TEfQghfojvPZb7BBeZtKfA&_nc_ss=792a8&oh=00_AQH-il8kl18mWYOrYzWixMAXNnr756y_OJ57ZBMWkDRsyQ&oe=6A7EE2D5" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-1 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
-        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80" alt="Iced coffee" loading="lazy"
+        <img src="https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/764006161_1971011970254282_650594096417315599_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080&ctp=s206x206&_nc_cat=103&ccb=1-7&_nc_sid=714c7a&_nc_ohc=NI15Qv-Wkq8Q7kNvwGbKkjM&_nc_oc=AdryJWy1Yz4Yu_vzZfNc2_roharaRUg4Oke4EhibMD6Io-xDbyQVaGkVczhrdQ67NCzmPa8Ryvb5A7utKZtk2y3m&_nc_zt=14&_nc_ht=scontent-mrs2-1.xx&_nc_gid=TEfQghfojvPZb7BeZtKfA&_nc_ss=792a8&oh=00_AQGo5U8NfdmNpVHdvp6wQKejriVy_e0DBQgGmC3LfAvhFA&oe=6A7EDDED" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-2 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
-        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80" alt="Fresh pastries" loading="lazy"
+        <img src="https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/763902557_1022539740647971_1621365836154026651_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080&ctp=s206x206&_nc_cat=103&ccb=1-7&_nc_sid=714c7a&_nc_ohc=j9DM3oxbRv8Q7kNvwFhAd27&_nc_oc=Adq0jHNslvWbqMZnTH2m6MQMrs_fF-rqIead1T8_iSaiohsqgnnIMstEVx2ZD-rBsLOoXOjQAJOQPd2cQdXhqbqd&_nc_zt=14&_nc_ht=scontent-mrs2-1.xx&_nc_gid=TEfQghfojvPZb7BBeZtKfA&_nc_ss=792a8&oh=00_AQFel9vif8kRs5SSNfkszVoyYLFRrQ9wvMaY3Tw3IL9nCw&oe=6A7ECEB7" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-3 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
-        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Hand-crafted latte" loading="lazy"
+        <img src="https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/764833190_4353950958192100_8784334542758240201_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080&ctp=s206x206&_nc_cat=103&ccb=1-7&_nc_sid=714c7a&_nc_ohc=ciKGcPB0N4EQ7kNvwE2oO5I&_nc_oc=AdosJXRJ1yATI2RJe_f6F1VeWzevRUrU3wVqKWExfpXRVtxSWuB-jSitl5IPVvrR6JHBDP7qxPzFlNRycBNXc-Od&_nc_zt=14&_nc_ht=scontent-mrs2-1.xx&_nc_gid=TEfQghfojvPZb7BBeZtKfA&_nc_ss=792a8&oh=00_AQG7Rer8PXWIwS96PNKWwiGHcNDhEeGP4coniycLSgo3EA&oe=6A7EC56C" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-1 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
-        <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=800&q=80" alt="Espresso being poured" loading="lazy"
+        <img src="https://scontent-mrs2-2.xx.fbcdn.net/v/t39.99422-6/764693634_1712713686685896_5703920541295721369_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080&ctp=s206x206&_nc_cat=101&ccb=1-7&_nc_sid=714c7a&_nc_ohc=XLsu7b4OuvUQ7kNvwEvJTU8&_nc_oc=Adqf07EPO9banozvLxIvdXL8mvscwfXtMV5bkb1ZosS3THkJGkU5mmxbcmRnvwEah7gYamIc861OhCLztN46NKt2&_nc_zt=14&_nc_ht=scontent-mrs2-2.xx&_nc_gid=TEfQghfojvPZb7BBeZtKfA&_nc_ss=792a8&oh=00_AQEQsjjxrH7aVf5rZKPuHke371aiLjIBmrPl_lkADnfh3Q&oe=6A7ED1C4" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-2 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
-        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=800&q=80" alt="Barista at work" loading="lazy"
+        <img src="https://scontent-mrs2-1.xx.fbcdn.net/v/t39.99422-6/764300353_1588375519622138_927281693261749974_n.png?stp=c0.91.1080.1080a_dst-jpg_tt6&cstp=mx1080x1080&ctp=s206x206&_nc_cat=105&ccb=1-7&_nc_sid=714c7a&_nc_ohc=YJdOnrPMtcsQ7kNvwEhD9tB&_nc_oc=AdqrleD53ILZQgHaxp8SAIPerqLPC60bcXRk4EhFI-0uo34C4iugaz70y14ue3Bfji_si5BsuuKUpFJUmWPCN7FL&_nc_zt=14&_nc_ht=scontent-mrs2-1.xx&_nc_gid=TEfQghfojvPZb7BBeZtKfA&_nc_ss=792a8&oh=00_AQGr0IMdFPDPqm-nfCmNepqwXgSvJ8t-R88CTXWHKtjcqQ&oe=6A7ED45B" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-3 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
       </div>
 
       <div class="reveal text-center mt-14">
         <a href="#gallery"
            class="inline-block bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md">
-          View Gallery
+          شوف الصور
         </a>
       </div>
     </div>
@@ -390,7 +390,7 @@
        ====================================================================== -->
   <section id="reviews" class="bg-espresso text-white py-24 px-6">
     <div class="max-w-6xl mx-auto">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">Loved by Locals</h2>
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">آراء عملائنا</h2>
 
       <!-- رسمة الـ 5 نجوم الذهبية (5 أيقونات SVG مكررة) -->
       <div class="reveal flex items-center justify-center gap-1.5 mb-14 text-caramel">
@@ -405,25 +405,25 @@
       <div class="grid gap-8 md:grid-cols-3">
         <!-- التقييم الأول -->
         <blockquote class="reveal reveal-delay-1 bg-cream text-espresso rounded-2xl p-8 shadow-lg hover:scale-105 transition-all duration-300">
-          <p class="leading-relaxed mb-6 italic">"The Caramel Latte here is unreal! Best coffee spot in Oak Lawn, hands down."</p>
-          <footer class="font-semibold text-caramel">— Sarah H.</footer>
+          <p class="leading-relaxed mb-6 italic">"One of the best places — high quality food with reasonable prices. The staff is so friendly, and the portions are generous. Always my favorite place ❤️"</p>
+          <footer class="font-semibold text-caramel">— Miral Robert (فيسبوك)</footer>
         </blockquote>
         <!-- التقييم التاني -->
         <blockquote class="reveal reveal-delay-2 bg-cream text-espresso rounded-2xl p-8 shadow-lg hover:scale-105 transition-all duration-300">
           <p class="leading-relaxed mb-6 italic">"Tried the Watermelon Blast refresher on a hot day and it did not disappoint. Super refreshing!"</p>
-          <footer class="font-semibold text-caramel">— James T.</footer>
+          <footer class="font-semibold text-caramel">— زائر من المنيا</footer>
         </blockquote>
         <!-- التقييم التالت -->
         <blockquote class="reveal reveal-delay-3 bg-cream text-espresso rounded-2xl p-8 shadow-lg hover:scale-105 transition-all duration-300">
-          <p class="leading-relaxed mb-6 italic">"Their chocolate croissant is flaky and warm, exactly how it should be. Perfect with a mocha!"</p>
-          <footer class="font-semibold text-caramel">— Maria S.</footer>
+          <p class="leading-relaxed mb-6 italic">"القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."</p>
+          <footer class="font-semibold text-caramel">— عميل دائم</footer>
         </blockquote>
       </div>
 
       <div class="reveal text-center mt-14">
         <a href="#reviews"
            class="inline-block bg-caramel text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-md">
-          See All Reviews
+          شوف كل الآراء
         </a>
       </div>
     </div>
@@ -434,7 +434,7 @@
        ====================================================================== -->
   <section id="contact" class="bg-cream py-24 px-6">
     <div class="max-w-6xl mx-auto">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-14">Find Your New Favorite Spot</h2>
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-14">زورنا في أقرب فرع</h2>
 
       <div class="grid gap-12 md:grid-cols-2 items-center">
 
@@ -447,7 +447,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
             </svg>
-            <p class="text-xl font-medium">5310 W 95th St, Oak Lawn, IL 60453</p>
+            <p class="text-xl font-medium">شارع طه حسين (أمام وابور النور)، المنيا — والمنيا الجديدة، مول كورنر بلازا</p>
           </div>
 
           <!-- رقم الهاتف مع أيقونة سماعة — رابط tel: بيفتح تطبيق الاتصال على الموبايل -->
@@ -455,20 +455,20 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-caramel shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
-            <a href="tel:+17084226423" class="text-xl font-medium hover:text-caramel transition-colors duration-300">(708) 422-6423</a>
+            <a href="tel:+201228784569" class="text-xl font-medium hover:text-caramel transition-colors duration-300">+20 12 28784569</a>
           </div>
 
           <!-- الأزرار -->
           <div class="flex flex-col sm:flex-row gap-4">
             <!-- زر الاتجاهات: بيفتح خرائط جوجل على العنوان مباشرة -->
-            <a href="https://www.google.com/maps/dir/?api=1&destination=5310+W+95th+St,+Oak+Lawn,+IL+60453" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Paccino's+Coffee+Taha+Hussein+St+Minya+Egypt" target="_blank" rel="noopener noreferrer"
                class="bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md text-center">
-              Get Directions
+              الاتجاهات
             </a>
             <!-- زر التواصل: بيفتح برنامج الإيميل -->
-            <a href="mailto:contact@brewbucketcoffee.com"
+            <a href="mailto:paccinoscafe@gmail.com"
                class="border-2 border-espresso text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-espresso hover:text-white hover:scale-105 transition-all duration-300 text-center">
-              Contact Us
+              راسلنا
             </a>
           </div>
         </div>
@@ -476,12 +476,12 @@
         <!-- الناحية التانية: خريطة جوجل مدمجة حقيقية للعنوان -->
         <div class="reveal reveal-delay-2 rounded-2xl overflow-hidden shadow-xl h-80 md:h-96">
           <iframe
-            src="https://www.google.com/maps?q=5310+W+95th+St,+Oak+Lawn,+IL+60453&output=embed"
+            src="https://www.google.com/maps?q=Paccino's+Coffee+Taha+Hussein+St+Minya+Egypt&output=embed"
             class="w-full h-full border-0"
             allowfullscreen
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="Brew Bucket Coffee location map"></iframe>
+            title="خريطة موقع باتشينوس"></iframe>
         </div>
       </div>
     </div>
@@ -494,44 +494,44 @@
     <div class="max-w-7xl mx-auto">
 
       <!-- عنوان كبير في الفوتر -->
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-16">Ready When You Are</h2>
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-16">في انتظارك دايمًا</h2>
 
       <!-- 3 أعمدة: نبذة + روابط سريعة + مواعيد العمل -->
       <div class="grid gap-12 md:grid-cols-3 text-center md:text-left">
 
         <!-- العمود الأول: نبذة قصيرة + الإيميل -->
         <div class="reveal reveal-delay-1">
-          <p class="font-heading text-2xl font-bold mb-4 text-caramel">Brew Bucket Coffee</p>
-          <p class="text-cream/70 leading-relaxed">Cold brew &amp; beyond – hand-crafted drinks made fresh every time in Oak Lawn.</p>
-          <a href="mailto:contact@brewbucketcoffee.com" class="inline-block mt-4 text-cream/80 hover:text-caramel transition-colors duration-300">
-            contact@brewbucketcoffee.com
+          <p class="font-heading text-2xl font-bold mb-4 text-caramel">Paccino's</p>
+          <p class="text-cream/70 leading-relaxed">Coffee &amp; Food Experience — قهوة مختصة وأكل إيطالي في المنيا منذ 2010.</p>
+          <a href="mailto:paccinoscafe@gmail.com" class="inline-block mt-4 text-cream/80 hover:text-caramel transition-colors duration-300">
+            contact@paccinoscafe@gmail.com
           </a>
         </div>
 
         <!-- العمود التاني: روابط سريعة لأقسام الموقع -->
         <div class="reveal reveal-delay-2">
-          <p class="font-heading text-xl font-semibold mb-5 text-caramel">Quick Links</p>
+          <p class="font-heading text-xl font-semibold mb-5 text-caramel">روابط سريعة</p>
           <ul class="space-y-3 text-cream/80">
-            <li><a href="#home" class="hover:text-caramel transition-colors duration-300">Home</a></li>
-            <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">Menu</a></li>
-            <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">Reviews</a></li>
-            <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">Contact</a></li>
+            <li><a href="#home" class="hover:text-caramel transition-colors duration-300">الرئيسية</a></li>
+            <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">المنيو</a></li>
+            <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">الآراء</a></li>
+            <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">تواصل</a></li>
           </ul>
         </div>
 
         <!-- العمود التالت: مواعيد العمل -->
         <div class="reveal reveal-delay-3">
-          <p class="font-heading text-xl font-semibold mb-5 text-caramel">Working Hours</p>
+          <p class="font-heading text-xl font-semibold mb-5 text-caramel">التواصل والديليفري</p>
           <ul class="space-y-3 text-cream/80">
-            <li class="flex justify-between md:justify-start md:gap-6"><span>Mon – Fri</span><span>7 AM – 7 PM</span></li>
-            <li class="flex justify-between md:justify-start md:gap-6"><span>Sat – Sun</span><span>7 AM – 7 PM</span></li>
+            <li class="flex justify-between md:justify-start md:gap-6"><span>فرع طه حسين (ديليفري)</span><span style="direction:ltr">01007811378</span></li>
+            <li class="flex justify-between md:justify-start md:gap-6"><span>واتساب / اتصال</span><span style="direction:ltr">012 2878 4569</span></li>
           </ul>
         </div>
       </div>
 
       <!-- سطر حقوق النشر — السنة بتتكتب أوتوماتيك بالجافاسكريبت -->
       <div class="mt-16 pt-8 border-t border-white/10 text-center text-cream/50 text-sm">
-        &copy; <span id="year"></span> Brew Bucket Coffee. All rights reserved.
+        &copy; <span id="year"></span> Paccino's. All rights reserved.
       </div>
     </div>
   </footer>
