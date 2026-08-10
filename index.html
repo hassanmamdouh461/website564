@@ -36,7 +36,7 @@
   <!-- بنحمّل خطين:
        - Playfair Display : خط Serif فخم للعناوين
        - Inter            : خط Sans-serif نظيف للنصوص والأزرار -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
   <!-- ================= تحميل Tailwind CSS ================= -->
 
@@ -55,8 +55,8 @@
             caramel: '#C9782C',  // ذهبي/كراميل -> الأزرار والأسعار والتفاصيل
           },
           fontFamily: {
-            heading: ['"Playfair Display"', 'serif'], // كلاس font-heading
-            body: ['Inter', 'sans-serif'],            // كلاس font-body
+            heading: ['"Playfair Display"', '"Cairo"', 'serif'], // كلاس font-heading
+            body: ['"Cairo"', 'sans-serif'],            // كلاس font-body
           },
         },
       },
@@ -173,7 +173,7 @@
     <!-- صورة الخلفية + طبقة تعتيم فوقها -->
     <div class="absolute inset-0">
       <!-- صورة كاونتر كافيه مودرن من Unsplash -->
-      <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1920&q=85"
+      <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1600&q=80"
            alt="Paccino's café" class="w-full h-full object-cover" />
       <!-- طبقة بنية شفافة 70% عشان النص الأبيض يبقى واضح -->
       <div class="absolute inset-0 bg-espresso/70"></div>
@@ -362,17 +362,17 @@
 
       <!-- الشبكة: عمودين موبايل / 3 أعمدة كمبيوتر، وكل صورة بتكبر عند التمرير عليها -->
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Paccino's" loading="lazy"
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-1 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
-        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80" alt="Paccino's" loading="lazy"
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-2 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
-        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=800&q=80" alt="Paccino's" loading="lazy"
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-3 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
-        <img src="https://images.unsplash.com/photo-1572470177720-826a08fe4d07?auto=format&fit=crop&w=800&q=80" alt="Paccino's" loading="lazy"
+        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-1 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
-        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=800&q=80" alt="Paccino's" loading="lazy"
+        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-2 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
-        <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=800&q=80" alt="Paccino's" loading="lazy"
+        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=600&q=80" alt="Paccino's" loading="lazy"
              class="reveal reveal-delay-3 w-full h-56 md:h-72 object-cover rounded-xl shadow-md hover:scale-105 hover:shadow-xl transition-all duration-300" />
       </div>
 
