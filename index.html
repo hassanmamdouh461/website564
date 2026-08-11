@@ -24,6 +24,9 @@
   <!-- عنوان الصفحة اللي بيظهر في تبويب المتصفح ونتائج جوجل -->
   <title>Paccino's — Coffee &amp; Food Experience — Minya</title>
 
+  <!-- أيقونة الموقع (favicon) -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
   <!-- وصف الموقع لمحركات البحث (SEO) -->
   <meta name="description" content="Paccino's — Coffee & Food Experience in Minya since 2010. Italian restaurant & café serving hand-crafted coffee and delicious food." />
 
@@ -517,15 +520,30 @@
           </div>
         </div>
 
-        <!-- الناحية التانية: خريطة جوجل مدمجة حقيقية للعنوان -->
-        <div class="reveal reveal-delay-2 rounded-2xl overflow-hidden shadow-xl h-80 md:h-96">
-          <iframe
-            src="https://www.google.com/maps/dir/?api=1&origin=Paccino's+Coffee+Taha+Hussein+St+Minya+Egypt&destination=Paccino's+Coffee+New+Minya+Corner+Plaza+Egypt&travelmode=driving&output=embed"
-            class="w-full h-full border-0"
-            allowfullscreen
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="خريطة فروع باتشينوس"></iframe>
+        <!-- الناحية التانية: خريطتين — فرع طه حسين وفرع المنيا الجديدة -->
+        <div class="reveal reveal-delay-2 space-y-8">
+          <!-- خريطة فرع طه حسين -->
+          <div class="rounded-2xl overflow-hidden shadow-xl h-64 md:h-72">
+            <iframe
+              src="https://maps.google.com/maps?q=Paccino's+Coffee+Taha+Hussein+St+Minya+Egypt&z=16&output=embed"
+              class="w-full h-full border-0"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="خريطة فرع طه حسين"></iframe>
+          </div>
+          <p class="text-center font-semibold" style="color:#5C1425;">📍 فرع طه حسين</p>
+          <!-- خريطة فرع المنيا الجديدة -->
+          <div class="rounded-2xl overflow-hidden shadow-xl h-64 md:h-72">
+            <iframe
+              src="https://maps.google.com/maps?q=Corner+Plaza+Mall+New+Minya+Egypt&z=16&output=embed"
+              class="w-full h-full border-0"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="خريطة فرع المنيا الجديدة"></iframe>
+          </div>
+          <p class="text-center font-semibold" style="color:#5C1425;">📍 فرع المنيا الجديدة — مول كورنر بلازا</p>
         </div>
       </div>
     </div>
