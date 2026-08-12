@@ -76,7 +76,10 @@
       .menu-book > .grid > div:first-child { border-bottom: 1px dashed rgba(92, 20, 37, 0.25); }
     }
     /* Navbar states — single class toggle, impossible to get stuck */
-    #navbar { background-color: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; }
+    /* Navbar: always glassy (subtle burgundy tint + blur) — like real glass */
+    #navbar { background-color: rgba(61,10,23,0.32); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid rgba(234,213,193,0.18); }
+    #navbar.nav-mid { background-color: rgba(61,10,23,0.55); }
+    #navbar.nav-scrolled, #navbar.nav-solid { background-color: rgba(61,10,23,0.85); backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
     #navbar.nav-mid { background-color: rgba(61,10,23,0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
     #navbar.nav-scrolled, #navbar.nav-solid { background-color: rgba(61,10,23,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
 
