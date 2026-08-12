@@ -154,15 +154,15 @@
     #navbar.nav-scrolled, #navbar.nav-solid { background-color: rgba(61,10,23,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
 
     
-    /* Gallery fade-in: simple, no IntersectionObserver, all 6 images always visible */
-    .gallery-fade img { opacity: 0; animation: gal-fade 0.7s ease-out forwards; }
-    .gallery-fade img:nth-child(1) { animation-delay: 0.05s; }
-    .gallery-fade img:nth-child(2) { animation-delay: 0.15s; }
-    .gallery-fade img:nth-child(3) { animation-delay: 0.25s; }
-    .gallery-fade img:nth-child(4) { animation-delay: 0.05s; }
-    .gallery-fade img:nth-child(5) { animation-delay: 0.15s; }
-    .gallery-fade img:nth-child(6) { animation-delay: 0.25s; }
-    @keyframes gal-fade { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: none; } }
+    /* Gallery: imgs hidden until the section enters viewport, then cascade in */
+    #gallery .gallery-fade img { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+    #gallery.gallery-revealed .gallery-fade img { opacity: 1; transform: none; }
+    #gallery.gallery-revealed .gallery-fade img:nth-child(1) { transition-delay: 0.05s; }
+    #gallery.gallery-revealed .gallery-fade img:nth-child(2) { transition-delay: 0.18s; }
+    #gallery.gallery-revealed .gallery-fade img:nth-child(3) { transition-delay: 0.31s; }
+    #gallery.gallery-revealed .gallery-fade img:nth-child(4) { transition-delay: 0.05s; }
+    #gallery.gallery-revealed .gallery-fade img:nth-child(5) { transition-delay: 0.18s; }
+    #gallery.gallery-revealed .gallery-fade img:nth-child(6) { transition-delay: 0.31s; }to { opacity:1; transform: none; } }
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--color-primary-dark); }
     ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 4px; }
@@ -686,6 +686,14 @@
     );
     // نراقب كل العناصر اللي عليها كلاس .reveal
     document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+    // Gallery: trigger the cascade animation only when the section scrolls into view
+    const gallerySection = document.getElementById('gallery');
+    if (gallerySection) {
+      const galleryObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { gallerySection.classList.add('gallery-revealed'); galleryObs.unobserve(gallerySection); } });
+      }, { threshold: 0.05 });
+      galleryObs.observe(gallerySection);
+    }
     // Fallback for CSS-columns masonry on mobile: observer can miss an image
     // inside a column, so on scroll also check anything still hidden that is
     // already on screen — below-the-fold sections keep their animation.
