@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <!-- Remember visitor's language choice: if they previously picked Arabic, take them to ar.html -->
   <script>
-    try{ if(localStorage.getItem('pac_lang')==='ar' && location.pathname.indexOf('ar.html')===-1){ location.replace('ar.html'+location.hash); } }catch(e){}
+    try{ if(localStorage.getItem('pac_lang')!=='en' && location.pathname.indexOf('ar.html')===-1){ location.replace('ar.html'+location.hash); } }catch(e){}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
