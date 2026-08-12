@@ -752,8 +752,7 @@
     // --------------------------------------------------------
     const menuBtn = document.getElementById('menu-btn');       // زر الهامبرغر
     const mobileMenu = document.getElementById('mobile-menu'); // القائمة المنبثقة
-    const iconOpen = document.getElementById('icon-open');     // أيقونة ☰
-    const iconClose = document.getElementById('icon-close');   // أيقونة X
+    const mobileBackdrop = document.getElementById('mobile-backdrop'); // الخلفية
 
     // دالة فتح/قفل القائمة
     // forceClose = true تعني "اقفل القائمة على طول مهما كانت حالتها"
@@ -761,8 +760,6 @@
       // لو القائمة مخفية (فيها كلاس hidden) يبقى المطلوب فتحها، والعكس
       const shouldOpen = forceClose ? false : mobileMenu.classList.contains('hidden');
       mobileMenu.classList.toggle('hidden', !shouldOpen); // نظهر أو نخفي القائمة
-      iconOpen.classList.toggle('hidden', shouldOpen);    // نخفي ☰ لو القائمة مفتوحة
-      iconClose.classList.toggle('hidden', !shouldOpen);
       updateNavbarState();  // نظهر X لو القائمة مفتوحة
     }
 

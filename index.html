@@ -539,13 +539,10 @@
     // Mobile menu
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-    const iconOpen = document.getElementById('icon-open');
-    const iconClose = document.getElementById('icon-close');
+    const mobileBackdrop = document.getElementById('mobile-backdrop');
     function toggleMenu(forceClose = false) {
       const shouldOpen = forceClose ? false : mobileMenu.classList.contains('hidden');
       mobileMenu.classList.toggle('hidden', !shouldOpen);
-      iconOpen.classList.toggle('hidden', shouldOpen);
-      iconClose.classList.toggle('hidden', !shouldOpen);
       updateNavbarState();
     }
     menuBtn.addEventListener('click', () => toggleMenu());
