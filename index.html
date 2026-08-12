@@ -131,11 +131,10 @@
 <body class="font-body bg-cream text-espresso antialiased">
 
   <!-- ======================================================================
-       القسم 1: شريط التنقل العلوي (Navbar ثابت)
-       fixed  -> ثابت فوق حتى مع التمرير
-       z-50   -> فوق كل العناصر التانية
+       القسم 1: شريط التنقل العلوي (Navbar شفاف في أول الصفحة ويكتسب شكل بالتمرير)
+       الـ navbar يتحول من شفاف فوق الهيرو لـ burgundy صلب بعد ما المستخدم ينزل تحت
        ====================================================================== -->
-  <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-espresso/90 backdrop-blur-md shadow-lg">
+  <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out bg-transparent backdrop-blur-0" style="--navbar-height: 5rem;">
     <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-10 h-20">
 
       <!-- شعار الموقع (نص) — بيرجع لقسم الهيرو لما تضغط عليه -->
@@ -651,13 +650,36 @@
     });
 
     // --------------------------------------------------------
-    // 3) زيادة ظل الـ Navbar لما المستخدم ينزل تحت
+    // 3) تحويل الـ Navbar من شفاف لـ burgundy أثناء التمرير
     // --------------------------------------------------------
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      // لو نزلنا أكتر من 40 بكسل -> ضيف ظل أقوى
-      navbar.classList.toggle('shadow-2xl', window.scrollY > 40);
-    });
+    const heroSection = document.getElementById('home');
+    
+    // دالة تغيير حالة الـ navbar بناءً على موقع التمرير
+    function updateNavbarState() {
+      const scrollY = window.scrollY;
+      const navHeight = 80; // 5rem = 80px;
+      
+      // لو المستخدم فوق /= بارتفاع الـ navbar: النافبار شفاف
+      if (scrollY === 0) {
+        // حالة شفافة بالكامل في أعلى الصفحة
+        navbar.classList.remove('bg-espresso', 'shadow-2xl', 'backdrop-blur-md');
+        navbar.classList.add('bg-transparent', 'backdrop-blur-0');
+      } else if (scrollY > 40) {
+        // بعد أكثر من 40 بكسل من التمرير -> full burgundy مع ظل
+        navbar.classList.remove('bg-transparent', 'backdrop-blur-0');
+        navbar.classList.add('bg-espresso', 'shadow-2xl', 'backdrop-blur-md');
+      } else {
+        // في المنتصف (less== 40px) -> تطبيق تدريجي
+        navbar.classList.remove('bg-transparent', 'backdrop-blur-0');
+        navbar.classList.add('bg-espresso/50', 'shadow-md', 'backdrop-blur-sm');
+      }
+    }
+    
+    // تنفيذ عند أول تحميل + عند التمرير
+    updateNavbarState();
+    window.addEventListener('scroll', updateNavbarState, { passive: true });
+    window.addEventListener('resize', updateNavbarState);
 
     // --------------------------------------------------------
     // 4) كتابة السنة الحالية في الفوتر أوتوماتيك
