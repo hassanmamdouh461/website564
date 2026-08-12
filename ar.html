@@ -701,27 +701,16 @@
     // 3) تحويل الـ Navbar من شفاف لـ burgundy أثناء التمرير
     // --------------------------------------------------------
     const navbar = document.getElementById('navbar');
-    const heroSection = document.getElementById('home');
-    
-    // دالة تغيير حالة الـ navbar بناءً على موقع التمرير
+
+    // مهم: امسح كل حالات النافبار الأول، وبعدين طبّق الحالة الصح
+    // ده بيمنع النافبار من "التحبس" في حالة نص-شفافة بعد تغيير اللغة أو الرجوع لفوق
+    const STATES = ['bg-transparent','backdrop-blur-0','bg-espresso','shadow-2xl','backdrop-blur-md','bg-espresso/50','shadow-md','backdrop-blur-sm'];
     function updateNavbarState() {
-      const scrollY = window.scrollY;
-      const navHeight = 80; // 5rem = 80px;
-      
-      // لو المستخدم فوق /= بارتفاع الـ navbar: النافبار شفاف
-      if (scrollY === 0) {
-        // حالة شفافة بالكامل في أعلى الصفحة
-        navbar.classList.remove('bg-espresso', 'shadow-2xl', 'backdrop-blur-md');
-        navbar.classList.add('bg-transparent', 'backdrop-blur-0');
-      } else if (scrollY > 40) {
-        // بعد أكثر من 40 بكسل من التمرير -> full burgundy مع ظل
-        navbar.classList.remove('bg-transparent', 'backdrop-blur-0');
-        navbar.classList.add('bg-espresso', 'shadow-2xl', 'backdrop-blur-md');
-      } else {
-        // في المنتصف (less== 40px) -> تطبيق تدريجي
-        navbar.classList.remove('bg-transparent', 'backdrop-blur-0');
-        navbar.classList.add('bg-espresso/50', 'shadow-md', 'backdrop-blur-sm');
-      }
+      navbar.classList.remove(...STATES);
+      const y = window.scrollY;
+      if (y > 40)      navbar.classList.add('bg-espresso','shadow-2xl','backdrop-blur-md');
+      else if (y > 0)  navbar.classList.add('bg-espresso/50','shadow-md','backdrop-blur-sm');
+      // y === 0 -> شفاف تماماً (مفيش أي كلاسات خلفية)
     }
     
     // تنفيذ عند أول تحميل + عند التمرير
