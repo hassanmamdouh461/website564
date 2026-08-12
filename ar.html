@@ -153,6 +153,16 @@
     #navbar.nav-mid { background-color: rgba(61,10,23,0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
     #navbar.nav-scrolled, #navbar.nav-solid { background-color: rgba(61,10,23,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
 
+    
+    /* Gallery fade-in: simple, no IntersectionObserver, all 6 images always visible */
+    .gallery-fade img { opacity: 0; animation: gal-fade 0.7s ease-out forwards; }
+    .gallery-fade img:nth-child(1) { animation-delay: 0.05s; }
+    .gallery-fade img:nth-child(2) { animation-delay: 0.15s; }
+    .gallery-fade img:nth-child(3) { animation-delay: 0.25s; }
+    .gallery-fade img:nth-child(4) { animation-delay: 0.05s; }
+    .gallery-fade img:nth-child(5) { animation-delay: 0.15s; }
+    .gallery-fade img:nth-child(6) { animation-delay: 0.25s; }
+    @keyframes gal-fade { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: none; } }
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--color-primary-dark); }
     ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 4px; }
@@ -461,19 +471,19 @@
       <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
 
       <!-- جاليري ماسونري: كل صورة بمقاسها الطبيعي بدون أي قص — لقطات المكان بس -->
-      <div class="columns-2 md:columns-3 gap-4 md:gap-6">
+      <div class="columns-2 md:columns-3 gap-4 md:gap-6 gallery-fade">
         <img src="images/paccino-5.jpg" alt="جلسات باتشينوس الداخلية" loading="lazy"
-             class="reveal reveal-delay-1 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+             class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <img src="images/paccino-6.jpg" alt="ترابيزة الشغل" loading="lazy"
-             class="reveal reveal-delay-2 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+             class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <img src="images/paccino-7.jpg" alt="ترابيزة الهدوء وقت الغروب" loading="lazy"
-             class="reveal reveal-delay-3 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+             class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <img src="images/paccino-4.jpg" alt="جلسة على الواجهة الزجاجية" loading="lazy"
-             class="reveal reveal-delay-1 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+             class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <img src="images/paccino-8.jpg" alt="ترابيزة الحبيبة" loading="lazy"
-             class="reveal reveal-delay-2 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+             class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <img src="images/paccino-9.jpg" alt="جلسة بجانب البلكونة" loading="lazy"
-             class="reveal reveal-delay-3 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+             class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
       </div>
 
       <div class="reveal text-center mt-14">
