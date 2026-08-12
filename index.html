@@ -96,6 +96,40 @@
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--color-primary-dark); }
     ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 4px; }
+  /* === Mobile menu drawer (slide-in side panel with backdrop) === */
+    #mobile-menu {
+      position: fixed; top: 0; right: 0; height: 100vh; height: 100dvh; width: min(85vw, 320px);
+      background: linear-gradient(180deg, rgba(61,10,23,0.98) 0%, rgba(43,6,16,0.98) 100%);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      transform: translateX(100%); transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+      padding: 5rem 1.75rem 2rem;
+      box-shadow: -10px 0 40px rgba(0,0,0,0.45);
+      z-index: 60; overflow-y: auto;
+    }
+    html[dir="rtl"] #mobile-menu { right: auto; left: 0; transform: translateX(-100%); box-shadow: 10px 0 40px rgba(0,0,0,0.45); }
+    #mobile-menu.is-open { transform: translateX(0); }
+    #mobile-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+      z-index: 55;
+    }
+    #mobile-backdrop.is-open { opacity: 1; pointer-events: auto; }
+    #mobile-menu ul li a { display: flex; align-items: center; gap: 0.75rem; padding: 0.95rem 0; font-size: 1.1rem; border-bottom: 1px solid rgba(234,213,193,0.12); transition: color 0.2s, padding 0.2s; }
+    #mobile-menu ul li a:hover { color: #EAD5C1; padding-left: 0.4rem; }
+    html[dir="rtl"] #mobile-menu ul li a:hover { padding-left: 0; padding-right: 0.4rem; }
+    #mobile-menu ul li a::before {
+      content: ""; width: 0.4rem; height: 0.4rem; border-radius: 50%;
+      background: #EAD5C1; opacity: 0.4; transition: opacity 0.2s, transform 0.2s;
+    }
+    #mobile-menu ul li a:hover::before { opacity: 1; transform: scale(1.4); }
+    .menu-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(234,213,193,0.12); border: 1px solid rgba(234,213,193,0.25); transition: all 0.2s; }
+    .menu-toggle:hover { background: rgba(234,213,193,0.22); transform: scale(1.05); }
+    .menu-toggle .bar { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; margin: 3px 0; transition: all 0.3s ease; transform-origin: center; }
+    .menu-toggle.is-open .bar:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+    .menu-toggle.is-open .bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .menu-toggle.is-open .bar:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+    html { scrollbar-gutter: stable; }
+    body.menu-locked { overflow: hidden; }
   </style>
 </head>
 <body class="font-body bg-cream text-espresso antialiased">
@@ -127,19 +161,18 @@
         Order on WhatsApp
       </a>
 
-      <button id="menu-btn" aria-label="Toggle menu" class="lg:hidden text-white focus:outline-none">
-        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+      <button id="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false" class="menu-toggle lg:hidden text-white focus:outline-none">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
     </nav>
 
     <!-- Mobile menu -->
-    <div id="mobile-menu" class="lg:hidden hidden bg-espresso border-t border-white/10">
-      <ul class="flex flex-col px-6 py-4 gap-1 text-white text-base font-medium">
+    </header>
+    <div id="mobile-backdrop" aria-hidden="true"></div>
+    <aside id="mobile-menu" aria-hidden="true">
+      <ul>
         <li><a href="#home" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Home</a></li>
         <li><a href="#about" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">About</a></li>
         <li><a href="#menu" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Menu</a></li>
@@ -160,8 +193,7 @@
           </a>
         </li>
       </ul>
-    </div>
-  </header>
+    </aside>
   <!-- Hero: full-screen terrace photo with burgundy overlay -->
   <section id="home" class="relative min-h-screen flex items-center justify-center text-center">
     <div class="absolute inset-0">
@@ -517,6 +549,8 @@
       updateNavbarState();
     }
     menuBtn.addEventListener('click', () => toggleMenu());
+    mobileBackdrop.addEventListener('click', () => toggleMenu(true));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') toggleMenu(true); });
     document.querySelectorAll('.mobile-link').forEach((link) => {
       link.addEventListener('click', () => toggleMenu(true));
     });
