@@ -1,0 +1,707 @@
+<!-- ==========================================================================
+     Paccino's | Minya — موقع صفحة واحدة
+     --------------------------------------------------------------------------
+     الفكرة: موقع Paccino's — مقهى ومطعم إيطالي في المنيا، مصر (من 2010)
+     التقنيات المستخدمة:
+       1) HTML5         -> هيكلة الصفحة
+       2) Tailwind CSS  -> التنسيقات (عن طريق CDN من غير أي تثبيت)
+       3) Vanilla JS    -> قائمة الموبايل + أنيميشن الظهور عند التمرير
+     ========================================================================== -->
+
+<!-- إعلان نوع المستند: HTML5 -->
+<!DOCTYPE html>
+
+<!-- لغة الصفحة إنجليزية + تفعيل التمرير السلس عند الضغط على روابط الأقسام -->
+<html lang="ar" dir="rtl" class="scroll-smooth">
+
+<head>
+  <!-- ترميز الحروف: UTF-8 عشان يدعم كل اللغات والرموز -->
+  <meta charset="UTF-8" />
+
+  <!-- سطر مهم جداً للموبايل: بيخلي عرض الصفحة = عرض الشاشة -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- عنوان الصفحة اللي بيظهر في تبويب المتصفح ونتائج جوجل -->
+  <title>Paccino's — Coffee &amp; Food Experience — Minya</title>
+
+  <!-- أيقونة الموقع (favicon) -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <!-- نتذكر اختيار اللغة -->
+  <script>
+    try{ if(localStorage.getItem('pac_lang')==='en' && location.pathname.indexOf('ar.html')!==-1){ location.replace('index.html'+location.hash); } }catch(e){}
+  </script>
+
+  <!-- وصف الموقع لمحركات البحث (SEO) -->
+  <meta name="description" content="Paccino's — Coffee & Food Experience in Minya since 2010. Italian restaurant & café serving hand-crafted coffee and delicious food." />
+
+  <!-- ================= تحميل الخطوط من Google Fonts ================= -->
+
+  <!-- تحسين سرعة التحميل: الاتصال المبكر بسيرفرات جوجل -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- بنحمّل خطين:
+       - Playfair Display : خط Serif فخم للعناوين
+       - Inter            : خط Sans-serif نظيف للنصوص والأزرار -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+  <!-- ================= تحميل Tailwind CSS ================= -->
+
+  <!-- سكريبت Tailwind الرسمي (CDN) — من غيره كلاسات Tailwind مش هتشتغل -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- إعدادات Tailwind المخصصة: بنضيف ألواننا وخطوطنا -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          // ألوان الهوية البصرية للبراند
+          colors: {
+            espresso: '#3D0A17', // بني إسبريسو غامق -> خلفيات الأقسام الداكنة
+            cream: '#FAF6F0',    // بيج كريمي فاتح -> خلفيات الأقسام الفاتحة
+            caramel: '#EAD5C1',  // ذهبي/كراميل -> الأزرار والأسعار والتفاصيل
+          },
+          fontFamily: {
+            heading: ['"Playfair Display"', '"Cairo"', 'serif'], // كلاس font-heading
+            body: ['"Cairo"', 'sans-serif'],            // كلاس font-body
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- ================= تنسيقات CSS مخصصة (اللي Tailwind مش بيعملها) ================= -->
+  <style>
+    :root {
+      /* Brand Color Palette */
+      --color-primary: #5C1425;
+      --color-primary-dark: #3D0A17;
+      --color-accent: #EAD5C1;
+      --color-accent-hover: #F5E4D3;
+      --color-bg-light: #FAF6F0;
+      --color-bg-dark: #2B0610;
+      --color-text-light: #EAD5C1;
+      --color-text-dark: #2B0610;
+      --border-cream: rgba(234, 213, 193, 0.3);
+      --shadow-subtle: 0 10px 30px rgba(61, 10, 23, 0.15);
+    }
+
+    body {
+      background-color: var(--color-primary);
+      color: var(--color-text-light);
+      font-family: 'Cairo', 'Inter', system-ui, sans-serif;
+    }
+
+    /* ================== REVEAL ANIMATIONS ================== */
+    .reveal { opacity: 0; transform: translateY(2.5rem); transition: opacity 0.8s ease, transform 0.8s ease; will-change: opacity, transform; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ================== COMPONENTS ================== */
+    header { background-color: var(--color-primary); }
+
+    .btn-primary {
+      background-color: var(--color-primary); color: var(--color-accent);
+      border: 1.5px solid var(--color-accent); padding: 12px 24px;
+      border-radius: 8px; transition: all 0.3s ease; font-weight: 600;
+    }
+    .btn-primary:hover {
+      background-color: var(--color-accent); color: var(--color-primary-dark);
+      transform: translateY(-2px); box-shadow: var(--shadow-subtle);
+    }
+
+    .menu-dots { flex: 1 1 auto; border-bottom: 2px dotted var(--border-cream); margin: 0 0.75rem; transform: translateY(-0.35rem); }
+
+    .floating-btn {
+      position: fixed; bottom: 24px; left: 24px;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: #25D366; color: white; display: flex;
+      align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      transition: all 0.3s ease; z-index: 9999; text-decoration: none;
+    }
+    .floating-btn:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6); background: #128C7E; }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--color-primary-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 4px; }
+  </style>
+</head>
+
+<!-- جسم الصفحة: خط Inter + خلفية كريمية + لون نص بني + تحسين شكل الخط -->
+<body class="font-body bg-cream text-espresso antialiased">
+
+  <!-- ======================================================================
+       القسم 1: شريط التنقل العلوي (Navbar شفاف في أول الصفحة ويكتسب شكل بالتمرير)
+       الـ navbar يتحول من شفاف فوق الهيرو لـ burgundy صلب بعد ما المستخدم ينزل تحت
+       ====================================================================== -->
+  <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out bg-transparent backdrop-blur-0" style="--navbar-height: 5rem;">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-10 h-20">
+
+      <!-- شعار الموقع (نص) — بيرجع لقسم الهيرو لما تضغط عليه -->
+      <a href="#home" class="font-heading text-2xl md:text-3xl font-bold text-white tracking-wide hover:text-caramel transition-colors duration-300">
+        Paccino's
+      </a>
+
+      <!-- روابط التنقل — مخفية على الموبايل (hidden) وظاهرة على الشاشات الكبيرة (lg:flex) -->
+      <ul class="hidden lg:flex items-center gap-8 text-white text-sm font-medium tracking-wider uppercase">
+        <!-- كل رابط بينزل بسلاسة للقسم المطلوب (بسبب scroll-smooth) -->
+        <li><a href="#home" class="hover:text-caramel transition-colors duration-300">الرئيسية</a></li>
+        <li><a href="#about" class="hover:text-caramel transition-colors duration-300">عننا</a></li>
+        <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">المنيو</a></li>
+        <li><a href="#gallery" class="hover:text-caramel transition-colors duration-300">الصور</a></li>
+        <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">الآراء</a></li>
+        <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">تواصل</a></li>
+      </ul>
+
+      <!-- زر تغيير اللغة → English (النسخة الإنجليزية هي الافتراضية) -->
+      <a href="index.html" onclick="try{localStorage.setItem('pac_lang','en')}catch(e){}"
+         class="hidden lg:flex items-center gap-1.5 text-white/85 hover:text-caramel transition-colors duration-300 text-sm font-semibold border border-white/25 hover:border-caramel rounded-full px-4 py-2" aria-label="Switch to English">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a15.3 15.3 0 0 1 0 18M12 3a15.3 15.3 0 0 0 0 18"/></svg>
+        EN
+      </a>
+
+      <!-- زر "اطلب أونلاين" — رابط خارجي بيفتح في تبويب جديد -->
+      <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
+         class="hidden lg:inline-block bg-caramel text-espresso font-semibold px-6 py-2.5 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-md">
+        اطلب واتساب
+      </a>
+
+      <!-- زر الهامبرغر (☰) — ظاهر على الموبايل والتابلت بس (lg:hidden) -->
+      <button id="menu-btn" aria-label="Toggle menu" class="lg:hidden text-white focus:outline-none">
+        <!-- أيقونة القائمة (3 خطوط) -->
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <!-- أيقونة الإغلاق (X) — مخفية افتراضياً -->
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </nav>
+
+    <!-- قائمة الموبايل المنبثقة — مخفية افتراضياً (hidden) والجافاسكريبت بينوّرها -->
+    <div id="mobile-menu" class="lg:hidden hidden bg-espresso border-t border-white/10">
+      <ul class="flex flex-col px-6 py-4 gap-1 text-white text-base font-medium">
+        <!-- كل رابط عليه كلاس .mobile-link عشان القائمة تقفل لوحدها بعد الضغط -->
+        <li><a href="#home" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">الرئيسية</a></li>
+        <li><a href="#about" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">عننا</a></li>
+        <li><a href="#menu" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">المنيو</a></li>
+        <li><a href="#gallery" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">الصور</a></li>
+        <li><a href="#reviews" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">الآراء</a></li>
+        <li><a href="#contact" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">تواصل</a></li>
+        <li>
+          <a href="index.html" onclick="try{localStorage.setItem('pac_lang','en')}catch(e){}"
+             class="mobile-link flex items-center gap-2 py-3 text-caramel font-semibold transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a15.3 15.3 0 0 1 0 18M12 3a15.3 15.3 0 0 0 0 18"/></svg>
+            English Version
+          </a>
+        </li>
+        <!-- زر "اطلب أونلاين" داخل قائمة الموبايل -->
+        <li class="pt-2 pb-3">
+          <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
+             class="block text-center bg-caramel text-espresso font-semibold px-6 py-3 rounded-full hover:bg-white transition-all duration-300">
+            اطلب واتساب
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       القسم 2: الهيرو (أول ما يفتح الموقع يشوفه)
+       min-h-screen -> بياخد طول الشاشة بالكامل
+       ====================================================================== -->
+  <section id="home" class="relative min-h-screen flex items-center justify-center text-center">
+
+    <!-- صورة الخلفية + طبقة تعتيم فوقها -->
+    <div class="absolute inset-0">
+      <!-- صورة الخلفية: التراس الخارجي بتاع باتشينوس — بتمركز على الجزء العلوي اللي فيه اللوجو -->
+      <img src="images/paccino-12.jpg"
+           alt="Paccino's café" class="w-full h-full object-cover object-[center_30%]" />
+      <!-- طبقة بنية شفافة 70% عشان النص الأبيض يبقى واضح -->
+      <div class="absolute inset-0 bg-espresso/70"></div>
+    </div>
+
+    <!-- محتوى الهيرو (فوق الصورة بسبب z-10) -->
+    <div class="relative z-10 px-6 max-w-4xl mx-auto reveal visible pt-24 pb-16">
+
+      <!-- العنوان الرئيسي -->
+      <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">Paccino's</h1>
+
+      <!-- السطر التعريفي تحت العنوان -->
+      <p class="text-lg md:text-2xl text-cream/90 mb-10 font-light max-w-2xl mx-auto">
+        Coffee &amp; Food Experience — باتشينوس عشرة من 2010. قهوة مختصة وأكل إيطالي في قلب المنيا.
+      </p>
+
+      <!-- الزرارين جنب بعض على الكمبيوتر، وتحت بعض على الموبايل -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+        <!-- زر داخلي: بينزل لقسم المنيو -->
+        <a href="#menu"
+           class="bg-caramel text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg w-56 sm:w-auto text-center">
+          شوف المنيو
+        </a>
+        <!-- زر خارجي: بيفتح موقع الديليفري في تبويب جديد -->
+        <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
+           class="border-2 border-caramel text-caramel font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 w-56 sm:w-auto text-center">
+          اطلب واتساب
+        </a>
+      </div>
+
+      <!-- أيقونات السوشيال ميديا (SVG مرسوم بالكود — مش ملفات) -->
+      <div class="flex items-center justify-center gap-6 text-cream/80">
+        <!-- أيقونة إنستجرام -->
+        <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-caramel hover:scale-110 transition-all duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
+          </svg>
+        </a>
+        <!-- أيقونة فيسبوك -->
+        <a href="https://www.facebook.com/PaccinosCoffee" target="_blank" rel="noopener" aria-label="Facebook" class="hover:text-caramel hover:scale-110 transition-all duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V9H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h2z" />
+          </svg>
+        </a>
+        <!-- أيقونة تيك توك -->
+        <a href="https://wa.me/201228784569" target="_blank" rel="noopener" aria-label="WhatsApp" class="hover:text-caramel hover:scale-110 transition-all duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16.6 2h3c.2 1.9 1.4 3.6 3.4 4.1v3.2c-1.4 0-2.6-.4-3.7-1.2v6.9a6.3 6.3 0 1 1-6.3-6.3c.4 0 .8 0 1.2.1v3.3a3 3 0 1 0 2.4 2.9V2z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       القسم 3: الأصناف المميزة (3 كروت مشروبات)
+       ====================================================================== -->
+  <section id="signature" class="bg-cream py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- عنوان القسم -->
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">أشهر الأصناف</h2>
+      <!-- الخط الذهبي الصغير تحت العنوان -->
+      <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
+
+      <!-- شبكة الكروت: عمود واحد موبايل / 3 أعمدة كمبيوتر -->
+      <div class="grid gap-10 md:grid-cols-3">
+
+        <!-- الكارت الأول: آيس كوفي -->
+        <article class="reveal reveal-delay-1 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+          <img src="images/paccino-13.jpg"
+               alt="آيس كوفي" loading="lazy" class="w-full aspect-[4/3] object-cover object-center" />
+          <div class="p-7">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-heading text-2xl font-semibold">آيس كوفي</h3>
+              <span class="text-caramel font-bold text-xl">★</span>
+            </div>
+            <p class="text-espresso/70 leading-relaxed">قهوتنا ساقعة على مزاجك — من تصويرنا.</p>
+          </div>
+        </article>
+
+        <!-- الكارت التاني: فرابتشينو -->
+        <article class="reveal reveal-delay-2 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+          <img src="images/paccino-14.jpg"
+               alt="فرابتشينو" loading="lazy" class="w-full aspect-[4/3] object-cover object-center" />
+          <div class="p-7">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-heading text-2xl font-semibold">فرابتشينو</h3>
+              <span class="text-caramel font-bold text-xl">★</span>
+            </div>
+            <p class="text-espresso/70 leading-relaxed">حاجة حلوة وتلج — كريمة وشوكولاتة.</p>
+          </div>
+        </article>
+
+        <!-- الكارت التالت: مشروبات منعشة -->
+        <article class="reveal reveal-delay-3 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+          <img src="images/paccino-15.jpg"
+               alt="مشروبات باتشينوس المنعشة" loading="lazy" class="w-full aspect-[4/3] object-cover object-center" />
+          <div class="p-7">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-heading text-2xl font-semibold">المشروبات المنعشة</h3>
+              <span class="text-caramel font-bold text-xl">★</span>
+            </div>
+            <p class="text-espresso/70 leading-relaxed">موهيتو وسموذي وآيس لاتيه — تشكيلتنا الكاملة.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- الأزرار تحت الكروت -->
+      <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4 mt-14">
+        <a href="#menu"
+           class="bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md w-64 sm:w-auto text-center">
+          المنيو كامل
+        </a>
+        <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
+           class="bg-caramel text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-espresso hover:text-white hover:scale-105 transition-all duration-300 shadow-md w-64 sm:w-auto text-center">
+          اطلب واتساب
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       القسم 4: نبذة عن البراند (قسم داكن)
+       ====================================================================== -->
+  <section id="about" class="bg-espresso text-white py-24 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold mb-4">عن باتشينوس</h2>
+      <div class="reveal w-20 h-1 bg-caramel mx-auto mb-10 rounded-full"></div>
+
+      <!-- Bio removed by user request -->
+
+      
+        
+      </div>
+
+      <!-- Branches -->
+      <div class="reveal reveal-delay-3 grid gap-6 md:grid-cols-2 text-right mt-10">
+        <div class="bg-white/5 rounded-xl p-6 border border-white/10">
+          <p class="text-caramel font-semibold mb-2">📍 فرع طه حسين</p>
+          <p class="text-cream/80 text-sm leading-relaxed">شارع طه حسين (أمام وابور النور)<br>ديليفري: <a href="tel:01007811378" class="text-caramel hover:underline" dir="ltr">01007811378</a></p>
+        </div>
+        <div class="bg-white/5 rounded-xl p-6 border border-white/10">
+          <p class="text-caramel font-semibold mb-2">📍 فرع المنيا الجديدة</p>
+          <p class="text-cream/80 text-sm leading-relaxed">الحي الثالث — مول كورنر بلازا<br>ديليفري: <a href="tel:01033777117" class="text-caramel hover:underline" dir="ltr">01033777117</a></p>
+        </div>
+      </div>
+
+      <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener"
+         class="reveal reveal-delay-3 inline-block mt-10 bg-caramel text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-md">
+        تابعنا على إنستجرام @paccino_s
+      </a>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       القسم 5: المنيو (فئتين مع خطوط منقطة تربط الاسم بالسعر)
+       ====================================================================== -->
+  <section id="menu" class="bg-cream py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">من قائمتنا</h2>
+      <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
+
+      <!-- عمودين على الكمبيوتر / عمود واحد موبايل -->
+      <div class="grid gap-12 md:grid-cols-2">
+
+        <!-- الفئة الأولى: المشروبات المختصة (قهوة) -->
+        <div class="reveal reveal-delay-1">
+          <h3 class="font-heading text-2xl md:text-3xl font-semibold mb-6 pb-3 border-b-2 inline-block" style="color:#5C1425;border-color:#EAD5C1;">المشروبات المختصة</h3>
+          <ul class="space-y-5 mt-4">
+            <!-- كل سطر: الاسم يمين + خط منقط في النص + السعر شمال -->
+            <li class="flex items-end text-lg"><span class="font-medium" style="color:#3D0A17;">باتشينوس لاتيه</span><span class="menu-dots"></span><span class="font-bold" style="color:#5C1425;">65 ج</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium" style="color:#3D0A17;">موكا لاتيه</span><span class="menu-dots"></span><span class="font-bold" style="color:#5C1425;">70 ج</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium" style="color:#3D0A17;">فانيليا لاتيه</span><span class="menu-dots"></span><span class="font-bold" style="color:#5C1425;">65 ج</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium" style="color:#3D0A17;">سبانيش لاتيه</span><span class="menu-dots"></span><span class="font-bold" style="color:#5C1425;">70 ج</span></li>
+          </ul>
+        </div>
+
+        <!-- الفئة التانية: المشروبات المنعشة -->
+        <div class="reveal reveal-delay-2">
+          <h3 class="font-heading text-2xl md:text-3xl font-semibold mb-6 pb-3 border-b-2 inline-block" style="color:#5C1425;border-color:#EAD5C1;">المشروبات المنعشة</h3>
+          <ul class="space-y-5 mt-4">
+            <li class="flex items-end text-lg"><span class="font-medium" style="color:#3D0A17;">ليمون بالنعناع</span><span class="menu-dots"></span><span class="font-bold" style="color:#5C1425;">45 ج</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium" style="color:#3D0A17;">فراولة ميلك شيك</span><span class="menu-dots"></span><span class="font-bold" style="color:#5C1425;">75 ج</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium" style="color:#3D0A17;">مانجو سموذي</span><span class="menu-dots"></span><span class="font-bold" style="color:#5C1425;">65 ج</span></li>
+            <li class="flex items-end text-lg"><span class="font-medium" style="color:#3D0A17;">آيس موكا</span><span class="menu-dots"></span><span class="font-bold" style="color:#5C1425;">75 ج</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       القسم 6: معرض الصور (6 صور في شبكة)
+       ====================================================================== -->
+  <section id="gallery" class="bg-white py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">لقطات من عندنا</h2>
+      <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
+
+      <!-- جاليري ماسونري: كل صورة بمقاسها الطبيعي بدون أي قص — لقطات المكان بس -->
+      <div class="columns-2 md:columns-3 gap-4 md:gap-6 [&>img]:mb-4 md:[&>img]:mb-6">
+        <img src="images/paccino-5.jpg" alt="جلسات باتشينوس الداخلية" loading="lazy"
+             class="reveal reveal-delay-1 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+        <img src="images/paccino-6.jpg" alt="ترابيزة الشغل" loading="lazy"
+             class="reveal reveal-delay-2 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+        <img src="images/paccino-7.jpg" alt="ترابيزة الهدوء وقت الغروب" loading="lazy"
+             class="reveal reveal-delay-3 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+        <img src="images/paccino-4.jpg" alt="جلسة على الواجهة الزجاجية" loading="lazy"
+             class="reveal reveal-delay-1 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+        <img src="images/paccino-8.jpg" alt="ترابيزة الحبيبة" loading="lazy"
+             class="reveal reveal-delay-2 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+        <img src="images/paccino-9.jpg" alt="جلسة بجانب البلكونة" loading="lazy"
+             class="reveal reveal-delay-3 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+      </div>
+
+      <div class="reveal text-center mt-14">
+        <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener"
+           class="inline-block bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md">
+          شوف باقي الصور على إنستجرام
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       القسم 7: آراء العملاء (قسم داكن مع 5 نجوم)
+       ====================================================================== -->
+  <section id="reviews" class="bg-espresso text-white py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">آراء عملائنا</h2>
+
+      <!-- رسمة الـ 5 نجوم الذهبية (5 أيقونات SVG مكررة) -->
+      <div class="reveal flex items-center justify-center gap-1.5 mb-14 text-caramel">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+      </div>
+
+      <!-- كروت التقييمات الثلاثة -->
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- التقييم الأول -->
+        <blockquote class="reveal reveal-delay-1 rounded-2xl p-8 shadow-lg hover:scale-105 transition-all duration-300" style="background-color:#F3EFE4;color:#1C2B1A;">
+          <p class="leading-relaxed mb-6 italic">"One of the best places — high quality food with reasonable prices. The staff is so friendly, and the portions are generous. Always my favorite place ❤️"</p>
+          <footer class="font-semibold" style="color:#A98A4B;">— Miral Robert (فيسبوك)</footer>
+        </blockquote>
+        <!-- التقييم التاني -->
+        <blockquote class="reveal reveal-delay-2 rounded-2xl p-8 shadow-lg hover:scale-105 transition-all duration-300" style="background-color:#F3EFE4;color:#1C2B1A;">
+          <p class="leading-relaxed mb-6 italic">"Tried the Watermelon Blast refresher on a hot day and it did not disappoint. Super refreshing!"</p>
+          <footer class="font-semibold" style="color:#A98A4B;">— زائر من المنيا</footer>
+        </blockquote>
+        <!-- التقييم التالت -->
+        <blockquote class="reveal reveal-delay-3 rounded-2xl p-8 shadow-lg hover:scale-105 transition-all duration-300" style="background-color:#F3EFE4;color:#1C2B1A;">
+          <p class="leading-relaxed mb-6 italic">"القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."</p>
+          <footer class="font-semibold" style="color:#A98A4B;">— عميل دائم</footer>
+        </blockquote>
+      </div>
+
+      <div class="reveal text-center mt-14">
+        <a href="#reviews"
+           class="inline-block bg-caramel text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-md">
+          شوف كل الآراء
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       القسم 8: الموقع والتواصل (نص + خريطة جنب بعض)
+       ====================================================================== -->
+  <section id="contact" class="bg-cream py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-14">زورنا في أقرب فرع</h2>
+
+      <div class="grid gap-12 md:grid-cols-2 items-center">
+
+        <!-- الناحية اليمين/الشمال: العنوان والهاتف والأزرار -->
+        <div class="reveal reveal-delay-1">
+
+          <!-- العنوان مع أيقونة دبوس الخريطة -->
+          <div class="flex items-start gap-4 mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-caramel shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+            </svg>
+            <p class="text-xl font-medium">شارع طه حسين (أمام وابور النور)، المنيا — والمنيا الجديدة، مول كورنر بلازا</p>
+          </div>
+
+          <!-- رقم الهاتف مع أيقونة سماعة — رابط tel: بيفتح تطبيق الاتصال على الموبايل -->
+          <div class="flex items-start gap-4 mb-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-caramel shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <a href="tel:+201228784569" class="text-xl font-medium hover:text-caramel transition-colors duration-300">+20 12 28784569</a>
+          </div>
+
+          <!-- الأزرار -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <!-- زر الاتجاهات: بيفتح خرائط جوجل على العنوان مباشرة -->
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Paccino's+Coffee+Taha+Hussein+St+Minya+Egypt" target="_blank" rel="noopener noreferrer"
+               class="bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md text-center">
+              الاتجاهات
+            </a>
+            <!-- زر التواصل: بيفتح برنامج الإيميل -->
+            <a href="mailto:paccinoscafe@gmail.com"
+               class="border-2 border-espresso text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-espresso hover:text-white hover:scale-105 transition-all duration-300 text-center">
+              راسلنا
+            </a>
+          </div>
+        </div>
+
+        <!-- الناحية التانية: خريطتين — فرع طه حسين وفرع المنيا الجديدة -->
+        <div class="reveal reveal-delay-2 space-y-8">
+          <!-- خريطة فرع طه حسين -->
+          <div class="rounded-2xl overflow-hidden shadow-xl h-64 md:h-72">
+            <iframe
+              src="https://maps.google.com/maps?q=Paccino's+Coffee+Taha+Hussein+St+Minya+Egypt&z=16&output=embed"
+              class="w-full h-full border-0"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="خريطة فرع طه حسين"></iframe>
+          </div>
+          <p class="text-center font-semibold" style="color:#5C1425;">📍 فرع طه حسين</p>
+          <!-- خريطة فرع المنيا الجديدة -->
+          <div class="rounded-2xl overflow-hidden shadow-xl h-64 md:h-72">
+            <iframe
+              src="https://maps.google.com/maps?q=Corner+Plaza+Mall+New+Minya+Egypt&z=16&output=embed"
+              class="w-full h-full border-0"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="خريطة فرع المنيا الجديدة"></iframe>
+          </div>
+          <p class="text-center font-semibold" style="color:#5C1425;">📍 فرع المنيا الجديدة — مول كورنر بلازا</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       القسم 9: التذييل (Footer)
+       ====================================================================== -->
+  <footer class="bg-espresso text-white pt-20 pb-10 px-6 border-t border-white/10">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- عنوان كبير في الفوتر -->
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-16">في انتظارك دايمًا</h2>
+
+      <!-- 3 أعمدة: نبذة + روابط سريعة + مواعيد العمل -->
+      <div class="grid gap-12 md:grid-cols-3 text-center md:text-left">
+
+        <!-- العمود الأول: نبذة قصيرة + الإيميل -->
+        <div class="reveal reveal-delay-1">
+          <p class="font-heading text-2xl font-bold mb-4 text-caramel">Paccino's</p>
+          <p class="text-cream/70 leading-relaxed">Coffee &amp; Food Experience — قهوة مختصة وأكل إيطالي في المنيا منذ 2010.</p>
+          <a href="mailto:paccinoscafe@gmail.com" class="inline-block mt-4 text-cream/80 hover:text-caramel transition-colors duration-300">
+            contact@paccinoscafe@gmail.com
+          </a>
+        </div>
+
+        <!-- العمود التاني: روابط سريعة لأقسام الموقع -->
+        <div class="reveal reveal-delay-2">
+          <p class="font-heading text-xl font-semibold mb-5 text-caramel">روابط سريعة</p>
+          <ul class="space-y-3 text-cream/80">
+            <li><a href="#home" class="hover:text-caramel transition-colors duration-300">الرئيسية</a></li>
+            <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">المنيو</a></li>
+            <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">الآراء</a></li>
+            <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">تواصل</a></li>
+          </ul>
+        </div>
+
+        <!-- العمود التالت: مواعيد العمل -->
+        <div class="reveal reveal-delay-3">
+          <p class="font-heading text-xl font-semibold mb-5 text-caramel">التواصل والديليفري</p>
+          <ul class="space-y-3 text-cream/80">
+            <li class="flex justify-between md:justify-start md:gap-6"><span>فرع طه حسين (ديليفري)</span><span style="direction:ltr">01007811378</span></li>
+            <li class="flex justify-between md:justify-start md:gap-6"><span>واتساب / اتصال</span><span style="direction:ltr">012 2878 4569</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- سطر حقوق النشر — السنة بتتكتب أوتوماتيك بالجافاسكريبت -->
+      <div class="mt-16 pt-8 border-t border-white/10 text-center text-cream/50 text-sm">
+        &copy; <span id="year"></span> Paccino's. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================================================================
+       الجافاسكريبت: قائمة الموبايل + أنيميشن الظهور + سنة الفوتر
+       ====================================================================== -->
+  <script>
+    // --------------------------------------------------------
+    // 1) أنيميشن الظهور عند التمرير (Scroll Reveal)
+    //    IntersectionObserver بيراقب العناصر: أول ما عنصر يدخل
+    //    الشاشة، بنضيفله كلاس .visible فيظهر بحركة ناعمة
+    // --------------------------------------------------------
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        // entries = قائمة العناصر اللي حالتها اتغيرت
+        entries.forEach((entry) => {
+          // لو العنصر داخل في نطاق الرؤية
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');       // خليه يظهر
+            revealObserver.unobserve(entry.target);      // نبطل نراقبه (الأنيميشن بيحصل مرة واحدة بس)
+          }
+        });
+      },
+      // الإعدادات: العنصر يظهر لما 15% منه يكون باين، مع هامش سفلي 40px
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+    // نراقب كل العناصر اللي عليها كلاس .reveal
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+    // --------------------------------------------------------
+    // 2) قائمة الهامبرغر في الموبايل
+    // --------------------------------------------------------
+    const menuBtn = document.getElementById('menu-btn');       // زر الهامبرغر
+    const mobileMenu = document.getElementById('mobile-menu'); // القائمة المنبثقة
+    const iconOpen = document.getElementById('icon-open');     // أيقونة ☰
+    const iconClose = document.getElementById('icon-close');   // أيقونة X
+
+    // دالة فتح/قفل القائمة
+    // forceClose = true تعني "اقفل القائمة على طول مهما كانت حالتها"
+    function toggleMenu(forceClose = false) {
+      // لو القائمة مخفية (فيها كلاس hidden) يبقى المطلوب فتحها، والعكس
+      const shouldOpen = forceClose ? false : mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden', !shouldOpen); // نظهر أو نخفي القائمة
+      iconOpen.classList.toggle('hidden', shouldOpen);    // نخفي ☰ لو القائمة مفتوحة
+      iconClose.classList.toggle('hidden', !shouldOpen);  // نظهر X لو القائمة مفتوحة
+    }
+
+    // لما المستخدم يضغط على زر الهامبرغر -> افتح/اقفل القائمة
+    menuBtn.addEventListener('click', () => toggleMenu());
+
+    // لما المستخدم يضغط أي رابط جوه القائمة -> اقفلها لوحدها
+    document.querySelectorAll('.mobile-link').forEach((link) => {
+      link.addEventListener('click', () => toggleMenu(true));
+    });
+
+    // --------------------------------------------------------
+    // 3) تحويل الـ Navbar من شفاف لـ burgundy أثناء التمرير
+    // --------------------------------------------------------
+    const navbar = document.getElementById('navbar');
+    const heroSection = document.getElementById('home');
+    
+    // دالة تغيير حالة الـ navbar بناءً على موقع التمرير
+    function updateNavbarState() {
+      const scrollY = window.scrollY;
+      const navHeight = 80; // 5rem = 80px;
+      
+      // لو المستخدم فوق /= بارتفاع الـ navbar: النافبار شفاف
+      if (scrollY === 0) {
+        // حالة شفافة بالكامل في أعلى الصفحة
+        navbar.classList.remove('bg-espresso', 'shadow-2xl', 'backdrop-blur-md');
+        navbar.classList.add('bg-transparent', 'backdrop-blur-0');
+      } else if (scrollY > 40) {
+        // بعد أكثر من 40 بكسل من التمرير -> full burgundy مع ظل
+        navbar.classList.remove('bg-transparent', 'backdrop-blur-0');
+        navbar.classList.add('bg-espresso', 'shadow-2xl', 'backdrop-blur-md');
+      } else {
+        // في المنتصف (less== 40px) -> تطبيق تدريجي
+        navbar.classList.remove('bg-transparent', 'backdrop-blur-0');
+        navbar.classList.add('bg-espresso/50', 'shadow-md', 'backdrop-blur-sm');
+      }
+    }
+    
+    // تنفيذ عند أول تحميل + عند التمرير
+    updateNavbarState();
+    window.addEventListener('scroll', updateNavbarState, { passive: true });
+    window.addEventListener('resize', updateNavbarState);
+
+    // --------------------------------------------------------
+    // 4) كتابة السنة الحالية في الفوتر أوتوماتيك
+    // --------------------------------------------------------
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
