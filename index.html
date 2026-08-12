@@ -306,19 +306,19 @@
     <div class="max-w-7xl mx-auto">
       <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">Moments at Paccino's</h2>
       <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
-      <div class="columns-2 md:columns-3 gap-4 md:gap-6 [&>img]:mb-4 md:[&>img]:mb-6">
+      <div class="columns-2 md:columns-3 gap-4 md:gap-6">
         <img src="images/paccino-5.jpg" alt="Indoor seating at Paccino's" loading="lazy"
-             class="reveal reveal-delay-1 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+             class="reveal reveal-delay-1 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <img src="images/paccino-6.jpg" alt="Work-friendly table" loading="lazy"
-             class="reveal reveal-delay-2 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+             class="reveal reveal-delay-2 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <img src="images/paccino-7.jpg" alt="Quiet table at sunset" loading="lazy"
-             class="reveal reveal-delay-3 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+             class="reveal reveal-delay-3 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <img src="images/paccino-4.jpg" alt="Window-side seating" loading="lazy"
-             class="reveal reveal-delay-1 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+             class="reveal reveal-delay-1 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <img src="images/paccino-8.jpg" alt="Cozy corner seating" loading="lazy"
-             class="reveal reveal-delay-2 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+             class="reveal reveal-delay-2 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <img src="images/paccino-9.jpg" alt="Street view seating" loading="lazy"
-             class="reveal reveal-delay-3 w-full rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" />
+             class="reveal reveal-delay-3 w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
       </div>
       <div class="reveal text-center mt-14">
         <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener"
@@ -455,6 +455,8 @@
       { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
     document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+    // Fallback for mobile: force-show any image that the observer missed in masonry columns
+    setTimeout(() => { document.querySelectorAll('.reveal:not(.visible)').forEach((el) => el.classList.add('visible')); }, 2500);
 
     // Mobile menu
     const menuBtn = document.getElementById('menu-btn');
