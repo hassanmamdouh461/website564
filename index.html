@@ -966,6 +966,62 @@
     }
   }
   </script>
+
+  <!-- ======================================================================
+       JSON-LD: MENU structured data — makes the menu show up in Google search
+       with item names and categories. Combined with the Restaurant above,
+       Google can render rich results for specific dishes.
+       ====================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    "name": "Paccino's Menu",
+    "inLanguage": "en",
+    "hasMenuSection": [
+      {
+        "@type": "MenuSection",
+        "name": "Specialty Coffee",
+        "description": "Hot and iced coffee drinks, signature blends",
+        "hasMenuItem": [
+          { "@type": "MenuItem", "name": "Paccino's Latte",        "description": "Our signature espresso blend with velvety steamed milk" },
+          { "@type": "MenuItem", "name": "Mocha Latte",           "description": "Espresso, steamed milk, and rich cocoa" },
+          { "@type": "MenuItem", "name": "Vanilla Latte",         "description": "Espresso and steamed milk with Madagascar vanilla" },
+          { "@type": "MenuItem", "name": "Spanish Latte",         "description": "Espresso, condensed milk, and steamed milk for a sweet treat" }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Italian Kitchen",
+        "description": "Fresh pasta and wood-fired pizza, made daily",
+        "hasMenuItem": [
+          { "@type": "MenuItem", "name": "Fettuccine Alfredo",    "description": "Fresh fettuccine in a creamy parmesan sauce" },
+          { "@type": "MenuItem", "name": "Penne Arrabbiata",      "description": "Penne in a spicy tomato and garlic sauce" },
+          { "@type": "MenuItem", "name": "Margherita Pizza",      "description": "Classic tomato, fresh mozzarella, and basil" },
+          { "@type": "MenuItem", "name": "Paccino's Special Pizza","description": "The house signature pizza with chef's choice toppings" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- ======================================================================
+       JSON-LD: BreadcrumbList — gives Google a clear path of the page in
+       the site hierarchy. Shows as a breadcrumb trail in search results.
+       ====================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",  "item": "https://pacinos.engaz.tech/" },
+      { "@type": "ListItem", "position": 2, "name": "About", "item": "https://pacinos.engaz.tech/#about" },
+      { "@type": "ListItem", "position": 3, "name": "Menu",  "item": "https://pacinos.engaz.tech/#menu" },
+      { "@type": "ListItem", "position": 4, "name": "Gallery","item": "https://pacinos.engaz.tech/#gallery" },
+      { "@type": "ListItem", "position": 5, "name": "Reviews","item": "https://pacinos.engaz.tech/#reviews" },
+      { "@type": "ListItem", "position": 6, "name": "Contact","item": "https://pacinos.engaz.tech/#contact" }
+    ]
+  }
+  </script>
 </body>
-</html>
 </html>

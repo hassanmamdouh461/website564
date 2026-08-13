@@ -1,0 +1,9 @@
+# security.txt — RFC 9116
+# Tells security researchers how to report vulnerabilities.
+# Browsers and security tools look for this file under /.well-known/
+
+Contact: mailto:paccinoscafe@gmail.com
+Contact: https://wa.me/201228784569
+Expires: 2027-12-31T23:59:59z
+Preferred-Languages: ar, en
+Canonical: https://pacinos.engaz.tech/.well-known/security.txt

@@ -1,0 +1,13 @@
+# Bing Webmaster Tools verification
+# Get the tag at https://www.bing.com/webmasters → Add Site → HTML <meta> tag
+# (Will be auto-injected into <head> by the SEO update once the token is added
+#  as <meta name="msvalidate.01" content="YOUR_TOKEN" />)
+
+# Alternative: when choosing "XML file" verification method, Bing generates a
+# file named BingSiteAuth.xml with this content template. Replace the placeholder
+# with your actual token after Bing generates it.
+
+<?xml version="1.0"?>
+<users>
+  <user>PLACEHOLDER_REPLACE_WITH_BING_TOKEN</user>
+</users>

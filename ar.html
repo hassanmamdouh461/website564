@@ -1120,5 +1120,59 @@
     }
   }
   </script>
+
+  <!-- ======================================================================
+       JSON-LD: MENU structured data — Arabic menu
+       ====================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    "name": "منيو باتشينوس",
+    "inLanguage": "ar",
+    "hasMenuSection": [
+      {
+        "@type": "MenuSection",
+        "name": "المشروبات المختصة",
+        "description": "قهوة مختصة ساخنة ومثلجة",
+        "hasMenuItem": [
+          { "@type": "MenuItem", "name": "باتشينوس لاتيه",        "description": "خلطة الإسبريسو الخاصة مع حليب مبخر كريمي" },
+          { "@type": "MenuItem", "name": "موكا لاتيه",            "description": "إسبريسو، حليب مبخر، وكاكاو غني" },
+          { "@type": "MenuItem", "name": "فانيليا لاتيه",         "description": "إسبريسو وحليب مع فانيليا مدغشقر" },
+          { "@type": "MenuItem", "name": "سبانيش لاتيه",         "description": "إسبريسو، حليب مكثف، وحليب مبخر" }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "المطبخ الإيطالي",
+        "description": "باستا طازة وبيتزا يومية",
+        "hasMenuItem": [
+          { "@type": "MenuItem", "name": "فيتوتشيني ألفريدو",   "description": "فيتوتشيني طازة بصلصة بارميجان كريمية" },
+          { "@type": "MenuItem", "name": "بيني أرابياتا",        "description": "بيني بصلصة طماطم حارة بالثوم" },
+          { "@type": "MenuItem", "name": "بيتزا مارجريتا",       "description": "كلاسيكية بطماطم، موزاريلا طازة، وريحان" },
+          { "@type": "MenuItem", "name": "بيتزا باتشينوس سبيشيال","description": "بيتزا البيت بإضافات الشيف المميزة" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- ======================================================================
+       JSON-LD: BreadcrumbList (Arabic)
+       ====================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "الرئيسية","item": "https://pacinos.engaz.tech/ar.html" },
+      { "@type": "ListItem", "position": 2, "name": "عننا",   "item": "https://pacinos.engaz.tech/ar.html#about" },
+      { "@type": "ListItem", "position": 3, "name": "المنيو",  "item": "https://pacinos.engaz.tech/ar.html#menu" },
+      { "@type": "ListItem", "position": 4, "name": "الصور",   "item": "https://pacinos.engaz.tech/ar.html#gallery" },
+      { "@type": "ListItem", "position": 5, "name": "الآراء",   "item": "https://pacinos.engaz.tech/ar.html#reviews" },
+      { "@type": "ListItem", "position": 6, "name": "تواصل",   "item": "https://pacinos.engaz.tech/ar.html#contact" }
+    ]
+  }
+  </script>
 </body>
 </html>
