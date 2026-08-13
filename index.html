@@ -19,11 +19,52 @@
     <!-- Makes the page mobile-friendly by matching the viewport width to device pixels -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Browser tab title + Google search result headline -->
-  <title>Paccino's — Coffee &amp; Food Experience — Minya</title>
+  <title>باتشينوس | Paccino's Coffee &amp; Food — Italian Restaurant in Minya, Egypt</title>
     <!-- SEO snippet shown under the page title in search results -->
-  <meta name="description" content="Paccino's — Coffee & Food Experience in Minya since 2010. Italian restaurant & café serving hand-crafted coffee and delicious food." />
+  <meta name="description" content="باتشينوس (Paccino's) — Italian restaurant & specialty coffee shop in Minya since 2010. Two branches: Taha Hussein St & New Minya Corner Plaza. Specialty coffee, pasta, pizza. Order via WhatsApp 01007811378." />
+    <!-- SEO keywords — Arabic (primary) + English + Arabic transliteration for search variations -->
+  <meta name="keywords" content="باتشينوس, Paccino's, paccinos, بنى, مقهى المنيا, مطعم إيطالي المنيا, كافيه المنيا, مطاعم المنيا, قهوة مختصة, Italian restaurant Minya, coffee shop Minya, Paccinos Minya, Minya restaurant" />
+  <meta name="author" content="Paccino's" />
+    <!-- Tell search engines to index the page and follow its links -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <!-- Brand color shown in mobile browser chrome (Android) -->
+  <meta name="theme-color" content="#5C1425" />
+    <!-- Canonical URL — the single official address of this page in search results -->
+  <link rel="canonical" href="https://pacinos.engaz.tech/" />
+    <!-- Hreflang signals: each language version is for users in that language -->
+  <link rel="alternate" hreflang="ar" href="https://pacinos.engaz.tech/ar.html" />
+  <link rel="alternate" hreflang="en" href="https://pacinos.engaz.tech/" />
+  <link rel="alternate" hreflang="x-default" href="https://pacinos.engaz.tech/" />
+
+    <!-- ===== Open Graph (Facebook / WhatsApp / LinkedIn preview cards) ===== -->
+  <meta property="og:type" content="restaurant.restaurant" />
+  <meta property="og:site_name" content="Paccino's | باتشينوس" />
+  <meta property="og:title" content="باتشينوس Paccino's — Coffee & Food Experience, Minya" />
+  <meta property="og:description" content="Italian restaurant & specialty coffee shop in Minya since 2010. Two branches, full Italian menu, WhatsApp ordering." />
+  <meta property="og:url" content="https://pacinos.engaz.tech/" />
+  <meta property="og:image" content="https://pacinos.engaz.tech/images/paccino-12.jpg" />
+  <meta property="og:image:width" content="1600" />
+  <meta property="og:image:height" content="1254" />
+  <meta property="og:image:alt" content="باتشينوس Paccino's terrace at night" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ar_EG" />
+  <meta property="restaurant:restaurant:contact_data:phone_number" content="+201228784569" />
+  <meta property="restaurant:restaurant:contact_data:website" content="https://pacinos.engaz.tech/" />
+  <meta property="business:contact_data:street_address" content="Taha Hussein St (in front of Wabour El-Nour)" />
+  <meta property="business:contact_data:locality" content="Minya" />
+  <meta property="business:contact_data:region" content="Minya" />
+  <meta property="business:contact_data:country_name" content="Egypt" />
+
+    <!-- ===== Twitter Card (X / Twitter preview) ===== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="باتشينوس Paccino's — Coffee & Food, Minya" />
+  <meta name="twitter:description" content="Italian restaurant & specialty coffee in Minya since 2010. Two branches + WhatsApp ordering." />
+  <meta name="twitter:image" content="https://pacinos.engaz.tech/images/paccino-12.jpg" />
+  <meta name="twitter:image:alt" content="باتشينوس Paccino's terrace at night" />
+
     <!-- Favicon — burgundy "P" badge shown in the browser tab -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
     <!-- Language preference redirect: if visitor has not explicitly chosen English, send them to ar.html
          (Arabic is the default language of the site). We use the hash so deep-links to sections survive the redirect. -->
   <!-- Remember visitor's language choice: if they previously picked Arabic, take them to ar.html -->
@@ -841,7 +882,90 @@
     for (var i = 0; i < links.length; i++) links[i].addEventListener("click", close);
   })();
   </script>
-</body>
+
+  <!-- ======================================================================
+       JSON-LD STRUCTURED DATA — Restaurant schema for rich Google results.
+       This is what lets Google show ratings, hours, location, and the contact
+       info directly in the search results page. Keep it in sync with the visible
+       page content (name, address, phone).
+       ====================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "@id": "https://pacinos.engaz.tech/#restaurant",
+    "name": "Paccino's",
+    "alternateName": ["باتشينوس", "Paccinos", "Paccino's Coffee & Food Experience", "Paccino's Minya"],
+    "description": "Italian restaurant & specialty coffee shop in Minya, Egypt. Open since 2010 with two branches.",
+    "url": "https://pacinos.engaz.tech/",
+    "logo": "https://pacinos.engaz.tech/favicon.svg",
+    "image": [
+      "https://pacinos.engaz.tech/images/paccino-12.jpg",
+      "https://pacinos.engaz.tech/images/paccino-5.jpg",
+      "https://pacinos.engaz.tech/images/paccino-13.jpg"
+    ],
+    "telephone": "+201228784569",
+    "email": "paccinoscafe@gmail.com",
+    "priceRange": "$$",
+    "servesCuisine": ["Italian", "Egyptian", "Coffee"],
+    "foundingDate": "2010",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "Taha Hussein St (in front of Wabour El-Nour)",
+        "addressLocality": "Minya",
+        "addressRegion": "Minya",
+        "addressCountry": "EG",
+        "postalCode": "61661"
+      },
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "Corner Plaza Mall, 3rd District",
+        "addressLocality": "New Minya",
+        "addressRegion": "Minya",
+        "addressCountry": "EG"
+      }
+    ],
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.0871,
+      "longitude": 30.7616
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "09:00",
+        "closes": "23:59"
+      }
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+201228784569",
+      "contactType": "customer service",
+      "areaServed": "Minya",
+      "availableLanguage": ["Arabic", "English"]
+    },
+    "sameAs": [
+      "https://www.facebook.com/PaccinosCoffee",
+      "https://www.instagram.com/paccino_s"
+    ],
+    "hasMenu": "https://pacinos.engaz.tech/#menu",
+    "acceptsReservations": "False",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "584",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "potentialAction": {
+      "@type": "OrderAction",
+      "target": "https://wa.me/201228784569",
+      "name": "Order on WhatsApp"
+    }
+  }
+  </script>
 </body>
 </html>
 </html>

@@ -1,0 +1,41 @@
+# robots.txt for pacinos.engaz.tech
+# Tell all well-behaved crawlers they may index everything, and where the sitemap lives.
+# Search engine verification files (Google Search Console, Bing Webmaster) can be added
+# below by uncommenting the corresponding line and pasting the verification token.
+
+User-agent: *
+Allow: /
+
+# Disallow the few internal files that should never appear in search results
+Disallow: /server.log
+Disallow: /apply-colors.js
+Disallow: /extract*.js
+Disallow: /replace-icon.js
+Disallow: /rebuild-drawer.js
+Disallow: /reorder.js
+Disallow: /drawer.js
+Disallow: /annotate*.js
+Disallow: /fix-*.js
+Disallow: /rebuild-*.js
+Disallow: /audit*.js
+Disallow: /server.js
+Disallow: /setup-domain.ps1
+Disallow: /paccinos-data.json
+
+# Sitemap location — Google & Bing will use this to discover all pages.
+Sitemap: https://pacinos.engaz.tech/sitemap.xml
+
+# Crawl-delay for the noisiest bots (be polite to the server)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# Add your Google Search Console verification token here (uncomment + paste):
+# https://search.google.com/search-console → URL Prefix → HTML tag
+# Example: google-site-verification: abc123def456
+
+# Add your Bing Webmaster verification token here (uncomment + paste):
+# https://www.bing.com/webmasters → Verify Ownership → HTML <meta> tag
+# Example: msvalidate.01 = ABC123DEF456

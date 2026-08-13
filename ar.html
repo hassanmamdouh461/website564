@@ -25,13 +25,52 @@
   <!-- سطر مهم جداً للموبايل: بيخلي عرض الصفحة = عرض الشاشة -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Browser tab title + Google search result headline -->
+    <!-- Browser tab title + Google search result headline (Arabic primary, brand name first) -->
   <!-- عنوان الصفحة اللي بيظهر في تبويب المتصفح ونتائج جوجل -->
-  <title>Paccino's — Coffee &amp; Food Experience — Minya</title>
+  <title>باتشينوس — مقهى ومطعم إيطالي في المنيا منذ 2010 | Paccino's Minya</title>
+
+    <!-- SEO snippet shown under the page title in search results (Arabic) -->
+  <!-- وصف الموقع لمحركات البحث (SEO) -->
+  <meta name="description" content="باتشينوس Paccino's — مقهى ومطعم إيطالي في المنيا. قهوة مختصة وأطباق إيطالية طازة يومياً. فرعان: شارع طه حسين والمنيا الجديدة (مول كورنر بلازا). اطلب واتساب 01007811378." />
+  <meta name="keywords" content="باتشينوس, Paccino's, paccinos, بنى, مقهى المنيا, مطعم إيطالي المنيا, كافيه المنيا, مطاعم المنيا, قهوة مختصة, Minya restaurant, Italian restaurant Minya" />
+  <meta name="author" content="Paccino's" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="theme-color" content="#5C1425" />
+  <link rel="canonical" href="https://pacinos.engaz.tech/ar.html" />
+  <link rel="alternate" hreflang="ar" href="https://pacinos.engaz.tech/ar.html" />
+  <link rel="alternate" hreflang="en" href="https://pacinos.engaz.tech/" />
+  <link rel="alternate" hreflang="x-default" href="https://pacinos.engaz.tech/" />
+
+    <!-- ===== Open Graph (Facebook / WhatsApp / LinkedIn preview cards) ===== -->
+  <meta property="og:type" content="restaurant.restaurant" />
+  <meta property="og:site_name" content="Paccino's | باتشينوس" />
+  <meta property="og:title" content="باتشينوس Paccino's — مقهى ومطعم إيطالي في المنيا" />
+  <meta property="og:description" content="قهوة مختصة وأطباق إيطالية طازة يومياً في المنيا منذ 2010. فرعان: طه حسين والمنيا الجديدة. اطلب واتساب 01007811378." />
+  <meta property="og:url" content="https://pacinos.engaz.tech/ar.html" />
+  <meta property="og:image" content="https://pacinos.engaz.tech/images/paccino-12.jpg" />
+  <meta property="og:image:width" content="1600" />
+  <meta property="og:image:height" content="1254" />
+  <meta property="og:image:alt" content="باتشينوس Paccino's — تراس خارجي" />
+  <meta property="og:locale" content="ar_EG" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="restaurant:restaurant:contact_data:phone_number" content="+201228784569" />
+  <meta property="restaurant:restaurant:contact_data:website" content="https://pacinos.engaz.tech/" />
+  <meta property="business:contact_data:street_address" content="شارع طه حسين (أمام وابور النور)" />
+  <meta property="business:contact_data:locality" content="المنيا" />
+  <meta property="business:contact_data:region" content="المنيا" />
+  <meta property="business:contact_data:country_name" content="مصر" />
+
+    <!-- ===== Twitter Card (X / Twitter preview) ===== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="باتشينوس Paccino's — مقهى ومطعم إيطالي في المنيا" />
+  <meta name="twitter:description" content="قهوة مختصة وأطباق إيطالية في المنيا منذ 2010. فرعان + طلب واتساب." />
+  <meta name="twitter:image" content="https://pacinos.engaz.tech/images/paccino-12.jpg" />
+  <meta name="twitter:image:alt" content="باتشينوس Paccino's — تراس خارجي" />
 
     <!-- Favicon — burgundy "P" badge shown in the browser tab -->
   <!-- أيقونة الموقع (favicon) -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
     <!-- Language preference redirect: if the visitor has explicitly chosen English,
          take them to index.html. Otherwise, stay here (Arabic). -->
   <!-- نتذكر اختيار اللغة -->
@@ -353,7 +392,7 @@
 
       <!-- العنوان الرئيسي -->
       <!-- Brand name in large serif. responsive text size: 5xl on mobile, 7xl on desktop. -->
-      <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">Paccino's</h1>
+      <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">باتشينوس Paccino's</h1>
 
       <!-- السطر التعريفي تحت العنوان -->
       <!-- Tagline — one line on desktop, two on mobile (flex-wrap handles it). -->
@@ -995,6 +1034,91 @@
      to a section happens with a clean UI (no drawer over the content).
     for (var i = 0; i < links.length; i++) links[i].addEventListener("click", close);
   })();
+  </script>
+
+  <!-- ======================================================================
+       JSON-LD STRUCTURED DATA — Restaurant schema for rich Google results.
+       This is what lets Google show ratings, hours, location, and the contact
+       info directly in the search results page. Keep it in sync with the visible
+       page content (name, address, phone).
+       ====================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "@id": "https://pacinos.engaz.tech/ar.html#restaurant",
+    "name": "باتشينوس Paccino's",
+    "alternateName": ["باتشينوس", "Paccinos", "Paccino's", "Paccino's Coffee & Food Experience", "باتشينوس المنيا"],
+    "description": "باتشينوس Paccino's — مقهى ومطعم إيطالي في المنيا منذ 2010. قهوة مختصة وأطباق إيطالية طازة يومياً. فرعان: طه حسين والمنيا الجديدة.",
+    "url": "https://pacinos.engaz.tech/ar.html",
+    "inLanguage": "ar",
+    "logo": "https://pacinos.engaz.tech/favicon.svg",
+    "image": [
+      "https://pacinos.engaz.tech/images/paccino-12.jpg",
+      "https://pacinos.engaz.tech/images/paccino-5.jpg",
+      "https://pacinos.engaz.tech/images/paccino-13.jpg"
+    ],
+    "telephone": "+201228784569",
+    "email": "paccinoscafe@gmail.com",
+    "priceRange": "$$",
+    "servesCuisine": ["Italian", "Egyptian", "Coffee", "مأكولات إيطالية", "قهوة"],
+    "foundingDate": "2010",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "شارع طه حسين (أمام وابور النور)",
+        "addressLocality": "المنيا",
+        "addressRegion": "المنيا",
+        "addressCountry": "EG",
+        "postalCode": "61661"
+      },
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "مول كورنر بلازا، الحي الثالث",
+        "addressLocality": "المنيا الجديدة",
+        "addressRegion": "المنيا",
+        "addressCountry": "EG"
+      }
+    ],
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.0871,
+      "longitude": 30.7616
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "09:00",
+        "closes": "23:59"
+      }
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+201228784569",
+      "contactType": "customer service",
+      "areaServed": "المنيا",
+      "availableLanguage": ["Arabic", "English", "عربي", "إنجليزي"]
+    },
+    "sameAs": [
+      "https://www.facebook.com/PaccinosCoffee",
+      "https://www.instagram.com/paccino_s"
+    ],
+    "hasMenu": "https://pacinos.engaz.tech/ar.html#menu",
+    "acceptsReservations": "False",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "584",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "potentialAction": {
+      "@type": "OrderAction",
+      "target": "https://wa.me/201228784569",
+      "name": "اطلب عبر واتساب"
+    }
+  }
   </script>
 </body>
 </html>

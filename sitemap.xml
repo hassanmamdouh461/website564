@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sitemap for pacinos.engaz.tech
+  Lists every public page on the site with its language variant.
+  Google reads this to discover and index all pages.
+  Submit this file at: https://search.google.com/search-console → Sitemaps
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ============== English version (default) ============== -->
+  <url>
+    <loc>https://pacinos.engaz.tech/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pacinos.engaz.tech/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://pacinos.engaz.tech/ar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pacinos.engaz.tech/" />
+  </url>
+
+  <!-- ============== Arabic version ============== -->
+  <url>
+    <loc>https://pacinos.engaz.tech/ar.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://pacinos.engaz.tech/ar.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pacinos.engaz.tech/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pacinos.engaz.tech/" />
+  </url>
+
+</urlset>
