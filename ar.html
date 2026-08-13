@@ -757,10 +757,16 @@
     // دالة فتح/قفل القائمة
     // forceClose = true تعني "اقفل القائمة على طول مهما كانت حالتها"
     function toggleMenu(forceClose = false) {
-      // لو القائمة مخفية (فيها كلاس hidden) يبقى المطلوب فتحها، والعكس
-      const shouldOpen = forceClose ? false : mobileMenu.classList.contains('hidden');
-      mobileMenu.classList.toggle('hidden', !shouldOpen); // نظهر أو نخفي القائمة
-      updateNavbarState();  // نظهر X لو القائمة مفتوحة
+      // القائمة بتتبدل بين is-open و aria-hidden
+      const shouldOpen = forceClose ? false : !mobileMenu.classList.contains('is-open');
+      mobileMenu.classList.toggle('is-open', shouldOpen);
+      mobileBackdrop.classList.toggle('is-open', shouldOpen);
+      mobileMenu.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
+      mobileBackdrop.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
+      menuBtn.classList.toggle('is-open', shouldOpen);
+      menuBtn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+      document.body.classList.toggle('menu-locked', shouldOpen);
+      updateNavbarState();
     }
 
     // لما المستخدم يضغط على زر الهامبرغر -> افتح/اقفل القائمة

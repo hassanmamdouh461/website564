@@ -541,8 +541,14 @@
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileBackdrop = document.getElementById('mobile-backdrop');
     function toggleMenu(forceClose = false) {
-      const shouldOpen = forceClose ? false : mobileMenu.classList.contains('hidden');
-      mobileMenu.classList.toggle('hidden', !shouldOpen);
+      const shouldOpen = forceClose ? false : !mobileMenu.classList.contains('is-open');
+      mobileMenu.classList.toggle('is-open', shouldOpen);
+      mobileBackdrop.classList.toggle('is-open', shouldOpen);
+      mobileMenu.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
+      mobileBackdrop.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
+      menuBtn.classList.toggle('is-open', shouldOpen);
+      menuBtn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+      document.body.classList.toggle('menu-locked', shouldOpen);
       updateNavbarState();
     }
     menuBtn.addEventListener('click', () => toggleMenu());
