@@ -527,19 +527,16 @@
 
 
     const navbar = document.getElementById('navbar');
-    function updateNavbarState() {
-      const y = window.scrollY;
-      const menuOpen = !mobileMenu.classList.contains('hidden');
-      navbar.classList.toggle('nav-scrolled', y > 40 || menuOpen);
-      navbar.classList.toggle('nav-mid', !menuOpen && y > 0 && y <= 40);
-    }
-    updateNavbarState();
-    window.addEventListener('scroll', updateNavbarState, { passive: true });
-    window.addEventListener('resize', updateNavbarState);
     // Mobile menu
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileBackdrop = document.getElementById('mobile-backdrop');
+    function updateNavbarState() {
+      const y = window.scrollY;
+      const menuOpen = mobileMenu.classList.contains('is-open');
+      navbar.classList.toggle('nav-scrolled', y > 40 || menuOpen);
+      navbar.classList.toggle('nav-mid', !menuOpen && y > 0 && y <= 40);
+    }
     function toggleMenu(forceClose = false) {
       const shouldOpen = forceClose ? false : !mobileMenu.classList.contains('is-open');
       mobileMenu.classList.toggle('is-open', shouldOpen);
@@ -551,6 +548,9 @@
       document.body.classList.toggle('menu-locked', shouldOpen);
       updateNavbarState();
     }
+    updateNavbarState();
+    window.addEventListener('scroll', updateNavbarState, { passive: true });
+    window.addEventListener('resize', updateNavbarState);
     menuBtn.addEventListener('click', () => toggleMenu());
     mobileBackdrop.addEventListener('click', () => toggleMenu(true));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') toggleMenu(true); });

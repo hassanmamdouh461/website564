@@ -739,20 +739,21 @@
 
     // --------------------------------------------------------
     const navbar = document.getElementById('navbar');
+    // 2) قائمة الهامبرغر في الموبايل
+    // --------------------------------------------------------
+    const menuBtn = document.getElementById('menu-btn');       // زر الهامبرغر
+    const mobileMenu = document.getElementById('mobile-menu'); // القائمة المنبثقة
+    const mobileBackdrop = document.getElementById('mobile-backdrop'); // الخلفية
+
     function updateNavbarState() {
       const y = window.scrollY;
-      const menuOpen = !mobileMenu.classList.contains('hidden');
+      const menuOpen = mobileMenu.classList.contains('is-open');
       navbar.classList.toggle('nav-scrolled', y > 40 || menuOpen);
       navbar.classList.toggle('nav-mid', !menuOpen && y > 0 && y <= 40);
     }
     updateNavbarState();
     window.addEventListener('scroll', updateNavbarState, { passive: true });
     window.addEventListener('resize', updateNavbarState);
-    // 2) قائمة الهامبرغر في الموبايل
-    // --------------------------------------------------------
-    const menuBtn = document.getElementById('menu-btn');       // زر الهامبرغر
-    const mobileMenu = document.getElementById('mobile-menu'); // القائمة المنبثقة
-    const mobileBackdrop = document.getElementById('mobile-backdrop'); // الخلفية
 
     // دالة فتح/قفل القائمة
     // forceClose = true تعني "اقفل القائمة على طول مهما كانت حالتها"
