@@ -92,44 +92,67 @@
     #gallery.gallery-revealed .gallery-fade img:nth-child(3) { transition-delay: 0.31s; }
     #gallery.gallery-revealed .gallery-fade img:nth-child(4) { transition-delay: 0.05s; }
     #gallery.gallery-revealed .gallery-fade img:nth-child(5) { transition-delay: 0.18s; }
-    #gallery.gallery-revealed .gallery-fade img:nth-child(6) { transition-delay: 0.31s; }to { opacity:1; transform: none; } }
+    #gallery.gallery-revealed .gallery-fade img:nth-child(6) { transition-delay: 0.31s; }
+
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--color-primary-dark); }
     ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 4px; }
-  /* === Mobile menu drawer (slide-in side panel with backdrop) === */
-    #mobile-menu {
-      position: fixed; top: 0; right: 0; height: 100vh; height: 100dvh; width: min(85vw, 320px);
+  /* === Mobile side menu (clean rebuild) === */
+    #menuBtn {
+      display: none; align-items: center; justify-content: center;
+      width: 44px; height: 44px;
+      background: rgba(234,213,193,0.12);
+      border: 1px solid rgba(234,213,193,0.25);
+      border-radius: 12px;
+      padding: 0; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    #menuBtn:hover { background: rgba(234,213,193,0.22); transform: scale(1.05); }
+    #menuBtn > span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; margin: 3px 0; transition: transform 0.3s ease, opacity 0.2s ease; transform-origin: center; }
+    #menuBtn[aria-expanded="true"] > span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    #menuBtn[aria-expanded="true"] > span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    #menuBtn[aria-expanded="true"] > span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    @media (max-width: 1023px) { #menuBtn { display: inline-flex; } }
+    #menuOverlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+      opacity: 0; transition: opacity 0.3s ease;
+      z-index: 998;
+    }
+    #menuOverlay:not([hidden]) { opacity: 1; }
+    #sideMenu {
+      position: fixed; top: 0; right: 0;
+      width: min(85vw, 340px); height: 100vh; height: 100dvh;
       background: linear-gradient(180deg, rgba(61,10,23,0.98) 0%, rgba(43,6,16,0.98) 100%);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-      transform: translateX(100%); transition: transform 0.4s cubic-bezier(.22,1,.36,1);
-      padding: 5rem 1.75rem 2rem;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+      padding: 5.5rem 1.75rem 2rem;
+      overflow-y: auto;
       box-shadow: -10px 0 40px rgba(0,0,0,0.45);
-      z-index: 60; overflow-y: auto;
+      z-index: 999;
     }
-    html[dir="rtl"] #mobile-menu { right: auto; left: 0; transform: translateX(-100%); box-shadow: 10px 0 40px rgba(0,0,0,0.45); }
-    #mobile-menu.is-open { transform: translateX(0); }
-    #mobile-backdrop {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.55);
-      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-      z-index: 55;
+    [dir="rtl"] #sideMenu { right: auto; left: 0; transform: translateX(-100%); box-shadow: 10px 0 40px rgba(0,0,0,0.45); }
+    #sideMenu:not([hidden]) { transform: translateX(0); }
+    #sideMenu ul { list-style: none; margin: 0; padding: 0; }
+    #sideMenu ul li a {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 1rem 0.25rem;
+      color: white; font-size: 1.05rem; font-weight: 500;
+      border-bottom: 1px solid rgba(234,213,193,0.12);
+      transition: color 0.2s, padding 0.2s;
+      text-decoration: none;
     }
-    #mobile-backdrop.is-open { opacity: 1; pointer-events: auto; }
-    #mobile-menu ul li a { display: flex; align-items: center; gap: 0.75rem; padding: 0.95rem 0; font-size: 1.1rem; border-bottom: 1px solid rgba(234,213,193,0.12); transition: color 0.2s, padding 0.2s; }
-    #mobile-menu ul li a:hover { color: #EAD5C1; padding-left: 0.4rem; }
-    html[dir="rtl"] #mobile-menu ul li a:hover { padding-left: 0; padding-right: 0.4rem; }
-    #mobile-menu ul li a::before {
+    #sideMenu ul li a:hover { color: #EAD5C1; padding-left: 0.6rem; }
+    [dir="rtl"] #sideMenu ul li a:hover { padding-left: 0.25rem; padding-right: 0.6rem; }
+    #sideMenu ul li a::before {
       content: ""; width: 0.4rem; height: 0.4rem; border-radius: 50%;
-      background: #EAD5C1; opacity: 0.4; transition: opacity 0.2s, transform 0.2s;
+      background: #EAD5C1; opacity: 0.4;
+      transition: opacity 0.2s, transform 0.2s;
     }
-    #mobile-menu ul li a:hover::before { opacity: 1; transform: scale(1.4); }
-    .menu-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(234,213,193,0.12); border: 1px solid rgba(234,213,193,0.25); transition: all 0.2s; }
-    .menu-toggle:hover { background: rgba(234,213,193,0.22); transform: scale(1.05); }
-    .menu-toggle .bar { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; margin: 3px 0; transition: all 0.3s ease; transform-origin: center; }
-    .menu-toggle.is-open .bar:nth-child(1) { transform: translateY(5px) rotate(45deg); }
-    .menu-toggle.is-open .bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .menu-toggle.is-open .bar:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
-    html { scrollbar-gutter: stable; }
-    body.menu-locked { overflow: hidden; }
+    #sideMenu ul li a:hover::before { opacity: 1; transform: scale(1.4); }
+    .sideCta { display: block; width: 100%; text-align: center; margin-top: 1.5rem; padding: 0.9rem 1.5rem; background: #EAD5C1; color: #3D0A17; font-weight: 600; border-radius: 999px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .sideCta:hover { background: white; transform: scale(1.02); }
+    body.menuOpen { overflow: hidden; }
   </style>
 </head>
 <body class="font-body bg-cream text-espresso antialiased">
@@ -161,39 +184,26 @@
         Order on WhatsApp
       </a>
 
-      <button id="menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false" class="menu-toggle lg:hidden text-white focus:outline-none">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
+      <button id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sideMenu">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
 
     <!-- Mobile menu -->
     </header>
-    <div id="mobile-backdrop" aria-hidden="true"></div>
-    <aside id="mobile-menu" aria-hidden="true">
-      <ul>
-        <li><a href="#home" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Home</a></li>
-        <li><a href="#about" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">About</a></li>
-        <li><a href="#menu" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Menu</a></li>
-        <li><a href="#gallery" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Gallery</a></li>
-        <li><a href="#reviews" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Reviews</a></li>
-        <li><a href="#contact" class="mobile-link block py-3 hover:text-caramel transition-colors duration-300">Contact</a></li>
-        <li>
-          <a href="ar.html" onclick="try{localStorage.setItem('pac_lang','ar')}catch(e){}"
-             class="mobile-link flex items-center gap-2 py-3 text-caramel font-semibold transition-colors duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a15.3 15.3 0 0 1 0 18M12 3a15.3 15.3 0 0 0 0 18"/></svg>
-            التبديل إلى العربية
-          </a>
-        </li>
-        <li class="pt-2 pb-3">
-          <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
-             class="block text-center bg-caramel text-espresso font-semibold px-6 py-3 rounded-full hover:bg-white transition-all duration-300">
-            Order on WhatsApp
-          </a>
-        </li>
-      </ul>
-    </aside>
+  <div id="menuOverlay" hidden></div>
+  <nav id="sideMenu" aria-label="Mobile navigation" aria-hidden="true" hidden>
+    <ul>
+      <li><a href="#home" data-close>Home</a></li>
+      <li><a href="#about" data-close>About</a></li>
+      <li><a href="#menu" data-close>Menu</a></li>
+      <li><a href="#gallery" data-close>Gallery</a></li>
+      <li><a href="#reviews" data-close>Reviews</a></li>
+      <li><a href="#contact" data-close>Contact</a></li>
+      <li><a href="ar.html" onclick="try{localStorage.setItem("pac_lang","ar")}catch(e){}" data-close>Switch to Arabic</a></li>
+    </ul>
+    <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer" class="sideCta">Order on WhatsApp</a>
+  </nav>
   <!-- Hero: full-screen terrace photo with burgundy overlay -->
   <section id="home" class="relative min-h-screen flex items-center justify-center text-center">
     <div class="absolute inset-0">
@@ -527,39 +537,55 @@
 
 
     const navbar = document.getElementById('navbar');
-    // Mobile menu
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileBackdrop = document.getElementById('mobile-backdrop');
     function updateNavbarState() {
       const y = window.scrollY;
-      const menuOpen = mobileMenu.classList.contains('is-open');
+      const menuOpen = document.body.classList.contains('menuOpen');
       navbar.classList.toggle('nav-scrolled', y > 40 || menuOpen);
       navbar.classList.toggle('nav-mid', !menuOpen && y > 0 && y <= 40);
-    }
-    function toggleMenu(forceClose = false) {
-      const shouldOpen = forceClose ? false : !mobileMenu.classList.contains('is-open');
-      mobileMenu.classList.toggle('is-open', shouldOpen);
-      mobileBackdrop.classList.toggle('is-open', shouldOpen);
-      mobileMenu.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
-      mobileBackdrop.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
-      menuBtn.classList.toggle('is-open', shouldOpen);
-      menuBtn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
-      document.body.classList.toggle('menu-locked', shouldOpen);
-      updateNavbarState();
     }
     updateNavbarState();
     window.addEventListener('scroll', updateNavbarState, { passive: true });
     window.addEventListener('resize', updateNavbarState);
-    menuBtn.addEventListener('click', () => toggleMenu());
-    mobileBackdrop.addEventListener('click', () => toggleMenu(true));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') toggleMenu(true); });
-    document.querySelectorAll('.mobile-link').forEach((link) => {
-      link.addEventListener('click', () => toggleMenu(true));
-    });
 
 
     document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  
+  
+  <!-- Side menu (clean rebuild) -->
+  <script>
+  (function(){
+    var btn = document.getElementById("menuBtn");
+    var menu = document.getElementById("sideMenu");
+    var overlay = document.getElementById("menuOverlay");
+    if (!btn || !menu || !overlay) return;
+    function open(){
+      menu.hidden = false;
+      overlay.hidden = false;
+      requestAnimationFrame(function(){
+        btn.setAttribute("aria-expanded","true");
+        menu.setAttribute("aria-hidden","false");
+        document.body.classList.add("menuOpen");
+      });
+    }
+    function close(){
+      btn.setAttribute("aria-expanded","false");
+      menu.setAttribute("aria-hidden","true");
+      document.body.classList.remove("menuOpen");
+      setTimeout(function(){
+        menu.hidden = true;
+        overlay.hidden = true;
+      }, 400);
+    }
+    function toggle(){
+      btn.getAttribute("aria-expanded") === "true" ? close() : open();
+    }
+    btn.addEventListener("click", toggle);
+    overlay.addEventListener("click", close);
+    document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
+    var links = menu.querySelectorAll("[data-close]");
+    for (var i = 0; i < links.length; i++) links[i].addEventListener("click", close);
+  })();
   </script>
 </body>
 </html>
