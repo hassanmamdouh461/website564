@@ -8,38 +8,49 @@
        3) Vanilla JS    -> قائمة الموبايل + أنيميشن الظهور عند التمرير
      ========================================================================== -->
 
+<!-- HTML5 doctype declaration (no DTD, modern syntax) -->
 <!-- إعلان نوع المستند: HTML5 -->
 <!DOCTYPE html>
 
+<!-- Document opens in Arabic (RTL direction) with smooth-scroll enabled for in-page anchors -->
 <!-- لغة الصفحة إنجليزية + تفعيل التمرير السلس عند الضغط على روابط الأقسام -->
 <html lang="ar" dir="rtl" class="scroll-smooth">
 
 <head>
+    <!-- UTF-8 encoding so all Arabic + special characters render correctly -->
   <!-- ترميز الحروف: UTF-8 عشان يدعم كل اللغات والرموز -->
   <meta charset="UTF-8" />
 
+    <!-- Makes the page mobile-friendly by matching the viewport width to device pixels -->
   <!-- سطر مهم جداً للموبايل: بيخلي عرض الصفحة = عرض الشاشة -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Browser tab title + Google search result headline -->
   <!-- عنوان الصفحة اللي بيظهر في تبويب المتصفح ونتائج جوجل -->
   <title>Paccino's — Coffee &amp; Food Experience — Minya</title>
 
+    <!-- Favicon — burgundy "P" badge shown in the browser tab -->
   <!-- أيقونة الموقع (favicon) -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <!-- Language preference redirect: if the visitor has explicitly chosen English,
+         take them to index.html. Otherwise, stay here (Arabic). -->
   <!-- نتذكر اختيار اللغة -->
   <script>
     try{ if(localStorage.getItem('pac_lang')==='en' && location.pathname.indexOf('ar.html')!==-1){ location.replace('index.html'+location.hash); } }catch(e){}
   </script>
 
+    <!-- SEO snippet shown under the page title in search results -->
   <!-- وصف الموقع لمحركات البحث (SEO) -->
   <meta name="description" content="Paccino's — Coffee & Food Experience in Minya since 2010. Italian restaurant & café serving hand-crafted coffee and delicious food." />
 
   <!-- ================= تحميل الخطوط من Google Fonts ================= -->
 
+    <!-- Preconnect opens the TCP/TLS handshake to Google Fonts early so font requests start sooner. -->
   <!-- تحسين سرعة التحميل: الاتصال المبكر بسيرفرات جوجل -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+    <!-- Load Playfair Display (serif headings) + Cairo (body text) — these are also the Tailwind font-family tokens. -->
   <!-- بنحمّل خطين:
        - Playfair Display : خط Serif فخم للعناوين
        - Inter            : خط Sans-serif نظيف للنصوص والأزرار -->
@@ -47,9 +58,13 @@
 
   <!-- ================= تحميل Tailwind CSS ================= -->
 
+    <!-- Tailwind CSS via CDN — no build step. Generates utility classes on the fly from the markup. -->
   <!-- سكريبت Tailwind الرسمي (CDN) — من غيره كلاسات Tailwind مش هتشتغل -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+      <!-- Brand color tokens + custom font families — extended into Tailwind so we can use
+           classes like `bg-espresso` and `font-heading` directly. The CDN script reads this
+           config when it boots and JIT-generates the matching utility classes. -->
   <!-- إعدادات Tailwind المخصصة: بنضيف ألواننا وخطوطنا -->
   <script>
     tailwind.config = {
@@ -70,6 +85,11 @@
     };
   </script>
 
+  /* ====================================================================
+     CUSTOM CSS — rules that Tailwind can't express (or that's nicer as plain CSS).
+     Grouped in 6 blocks: 1) brand variables, 2) reveal animations,
+     3) menu book, 4) navbar states, 5) gallery cascade, 6) mobile menu.
+     ==================================================================== */
   <!-- ================= تنسيقات CSS مخصصة (اللي Tailwind مش بيعملها) ================= -->
   <style>
     :root {
@@ -226,6 +246,7 @@
   </style>
 </head>
 
+<!-- Page body: Tailwind base styles (font, bg, text colors, antialiased) on top of our custom CSS. -->
 <!-- جسم الصفحة: خط Inter + خلفية كريمية + لون نص بني + تحسين شكل الخط -->
 <body class="font-body bg-cream text-espresso antialiased">
 
@@ -236,13 +257,17 @@
   <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out">
     <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-10 h-20">
 
+      <!-- Brand logo — clicking it jumps to the hero (top of page). -->
       <!-- شعار الموقع (نص) — بيرجع لقسم الهيرو لما تضغط عليه -->
       <a href="#home" class="font-heading text-2xl md:text-3xl font-bold text-white tracking-wide hover:text-caramel transition-colors duration-300">
         Paccino's
       </a>
 
+      <!-- Desktop navigation links. `hidden lg:flex` means: hidden by default,
+           visible as a horizontal flex row on screens >= 1024px wide. -->
       <!-- روابط التنقل — مخفية على الموبايل (hidden) وظاهرة على الشاشات الكبيرة (lg:flex) -->
       <ul class="hidden lg:flex items-center gap-8 text-white text-sm font-medium tracking-wider uppercase">
+        <!-- Each anchor uses smooth-scroll thanks to the .scroll-smooth class on <html>. -->
         <!-- كل رابط بينزل بسلاسة للقسم المطلوب (بسبب scroll-smooth) -->
         <li><a href="#home" class="hover:text-caramel transition-colors duration-300">الرئيسية</a></li>
         <li><a href="#about" class="hover:text-caramel transition-colors duration-300">عننا</a></li>
@@ -252,6 +277,9 @@
         <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">تواصل</a></li>
       </ul>
 
+      <!-- Language switcher (Arabic -> English). The onclick saves the choice in
+           localStorage so subsequent visits load the chosen language. The link is
+           hidden on mobile (the side menu has its own switcher). -->
       <!-- زر تغيير اللغة → English (النسخة الإنجليزية هي الافتراضية) -->
       <a href="index.html" onclick="try{localStorage.setItem('pac_lang','en')}catch(e){}"
          class="hidden lg:flex items-center gap-1.5 text-white/85 hover:text-caramel transition-colors duration-300 text-sm font-semibold border border-white/25 hover:border-caramel rounded-full px-4 py-2" aria-label="Switch to English">
@@ -260,22 +288,33 @@
       </a>
 
       <!-- زر "اطلب أونلاين" — رابط خارجي بيفتح في تبويب جديد -->
+      <!-- Primary CTA "Order on WhatsApp". Always visible on desktop, hidden on mobile
+           (the side menu has the same CTA). target="_blank" opens in a new tab. -->
       <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
          class="hidden lg:inline-block bg-caramel text-espresso font-semibold px-6 py-2.5 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-md">
         اطلب واتساب
       </a>
 
       <!-- زر الهامبرغر (☰) — ظاهر على الموبايل والتابلت بس (lg:hidden) -->
+      <!-- Mobile menu trigger (coffee-cup SVG that morphs into X on open).
+           aria-expanded="false" is the canonical source of truth for open/closed state;
+           CSS uses [aria-expanded="true"] selectors to swap the icon. -->
       <button id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sideMenu">
         <svg class="menuIcon menuIcon-coffee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
         <svg class="menuIcon menuIcon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
       </button>
     </nav>
+    </nav>
 
     <!-- قائمة الموبايل المنبثقة — مخفية افتراضياً (hidden) والجافاسكريبت بينوّرها -->
     </header>
+  <!-- Dark backdrop that dims the page when the side menu is open. Clicking it closes the menu. -->
   <div id="menuOverlay" hidden></div>
+  <!-- Side menu (clean rebuild): IIFE-scoped, doesn't pollute the global namespace. -->
+  <!-- Side menu drawer. `hidden` attribute is the initial closed state. When JS sets
+       hidden=false, the CSS [dir=rtl] variant flips the slide-in direction for Arabic. -->
   <nav id="sideMenu" aria-label="قائمة الموبايل" aria-hidden="true" hidden>
+    <!-- Each link has data-close so JS can auto-close the menu when the user navigates. -->
     <ul>
       <li><a href="#home" data-close>الرئيسية</a></li>
       <li><a href="#about" data-close>عننا</a></li>
@@ -286,6 +325,7 @@
       <li><a href="index.html" onclick="try{localStorage.setItem('pac_lang','en')}catch(e){}" data-close>English Version</a></li>
     </ul>
     <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer" class="sideCta">اطلب واتساب</a>
+  <!-- End of side menu drawer -->
   </nav>
 
   <!-- ======================================================================
@@ -295,26 +335,34 @@
   <section id="home" class="relative min-h-screen flex items-center justify-center text-center">
 
     <!-- صورة الخلفية + طبقة تعتيم فوقها -->
+    <!-- Background image + overlay. position absolute fills the entire <section>. -->
     <div class="absolute inset-0">
       <!-- صورة الخلفية: التراس الخارجي بتاع باتشينوس — بتمركز على الجزء العلوي اللي فيه اللوجو -->
+      <!-- Terrace photo (edited). object-cover fills the container; object-[center_30%]
+           shifts the focal point upward so the lit sign stays visible after cropping. -->
       <img src="images/paccino-12.jpg"
            alt="Paccino's café" class="w-full h-full object-cover object-[center_30%]" />
       <!-- طبقة بنية شفافة 70% عشان النص الأبيض يبقى واضح -->
+      <!-- Dark overlay (70% opacity espresso) tints the image and guarantees readable text. -->
       <div class="absolute inset-0 bg-espresso/70"></div>
     </div>
 
     <!-- محتوى الهيرو (فوق الصورة بسبب z-10) -->
+    <!-- Foreground content. z-10 keeps it above the background image + overlay. -->
     <div class="relative z-10 px-6 max-w-4xl mx-auto reveal visible pt-24 pb-16">
 
       <!-- العنوان الرئيسي -->
+      <!-- Brand name in large serif. responsive text size: 5xl on mobile, 7xl on desktop. -->
       <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">Paccino's</h1>
 
       <!-- السطر التعريفي تحت العنوان -->
+      <!-- Tagline — one line on desktop, two on mobile (flex-wrap handles it). -->
       <p class="text-lg md:text-2xl text-cream/90 mb-10 font-light max-w-2xl mx-auto">
         Coffee &amp; Food Experience — باتشينوس عشرة من 2010. قهوة مختصة وأكل إيطالي في قلب المنيا.
       </p>
 
       <!-- الزرارين جنب بعض على الكمبيوتر، وتحت بعض على الموبايل -->
+      <!-- CTA button row. Stacks on mobile (flex-col), side-by-side on tablet+ (sm:flex-row). -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
         <!-- زر داخلي: بينزل لقسم المنيو -->
         <a href="#menu"
@@ -329,6 +377,8 @@
       </div>
 
       <!-- أيقونات السوشيال ميديا (SVG مرسوم بالكود — مش ملفات) -->
+      <!-- Social media icons (Instagram, Facebook, WhatsApp). Each icon is an inline SVG
+           so it inherits the current text color and scales with font size. -->
       <div class="flex items-center justify-center gap-6 text-cream/80">
         <!-- أيقونة إنستجرام -->
         <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-caramel hover:scale-110 transition-all duration-300">
@@ -352,6 +402,7 @@
         </a>
       </div>
     </div>
+  <!-- End of hero -->
   </section>
 
   <!-- ======================================================================
@@ -409,6 +460,8 @@
       </div>
 
       <!-- الأزرار تحت الكروت -->
+      <!-- Action buttons under the cards: "Full Menu" jumps to the menu section,
+           "Order on WhatsApp" opens the same WhatsApp link as the hero CTA. -->
       <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4 mt-14">
         <a href="#menu"
            class="bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md w-64 sm:w-auto text-center">
@@ -420,6 +473,7 @@
         </a>
       </div>
     </div>
+  <!-- End of hero -->
   </section>
 
   <!-- ======================================================================
@@ -437,6 +491,7 @@
       </div>
 
       <!-- Branches -->
+      <!-- Two-column grid: each branch gets a card with name, address, and delivery phone. -->
       <div class="reveal reveal-delay-3 grid gap-6 md:grid-cols-2 text-right mt-10">
         <div class="bg-white/5 rounded-xl p-6 border border-white/10">
           <p class="text-caramel font-semibold mb-2">📍 فرع طه حسين</p>
@@ -453,6 +508,7 @@
         تابعنا على إنستجرام @paccino_s
       </a>
     </div>
+  <!-- End of hero -->
   </section>
 
   <!-- ======================================================================
@@ -499,6 +555,7 @@
         </div>
       </div>
     </div>
+  <!-- End of hero -->
   </section>
 
   <!-- ======================================================================
@@ -511,16 +568,28 @@
 
       <!-- جاليري ماسونري: كل صورة بمقاسها الطبيعي بدون أي قص — لقطات المكان بس -->
       <div class="columns-2 md:columns-3 gap-4 md:gap-6 gallery-fade">
+        <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
+             `loading="lazy"` defers off-screen images to improve first-paint performance. -->
         <img src="images/paccino-5.jpg" alt="جلسات باتشينوس الداخلية" loading="lazy"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+        <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
+             `loading="lazy"` defers off-screen images to improve first-paint performance. -->
         <img src="images/paccino-6.jpg" alt="ترابيزة الشغل" loading="lazy"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+        <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
+             `loading="lazy"` defers off-screen images to improve first-paint performance. -->
         <img src="images/paccino-7.jpg" alt="ترابيزة الهدوء وقت الغروب" loading="lazy"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+        <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
+             `loading="lazy"` defers off-screen images to improve first-paint performance. -->
         <img src="images/paccino-4.jpg" alt="جلسة على الواجهة الزجاجية" loading="lazy"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+        <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
+             `loading="lazy"` defers off-screen images to improve first-paint performance. -->
         <img src="images/paccino-8.jpg" alt="ترابيزة الحبيبة" loading="lazy"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
+        <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
+             `loading="lazy"` defers off-screen images to improve first-paint performance. -->
         <img src="images/paccino-9.jpg" alt="جلسة بجانب البلكونة" loading="lazy"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
       </div>
@@ -532,6 +601,7 @@
         </a>
       </div>
     </div>
+  <!-- End of hero -->
   </section>
 
   <!-- ======================================================================
@@ -553,16 +623,19 @@
       <!-- كروت التقييمات الثلاثة -->
       <div class="grid gap-8 md:grid-cols-3">
         <!-- التقييم الأول -->
+        <!-- Each <blockquote> is a single testimonial. -->
         <blockquote class="reveal reveal-delay-1 rounded-2xl p-8 shadow-lg hover:scale-105 transition-all duration-300" style="background-color:#F3EFE4;color:#1C2B1A;">
           <p class="leading-relaxed mb-6 italic">"One of the best places — high quality food with reasonable prices. The staff is so friendly, and the portions are generous. Always my favorite place ❤️"</p>
           <footer class="font-semibold" style="color:#A98A4B;">— Miral Robert (فيسبوك)</footer>
         </blockquote>
         <!-- التقييم التاني -->
+        <!-- Each <blockquote> is a single testimonial. -->
         <blockquote class="reveal reveal-delay-2 rounded-2xl p-8 shadow-lg hover:scale-105 transition-all duration-300" style="background-color:#F3EFE4;color:#1C2B1A;">
           <p class="leading-relaxed mb-6 italic">"Tried the Watermelon Blast refresher on a hot day and it did not disappoint. Super refreshing!"</p>
           <footer class="font-semibold" style="color:#A98A4B;">— زائر من المنيا</footer>
         </blockquote>
         <!-- التقييم التالت -->
+        <!-- Each <blockquote> is a single testimonial. -->
         <blockquote class="reveal reveal-delay-3 rounded-2xl p-8 shadow-lg hover:scale-105 transition-all duration-300" style="background-color:#F3EFE4;color:#1C2B1A;">
           <p class="leading-relaxed mb-6 italic">"القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."</p>
           <footer class="font-semibold" style="color:#A98A4B;">— عميل دائم</footer>
@@ -576,6 +649,7 @@
         </a>
       </div>
     </div>
+  <!-- End of hero -->
   </section>
 
   <!-- ======================================================================
@@ -625,6 +699,8 @@
         <!-- الناحية التانية: خريطتين — فرع طه حسين وفرع المنيا الجديدة -->
         <div class="reveal reveal-delay-2 space-y-8">
           <!-- خريطة فرع طه حسين -->
+          <!-- Map container: rounded corners + deep shadow. The iframe is `output=embed` so
+               it renders inline without leaving the page. -->
           <div class="rounded-2xl overflow-hidden shadow-xl h-64 md:h-72">
             <iframe
               src="https://maps.google.com/maps?q=Paccino's+Coffee+Taha+Hussein+St+Minya+Egypt&z=16&output=embed"
@@ -636,6 +712,8 @@
           </div>
           <p class="text-center font-semibold" style="color:#5C1425;">📍 فرع طه حسين</p>
           <!-- خريطة فرع المنيا الجديدة -->
+          <!-- Map container: rounded corners + deep shadow. The iframe is `output=embed` so
+               it renders inline without leaving the page. -->
           <div class="rounded-2xl overflow-hidden shadow-xl h-64 md:h-72">
             <iframe
               src="https://maps.google.com/maps?q=Corner+Plaza+Mall+New+Minya+Egypt&z=16&output=embed"
@@ -649,6 +727,7 @@
         </div>
       </div>
     </div>
+  <!-- End of hero -->
   </section>
 
   <!-- ======================================================================
@@ -704,11 +783,34 @@
        الجافاسكريبت: قائمة الموبايل + أنيميشن الظهور + سنة الفوتر
        ====================================================================== -->
   <script>
+    /* ====================================================================
+       SECTION 2: NAVBAR STATE
+       Inspects scroll position and the mobile menu state, then toggles the right CSS
+       class on the navbar so it always looks correct. The CSS only needs to know about
+       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
+       specific colors or blur values.
+       ==================================================================== */
     // --------------------------------------------------------
+    /* ====================================================================
+       SECTION 1: SCROLL REVEAL
+       IntersectionObserver adds .visible to any .reveal element when it scrolls into view.
+       The observer is one-shot (unobserve after first hit) so animations don't replay on
+       every scroll pass. threshold=0.15 means the element is considered "in view" when
+       15% of it is on screen. rootMargin -40px shrinks the trigger area at the bottom so
+       elements animate as they enter, not after they're fully on screen.
+       ==================================================================== */
     // 1) أنيميشن الظهور عند التمرير (Scroll Reveal)
     //    IntersectionObserver بيراقب العناصر: أول ما عنصر يدخل
     //    الشاشة، بنضيفله كلاس .visible فيظهر بحركة ناعمة
+    /* ====================================================================
+       SECTION 2: NAVBAR STATE
+       Inspects scroll position and the mobile menu state, then toggles the right CSS
+       class on the navbar so it always looks correct. The CSS only needs to know about
+       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
+       specific colors or blur values.
+       ==================================================================== */
     // --------------------------------------------------------
+    // Build the observer. The callback fires every time an observed element's intersection changes.
     const revealObserver = new IntersectionObserver(
       (entries) => {
         // entries = قائمة العناصر اللي حالتها اتغيرت
@@ -721,9 +823,11 @@
         });
       },
       // الإعدادات: العنصر يظهر لما 15% منه يكون باين، مع هامش سفلي 40px
+      // Observation config: 15% visibility threshold + 40px bottom margin.
       { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
     // نراقب كل العناصر اللي عليها كلاس .reveal
+    // Find every element with the .reveal class and ask the observer to watch it.
     document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
     // Gallery: trigger the cascade animation only when the section scrolls into view
     const gallerySection = document.getElementById('gallery');
@@ -733,75 +837,162 @@
       }, { threshold: 0.05 });
       galleryObs.observe(gallerySection);
     }
+    /* MOBILE GALLERY FALLBACK: CSS multi-column layout can hide images from
+       the IntersectionObserver (a tall image in column 2 may be inside the layout but
+       outside the viewport in the observer's math). This on-scroll check finds any
+       .reveal element that's already on screen but still hidden, and shows it. */
     // Fallback for CSS-columns masonry on mobile: observer can miss an image
     // inside a column, so on scroll also check anything still hidden that is
     // already on screen — below-the-fold sections keep their animation.
     function revealMissed() {
+    function revealMissed() {
+      // Loop over every hidden reveal element (the :not(.visible) filter is important
+           so we don't re-process already-visible ones).
       document.querySelectorAll('.reveal:not(.visible)').forEach((el) => {
         const r = el.getBoundingClientRect();
+        // If the element's top edge is within 92% of viewport height AND bottom > 0 (not above),
+           then it's "in view" by any reasonable definition — show it.
         if (r.top < window.innerHeight * 0.92 && r.bottom > 0) el.classList.add('visible');
       });
     }
+    // Listen on scroll and on load (catches the initial visible items). passive:true tells
+     the browser we won't call preventDefault, so it can't block scrolling.
     window.addEventListener('scroll', revealMissed, { passive: true });
     window.addEventListener('load', revealMissed);
 
 
+    /* ====================================================================
+       SECTION 2: NAVBAR STATE
+       Inspects scroll position and the mobile menu state, then toggles the right CSS
+       class on the navbar so it always looks correct. The CSS only needs to know about
+       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
+       specific colors or blur values.
+       ==================================================================== */
     // --------------------------------------------------------
+    // Cache the navbar element for the next block.
     const navbar = document.getElementById('navbar');
 
     function updateNavbarState() {
+    function updateNavbarState() {
+      // Capture scroll position once per call (used multiple times below).
       const y = window.scrollY;
       const menuOpen = document.body.classList.contains('menuOpen');
       navbar.classList.toggle('nav-scrolled', y > 40 || menuOpen);
       navbar.classList.toggle('nav-mid', !menuOpen && y > 0 && y <= 40);
     }
     updateNavbarState();
+    // Re-evaluate on every scroll (passive: same as before, doesn't block scroll).
     window.addEventListener('scroll', updateNavbarState, { passive: true });
+    // Re-evaluate on window resize (mobile menu state may differ after rotation).
     window.addEventListener('resize', updateNavbarState);
 
+    /* ====================================================================
+       SECTION 2: NAVBAR STATE
+       Inspects scroll position and the mobile menu state, then toggles the right CSS
+       class on the navbar so it always looks correct. The CSS only needs to know about
+       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
+       specific colors or blur values.
+       ==================================================================== */
     // --------------------------------------------------------
     // 3) تحويل الـ Navbar من شفاف لـ burgundy أثناء التمرير
+    /* ====================================================================
+       SECTION 2: NAVBAR STATE
+       Inspects scroll position and the mobile menu state, then toggles the right CSS
+       class on the navbar so it always looks correct. The CSS only needs to know about
+       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
+       specific colors or blur values.
+       ==================================================================== */
     // --------------------------------------------------------
 
+    /* ====================================================================
+       SECTION 2: NAVBAR STATE
+       Inspects scroll position and the mobile menu state, then toggles the right CSS
+       class on the navbar so it always looks correct. The CSS only needs to know about
+       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
+       specific colors or blur values.
+       ==================================================================== */
     // --------------------------------------------------------
+    // Footer copyright year: filled in dynamically so the page never goes out of date.
     // 4) كتابة السنة الحالية في الفوتر أوتوماتيك
+    /* ====================================================================
+       SECTION 2: NAVBAR STATE
+       Inspects scroll position and the mobile menu state, then toggles the right CSS
+       class on the navbar so it always looks correct. The CSS only needs to know about
+       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
+       specific colors or blur values.
+       ==================================================================== */
     // --------------------------------------------------------
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
   
   
+  <!-- Side menu (clean rebuild): IIFE-scoped, doesn't pollute the global namespace. -->
   <!-- Side menu (clean rebuild) -->
   <script>
   (function(){
+  (function(){
+    var btn = document.getElementById("menuBtn");
     var btn = document.getElementById("menuBtn");
     var menu = document.getElementById("sideMenu");
+    var menu = document.getElementById("sideMenu");
     var overlay = document.getElementById("menuOverlay");
+    var overlay = document.getElementById("menuOverlay");
+    // Defensive exit: if any element is missing (e.g. cached HTML), do nothing
+     rather than throwing on every click.
     if (!btn || !menu || !overlay) return;
+    /* Open the drawer. Order of operations matters:
+       1) Make elements visible (hidden=false) so the browser lays them out.
+       2) On the next animation frame, set aria-* and add the body class so CSS
+          transitions can animate from the off-screen state. */
     function open(){
+      // Show both elements first (CSS transition needs a layout to animate from).
       menu.hidden = false;
+      // Same for the backdrop.
       overlay.hidden = false;
+      // Wait one frame so the browser paints the "before" state, then trigger the
+       "after" state — otherwise the transition has nothing to animate from.
       requestAnimationFrame(function(){
+        // Update ARIA: screen readers will announce the menu is now open.
         btn.setAttribute("aria-expanded","true");
+        // ARIA: drawer content is now visible.
         menu.setAttribute("aria-hidden","false");
+        // Add the body class that the navbar state machine uses to keep the nav solid.
         document.body.classList.add("menuOpen");
       });
     }
+    /* Close the drawer. Mirrors open() in reverse, with an extra setTimeout that
+       matches the CSS transition duration (400ms) before setting hidden=true. */
     function close(){
+      // ARIA: closed.
       btn.setAttribute("aria-expanded","false");
+      // ARIA: drawer is hidden from assistive tech.
       menu.setAttribute("aria-hidden","true");
+      // Body class removed so navbar can return to its scroll-based state.
       document.body.classList.remove("menuOpen");
+      // Wait for the slide-out animation to finish before removing from the DOM flow.
       setTimeout(function(){
+        // Hide the menu from the layout (accessibility + tab order).
         menu.hidden = true;
+        // Same for the backdrop.
         overlay.hidden = true;
+      // 400ms matches the CSS transition-duration on transform.
       }, 400);
     }
+    /* Convenience wrapper: read the current ARIA state and call open or close. */
     function toggle(){
+      // ARIA is the source of truth — never trust a separate boolean.
       btn.getAttribute("aria-expanded") === "true" ? close() : open();
     }
+    // Main trigger: clicking the coffee-cup/X icon toggles the drawer.
     btn.addEventListener("click", toggle);
+    // Clicking the dark backdrop closes the drawer.
     overlay.addEventListener("click", close);
+    // Pressing Escape closes the drawer (a standard a11y pattern).
     document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
+    // Find every link inside the drawer (the section anchors + the language switch).
     var links = menu.querySelectorAll("[data-close]");
+    // For each link, attach a click listener that closes the drawer — so navigating
+     to a section happens with a clean UI (no drawer over the content).
     for (var i = 0; i < links.length; i++) links[i].addEventListener("click", close);
   })();
   </script>
