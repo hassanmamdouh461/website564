@@ -107,14 +107,16 @@
     tailwind.config = {
       theme: {
         extend: {
-          // ألوان الهوية البصرية للبراند —      colors: {
+          // ألوان الهوية البصرية للبراند
+          colors: {
             espresso: '#3D0A17', // بني إسبريسو غامق -> خلفيات الأقسام الداكنة
             cream: '#FAF6F0',    // بيج كريمي فاتح -> خلفيات الأقسام الفاتحة
             caramel: '#EAD5C1',  // ذهبي/كراميل -> الأزرار والأسعار والتفاصيل
           },
           fontFamily: {
             heading: ['"Playfair Display"', '"Cairo"', 'serif'], // كلاس font-heading
-            body: ['"Cairo"', 'sans-serif'],            // كلاس font-body —      },
+            body: ['"Cairo"', 'sans-serif'],            // كلاس font-body
+      },
         },
       },
     };
@@ -848,12 +850,17 @@
     // Build the observer. The callback fires every time an observed element's intersection changes.
     const revealObserver = new IntersectionObserver(
       (entries) => {
-        // entries = قائمة العناصر اللي حالتها اتغيرت —    entries.forEach((entry) => {
-          // لو العنصر داخل في نطاق الرؤية —      if (entry.isIntersecting) {
-            entry.target.classList.add('visible');       // خليه يظهر —  revealObserver.unobserve(entry.target);      // نبطل نراقبه (الأنيميشن بيحصل مرة واحدة بس) —      }
+        // entries = قائمة العناصر اللي حالتها اتغيرت
+        entries.forEach((entry) => {
+          // لو العنصر داخل في نطاق الرؤية
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);      // نبطل نراقبه (الأنيميشن بيحصل مرة واحدة بس)
+          }
         });
       },
-      // الإعدادات: العنصر يظهر لما 15% منه يكون باين، مع هامش سفلي 40px —  // Observation config: 15% visibility threshold + 40px bottom margin.
+      // الإعدادات: العنصر يظهر لما 15% منه يكون باين، مع هامش سفلي 40px
+  // Observation config: 15% visibility threshold + 40px bottom margin.
       { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
     // نراقب كل العناصر اللي عليها كلاس .reveal
@@ -873,12 +880,15 @@
        .reveal element that's already on screen but still hidden, and shows it. */
     // Fallback for CSS-columns masonry on mobile: observer can miss an image
     // inside a column, so on scroll also check anything still hidden that is
-    // already on screen — below-the-fold sections keep their animation.
+    // already on screen
+ below-the-fold sections keep their animation.
     function revealMissed() {
-      // Loop over every hidden reveal element (the :not(.visible) filter is important — so we don't re-process already-visible ones).
+      // Loop over every hidden reveal element (the :not(.visible) filter is important
+ so we don't re-process already-visible ones).
       document.querySelectorAll('.reveal:not(.visible)').forEach((el) => {
         const r = el.getBoundingClientRect();
-        // If the element's top edge is within 92% of viewport height AND bottom > 0 (not above), then it's "in view" by any reasonable definition — show it.
+        // If the element's top edge is within 92% of viewport height AND bottom > 0 (not above), then it's "in view" by any reasonable definition
+ show it.
         if (r.top < window.innerHeight * 0.92 && r.bottom > 0) el.classList.add('visible');
       });
     }
@@ -900,7 +910,8 @@
     const navbar = document.getElementById('navbar');
 
     function updateNavbarState() {
-      // Capture scroll position once per call (used multiple times below). —  const y = window.scrollY;
+      // Capture scroll position once per call (used multiple times below).
+  const y = window.scrollY;
       const menuOpen = document.body.classList.contains('menuOpen');
       navbar.classList.toggle('nav-scrolled', y > 40 || menuOpen);
       navbar.classList.toggle('nav-mid', !menuOpen && y > 0 && y <= 40);
@@ -958,37 +969,50 @@
     var btn = document.getElementById("menuBtn");
     var menu = document.getElementById("sideMenu");
     var overlay = document.getElementById("menuOverlay");
-    // Defensive exit: if any element is missing (e.g. cached HTML), do nothing
-     rather than throwing on every click.
+    // Defensive exit: if any element is missing (e.g. cached HTML), do nothing rather than throwing on every click.
     if (!btn || !menu || !overlay) return;
     /* Open the drawer. Order of operations matters:
        1) Make elements visible (hidden=false) so the browser lays them out.
        2) On the next animation frame, set aria-* and add the body class so CSS
           transitions can animate from the off-screen state. */
     function open(){
-      // Show both elements first (CSS transition needs a layout to animate from). —  menu.hidden = false;
-      // Same for the backdrop. —  overlay.hidden = false;
-      // Wait one frame so the browser paints the "before" state, then trigger the —   "after" state — otherwise the transition has nothing to animate from.
+      // Show both elements first (CSS transition needs a layout to animate from).
+  menu.hidden = false;
+      // Same for the backdrop.
+  overlay.hidden = false;
+      // Wait one frame so the browser paints the "before" state, then trigger the
+   "after" state — otherwise the transition has nothing to animate from.
       requestAnimationFrame(function(){
-        // Update ARIA: screen readers will announce the menu is now open. —    btn.setAttribute("aria-expanded","true");
-        // ARIA: drawer content is now visible. —    menu.setAttribute("aria-hidden","false");
-        // Add the body class that the navbar state machine uses to keep the nav solid. —    document.body.classList.add("menuOpen");
+        // Update ARIA: screen readers will announce the menu is now open.
+    btn.setAttribute("aria-expanded","true");
+        // ARIA: drawer content is now visible.
+    menu.setAttribute("aria-hidden","false");
+        // Add the body class that the navbar state machine uses to keep the nav solid.
+    document.body.classList.add("menuOpen");
       });
     }
     /* Close the drawer. Mirrors open() in reverse, with an extra setTimeout that
        matches the CSS transition duration (400ms) before setting hidden=true. */
     function close(){
-      // ARIA: closed. —  btn.setAttribute("aria-expanded","false");
-      // ARIA: drawer is hidden from assistive tech. —  menu.setAttribute("aria-hidden","true");
-      // Body class removed so navbar can return to its scroll-based state. —  document.body.classList.remove("menuOpen");
-      // Wait for the slide-out animation to finish before removing from the DOM flow. —  setTimeout(function(){
-        // Hide the menu from the layout (accessibility + tab order). —    menu.hidden = true;
-        // Same for the backdrop. —    overlay.hidden = true;
-      // 400ms matches the CSS transition-duration on transform. —  }, 400);
+      // ARIA: closed.
+  btn.setAttribute("aria-expanded","false");
+      // ARIA: drawer is hidden from assistive tech.
+  menu.setAttribute("aria-hidden","true");
+      // Body class removed so navbar can return to its scroll-based state.
+  document.body.classList.remove("menuOpen");
+      // Wait for the slide-out animation to finish before removing from the DOM flow.
+  setTimeout(function(){
+        // Hide the menu from the layout (accessibility + tab order).
+    menu.hidden = true;
+        // Same for the backdrop.
+    overlay.hidden = true;
+      // 400ms matches the CSS transition-duration on transform.
+  }, 400);
     }
     /* Convenience wrapper: read the current ARIA state and call open or close. */
     function toggle(){
-      // ARIA is the source of truth — never trust a separate boolean. —  btn.getAttribute("aria-expanded") === "true" ? close() : open();
+      // ARIA is the source of truth
+ never trust a separate boolean. —  btn.getAttribute("aria-expanded") === "true" ? close() : open();
     }
     // Main trigger: clicking the coffee-cup/X icon toggles the drawer.
     btn.addEventListener("click", toggle);
@@ -998,7 +1022,8 @@
     document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
     // Find every link inside the drawer (the section anchors + the language switch).
     var links = menu.querySelectorAll("[data-close]");
-    // For each link, attach a click listener that closes the drawer — so navigating
+    // For each link, attach a click listener that closes the drawer
+ so navigating
      to a section happens with a clean UI (no drawer over the content).
     for (var i = 0; i < links.length; i++) links[i].addEventListener("click", close);
   })();
