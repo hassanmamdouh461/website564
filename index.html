@@ -80,9 +80,7 @@
     <!-- Tailwind CSS via CDN — no build step. Generates utility classes on the fly from the markup. -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-      <!-- Brand color tokens + custom font families — extended into Tailwind so we can use
-           classes like `bg-espresso` and `font-heading` directly. The CDN script reads this
-           config when it boots and JIT-generates the matching utility classes. -->
+      // Brand color tokens + custom font families (extended into Tailwind JIT generation)
     tailwind.config = {
       theme: {
         extend: {
@@ -767,7 +765,6 @@
     // inside a column, so on scroll also check anything still hidden that is
     // already on screen — below-the-fold sections keep their animation.
     function revealMissed() {
-    function revealMissed() {
       // Loop over every hidden reveal element (the :not(.visible) filter is important
            so we don't re-process already-visible ones).
       document.querySelectorAll('.reveal:not(.visible)').forEach((el) => {
@@ -816,12 +813,8 @@
   <!-- Side menu (clean rebuild) -->
   <script>
   (function(){
-  (function(){
-    var btn = document.getElementById("menuBtn");
     var btn = document.getElementById("menuBtn");
     var menu = document.getElementById("sideMenu");
-    var menu = document.getElementById("sideMenu");
-    var overlay = document.getElementById("menuOverlay");
     var overlay = document.getElementById("menuOverlay");
     // Defensive exit: if any element is missing (e.g. cached HTML), do nothing
      rather than throwing on every click.
