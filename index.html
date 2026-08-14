@@ -739,8 +739,7 @@
           }
         });
       },
-      // Observation config: 15% visibility threshold + 40px bottom margin.
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      // Observation config: 15% visibility threshold + 40px bottom margin. —  { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
     // Find every element with the .reveal class and ask the observer to watch it.
     document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
@@ -751,8 +750,7 @@
     const gallerySection = document.getElementById('gallery');
     // Defensive check in case the gallery section is ever removed.
     if (gallerySection) {
-      // Dedicated observer just for the gallery section. threshold=0.05 = any 5% visible.
-      const galleryObs = new IntersectionObserver((entries) => {
+      // Dedicated observer just for the gallery section. threshold=0.05 = any 5% visible. —  const galleryObs = new IntersectionObserver((entries) => {
         entries.forEach(e => { if (e.isIntersecting) { gallerySection.classList.add('gallery-revealed'); galleryObs.unobserve(gallerySection); } });
       }, { threshold: 0.05 });
       galleryObs.observe(gallerySection);
@@ -765,12 +763,10 @@
     // inside a column, so on scroll also check anything still hidden that is
     // already on screen — below-the-fold sections keep their animation.
     function revealMissed() {
-      // Loop over every hidden reveal element (the :not(.visible) filter is important
-           so we don't re-process already-visible ones).
+      // Loop over every hidden reveal element (the :not(.visible) filter is important — so we don't re-process already-visible ones).
       document.querySelectorAll('.reveal:not(.visible)').forEach((el) => {
         const r = el.getBoundingClientRect();
-        // If the element's top edge is within 92% of viewport height AND bottom > 0 (not above),
-           then it's "in view" by any reasonable definition — show it.
+        // If the element's top edge is within 92% of viewport height AND bottom > 0 (not above), then it's "in view" by any reasonable definition — show it.
         if (r.top < window.innerHeight * 0.92 && r.bottom > 0) el.classList.add('visible');
       });
     }
@@ -787,15 +783,10 @@
        to know about three classes (default, nav-mid, nav-scrolled); JS never has to
        worry about specific colors or blur values. */
     function updateNavbarState() {
-      // Capture scroll position once per call (used multiple times below).
-      const y = window.scrollY;
-      // Read the body class that the side-menu script flips when the drawer opens.
-      const menuOpen = document.body.classList.contains('menuOpen');
-      // nav-scrolled = heavily opaque (with stronger blur) when scrolled past 40px
-           OR when the mobile menu is open (so the menu sits on a solid nav).
-      navbar.classList.toggle('nav-scrolled', y > 40 || menuOpen);
-      // nav-mid = lightly tinted in the first 40px of scroll (smooth transition zone).
-      navbar.classList.toggle('nav-mid', !menuOpen && y > 0 && y <= 40);
+      // Capture scroll position once per call (used multiple times below). —  const y = window.scrollY;
+      // Read the body class that the side-menu script flips when the drawer opens. —  const menuOpen = document.body.classList.contains('menuOpen');
+      // nav-scrolled = heavily opaque (with stronger blur) when scrolled past 40px — OR when the mobile menu is open (so the menu sits on a solid nav). —  navbar.classList.toggle('nav-scrolled', y > 40 || menuOpen);
+      // nav-mid = lightly tinted in the first 40px of scroll (smooth transition zone). —  navbar.classList.toggle('nav-mid', !menuOpen && y > 0 && y <= 40);
     }
     updateNavbarState();
     // Re-evaluate on every scroll (passive: same as before, doesn't block scroll).
@@ -824,43 +815,29 @@
        2) On the next animation frame, set aria-* and add the body class so CSS
           transitions can animate from the off-screen state. */
     function open(){
-      // Show both elements first (CSS transition needs a layout to animate from).
-      menu.hidden = false;
-      // Same for the backdrop.
-      overlay.hidden = false;
-      // Wait one frame so the browser paints the "before" state, then trigger the
-       "after" state — otherwise the transition has nothing to animate from.
+      // Show both elements first (CSS transition needs a layout to animate from). —  menu.hidden = false;
+      // Same for the backdrop. —  overlay.hidden = false;
+      // Wait one frame so the browser paints the "before" state, then trigger the —   "after" state — otherwise the transition has nothing to animate from.
       requestAnimationFrame(function(){
-        // Update ARIA: screen readers will announce the menu is now open.
-        btn.setAttribute("aria-expanded","true");
-        // ARIA: drawer content is now visible.
-        menu.setAttribute("aria-hidden","false");
-        // Add the body class that the navbar state machine uses to keep the nav solid.
-        document.body.classList.add("menuOpen");
+        // Update ARIA: screen readers will announce the menu is now open. —    btn.setAttribute("aria-expanded","true");
+        // ARIA: drawer content is now visible. —    menu.setAttribute("aria-hidden","false");
+        // Add the body class that the navbar state machine uses to keep the nav solid. —    document.body.classList.add("menuOpen");
       });
     }
     /* Close the drawer. Mirrors open() in reverse, with an extra setTimeout that
        matches the CSS transition duration (400ms) before setting hidden=true. */
     function close(){
-      // ARIA: closed.
-      btn.setAttribute("aria-expanded","false");
-      // ARIA: drawer is hidden from assistive tech.
-      menu.setAttribute("aria-hidden","true");
-      // Body class removed so navbar can return to its scroll-based state.
-      document.body.classList.remove("menuOpen");
-      // Wait for the slide-out animation to finish before removing from the DOM flow.
-      setTimeout(function(){
-        // Hide the menu from the layout (accessibility + tab order).
-        menu.hidden = true;
-        // Same for the backdrop.
-        overlay.hidden = true;
-      // 400ms matches the CSS transition-duration on transform.
-      }, 400);
+      // ARIA: closed. —  btn.setAttribute("aria-expanded","false");
+      // ARIA: drawer is hidden from assistive tech. —  menu.setAttribute("aria-hidden","true");
+      // Body class removed so navbar can return to its scroll-based state. —  document.body.classList.remove("menuOpen");
+      // Wait for the slide-out animation to finish before removing from the DOM flow. —  setTimeout(function(){
+        // Hide the menu from the layout (accessibility + tab order). —    menu.hidden = true;
+        // Same for the backdrop. —    overlay.hidden = true;
+      // 400ms matches the CSS transition-duration on transform. —  }, 400);
     }
     /* Convenience wrapper: read the current ARIA state and call open or close. */
     function toggle(){
-      // ARIA is the source of truth — never trust a separate boolean.
-      btn.getAttribute("aria-expanded") === "true" ? close() : open();
+      // ARIA is the source of truth — never trust a separate boolean. —  btn.getAttribute("aria-expanded") === "true" ? close() : open();
     }
     // Main trigger: clicking the coffee-cup/X icon toggles the drawer.
     btn.addEventListener("click", toggle);
