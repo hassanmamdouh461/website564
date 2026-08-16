@@ -90,24 +90,30 @@
   </script>
 
   <style>
-    /* === Cinematic intro: full-screen logo, then an expanding circle opens
-       from the center and reveals the site. The mask's transparent circle
-       (--intro-r) grows from 0 to cover the screen, "erasing" the logo. === */
+    /* === Cinematic intro: the full Paccino's artwork sits centered on its own
+       exact brand red (#6d142a sampled from the file) filling the screen, then
+       an expanding circle mask opens from the center and reveals the site.
+       No opacity/fade of any kind — the circle is the ONLY exit. === */
     @property --intro-r { syntax: '<length>'; inherits: false; initial-value: 0px; }
     #preloader {
       position: fixed; inset: 0; z-index: 9999;
-      background: url('images/logo.png') center / cover no-repeat;
+      background-color: #6d142a;
+      background-image: url('images/logo.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 72vmin;            /* whole emblem, never oversized */
       --intro-r: 0px;
       -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1px));
       mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1px));
-      transition: --intro-r 1.4s cubic-bezier(.65, 0, .35, 1), opacity 0.5s ease, visibility 0.5s ease;
+      transition: --intro-r 1.4s cubic-bezier(.65, 0, .35, 1);
       pointer-events: none;
     }
-    /* JS adds .reveal to start opening the circle, .done to fully remove */
+    /* JS adds .reveal to open the circle; .done fully detaches the layer.
+       display (not opacity) so there is zero transparency at any point. */
     #preloader.reveal { --intro-r: 165vmax; }
-    #preloader.done { opacity: 0; visibility: hidden; }
+    #preloader.done { display: none; }
     @media (prefers-reduced-motion: reduce) {
-      #preloader { transition: opacity 0.3s ease; }
+      #preloader { transition: none; }
     }
 
     /* 1) Brand color variables. Defined once on :root so every component can reference

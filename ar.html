@@ -106,24 +106,30 @@
   </script>
 
   <style>
-    /* === افتتاحية سينمائية: صورة اللوجو مليانة الشاشة، وبعدين دايرة بتفتح
-       من المنتصف وتتوسع لحد ما تكشف الموقع بالكامل — الدايرة الشفافة في الـ mask
-       (--intro-r) بتكبر من صفر لحد ما تغطي الشاشة وتمسح الصورة === */
+    /* === افتتاحية سينمائية: اللوجو كامل في المنتصف فوق نفس أحمر البراند بتاعه
+       بالظبط (#6d142a متس-sample من الملف نفسه) بيملأ الشاشة، وبعدين دايرة
+       بتفتح من المنتصف وتتوسع لحد ما يظهر الموقع. من غير أي شفافية خالص —
+       الدايرة هي وسيلة الخروج الوحيدة === */
     @property --intro-r { syntax: '<length>'; inherits: false; initial-value: 0px; }
     #preloader {
       position: fixed; inset: 0; z-index: 9999;
-      background: url('images/logo.png') center / cover no-repeat;
+      background-color: #6d142a;
+      background-image: url('images/logo.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 72vmin;            /* الشعار كامل وبمقاس محترم */
       --intro-r: 0px;
       -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1px));
       mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1px));
-      transition: --intro-r 1.4s cubic-bezier(.65, 0, .35, 1), opacity 0.5s ease, visibility 0.5s ease;
+      transition: --intro-r 1.4s cubic-bezier(.65, 0, .35, 1);
       pointer-events: none;
     }
-    /* الجافاسكريبت بيضيف .reveal لبدء فتح الدايرة و .done للحذف الكامل */
+    /* الجافاسكريبت بيضيف .reveal لفتح الدايرة، و .done لفصل الطبقة تماماً.
+       display (مش opacity) عشان ميبقاش فيه أي شفافية في أي لحظة */
     #preloader.reveal { --intro-r: 165vmax; }
-    #preloader.done { opacity: 0; visibility: hidden; }
+    #preloader.done { display: none; }
     @media (prefers-reduced-motion: reduce) {
-      #preloader { transition: opacity 0.3s ease; }
+      #preloader { transition: none; }
     }
 
     :root {
