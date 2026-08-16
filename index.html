@@ -153,9 +153,24 @@
        navbar can't get into a broken mixed state. The default state is fully transparent
        glassy: a 32% burgundy tint with 14px blur that lets the page content show through. */
     /* Navbar: always glassy (subtle burgundy tint + blur) — like real glass */
-    #navbar { background-color: rgba(61,10,23,0.32); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid rgba(234,213,193,0.18); }
-    #navbar.nav-mid { background-color: rgba(61,10,23,0.55); }
-    #navbar.nav-scrolled, #navbar.nav-solid { background-color: rgba(61,10,23,0.85); backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
+    #navbar {
+      background-color: rgba(61,10,23,0.45);
+      backdrop-filter: blur(24px) saturate(175%);
+      -webkit-backdrop-filter: blur(24px) saturate(175%);
+      border-bottom: 1px solid rgba(234,213,193,0.25);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 4px 30px rgba(0,0,0,0.18);
+    }
+    #navbar.nav-mid {
+      background-color: rgba(61,10,23,0.62);
+      backdrop-filter: blur(26px) saturate(180%);
+      -webkit-backdrop-filter: blur(26px) saturate(180%);
+    }
+    #navbar.nav-scrolled, #navbar.nav-solid {
+      background-color: rgba(61,10,23,0.82);
+      backdrop-filter: blur(30px) saturate(190%);
+      -webkit-backdrop-filter: blur(30px) saturate(190%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 36px rgba(0,0,0,0.35);
+    }
     /* Note: the older sharper states (mid=0.55, scrolled=0.96) are intentionally replaced
        by the glassy version above. We keep this comment as a marker of the transition. */
 
@@ -240,6 +255,34 @@
     .sideCta { display: block; width: 100%; text-align: center; margin-top: 1.5rem; padding: 0.9rem 1.5rem; background: #EAD5C1; color: #3D0A17; font-weight: 600; border-radius: 999px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
     .sideCta:hover { background: white; transform: scale(1.02); }
     body.menuOpen { overflow: hidden; }
+
+    /* === Infinite marquee ticker — pure CSS, pauses on hover, faded edges === */
+    .marquee-section { background: var(--color-primary-dark); padding: 1.4rem 0; overflow: hidden; }
+    .marquee {
+      overflow: hidden; white-space: nowrap;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    }
+    .marquee__track {
+      display: inline-flex; align-items: center; gap: 3.5rem;
+      width: max-content; padding-left: 3.5rem;
+      animation: marquee-scroll 32s linear infinite;
+      will-change: transform;
+    }
+    .marquee:hover .marquee__track { animation-play-state: paused; }
+    .marquee__item {
+      color: var(--color-accent); font-size: 1.05rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 3.5rem;
+    }
+    .marquee__item::after { content: "✦"; font-size: 0.7em; opacity: 0.55; }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee__track { animation: none; }
+    }
   </style>
 </head>
   <!-- Page body: Tailwind base styles (font, bg, text colors, antialiased) on top of our custom CSS. -->
@@ -375,6 +418,35 @@
     </div>
   <!-- End of hero -->
   </section>
+  <!-- ====================================================================
+       MARQUEE TICKER — infinite scrolling highlights (pure CSS animation).
+       The track contains the item set duplicated once; translating it by
+       -50% loops seamlessly. Hover pauses the scroll. Edges fade via mask.
+       ==================================================================== -->
+  <section class="marquee-section" aria-label="Paccino's highlights">
+    <div class="marquee">
+      <div class="marquee__track">
+        <span class="marquee__item">Specialty Coffee</span>
+        <span class="marquee__item">Fresh Pasta Daily</span>
+        <span class="marquee__item">Wood-Fired Pizza</span>
+        <span class="marquee__item">Since 2010</span>
+        <span class="marquee__item">Two Branches in Minya</span>
+        <span class="marquee__item">Crafted to be Remembered</span>
+        <span class="marquee__item">Outdoor Seating</span>
+        <span class="marquee__item">Order on WhatsApp</span>
+        <!-- duplicate set for the seamless loop -->
+        <span class="marquee__item">Specialty Coffee</span>
+        <span class="marquee__item">Fresh Pasta Daily</span>
+        <span class="marquee__item">Wood-Fired Pizza</span>
+        <span class="marquee__item">Since 2010</span>
+        <span class="marquee__item">Two Branches in Minya</span>
+        <span class="marquee__item">Crafted to be Remembered</span>
+        <span class="marquee__item">Outdoor Seating</span>
+        <span class="marquee__item">Order on WhatsApp</span>
+      </div>
+    </div>
+  </section>
+
   <!-- ====================================================================
        SIGNATURE ITEMS — three highlight cards (drinks) the cafe is known for.
        Cards have .reveal + .reveal-delay-N for a staggered fade-in.

@@ -180,12 +180,25 @@
 
     /* Custom scrollbar */
     /* Navbar states — single class toggle, impossible to get stuck */
-    /* Navbar: always glassy (subtle burgundy tint + blur) — like real glass */
-    #navbar { background-color: rgba(61,10,23,0.32); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid rgba(234,213,193,0.18); }
-    #navbar.nav-mid { background-color: rgba(61,10,23,0.55); }
-    #navbar.nav-scrolled, #navbar.nav-solid { background-color: rgba(61,10,23,0.85); backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
-    #navbar.nav-mid { background-color: rgba(61,10,23,0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-    #navbar.nav-scrolled, #navbar.nav-solid { background-color: rgba(61,10,23,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+    /* Navbar: strong frosted-glass look (heavier blur + tint + inner highlight) */
+    #navbar {
+      background-color: rgba(61,10,23,0.45);
+      backdrop-filter: blur(24px) saturate(175%);
+      -webkit-backdrop-filter: blur(24px) saturate(175%);
+      border-bottom: 1px solid rgba(234,213,193,0.25);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 4px 30px rgba(0,0,0,0.18);
+    }
+    #navbar.nav-mid {
+      background-color: rgba(61,10,23,0.62);
+      backdrop-filter: blur(26px) saturate(180%);
+      -webkit-backdrop-filter: blur(26px) saturate(180%);
+    }
+    #navbar.nav-scrolled, #navbar.nav-solid {
+      background-color: rgba(61,10,23,0.82);
+      backdrop-filter: blur(30px) saturate(190%);
+      -webkit-backdrop-filter: blur(30px) saturate(190%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 36px rgba(0,0,0,0.35);
+    }
 
     
     /* Gallery: imgs hidden until the section enters viewport, then cascade in */
@@ -257,6 +270,33 @@
     .sideCta { display: block; width: 100%; text-align: center; margin-top: 1.5rem; padding: 0.9rem 1.5rem; background: #EAD5C1; color: #3D0A17; font-weight: 600; border-radius: 999px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
     .sideCta:hover { background: white; transform: scale(1.02); }
     body.menuOpen { overflow: hidden; }
+
+    /* === الشريط المتحرك (marquee) — CSS خالص، يتوقف عند المرور عليه، حواف متلاشية === */
+    .marquee-section { background: var(--color-primary-dark); padding: 1.4rem 0; overflow: hidden; }
+    .marquee {
+      overflow: hidden; white-space: nowrap;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    }
+    .marquee__track {
+      display: inline-flex; align-items: center; gap: 3rem;
+      width: max-content; padding-left: 3rem;
+      animation: marquee-scroll 32s linear infinite;
+      will-change: transform;
+    }
+    .marquee:hover .marquee__track { animation-play-state: paused; }
+    .marquee__item {
+      color: var(--color-accent); font-size: 1.1rem; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 3rem;
+    }
+    .marquee__item::after { content: "✦"; font-size: 0.7em; opacity: 0.55; }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee__track { animation: none; }
+    }
   </style>
 </head>
 
@@ -417,6 +457,33 @@
       </div>
     </div>
   <!-- End of hero -->
+  </section>
+
+  <!-- ======================================================================
+       الشريط المتحرك (Marquee) — مميزات بتتحرك بشكل مستمر (CSS خالص)
+       ============================================================ -->
+  <section class="marquee-section" aria-label="مميزات باتشينوس">
+    <div class="marquee">
+      <div class="marquee__track">
+        <span class="marquee__item">قهوة مختصة</span>
+        <span class="marquee__item">باستا طازة يومياً</span>
+        <span class="marquee__item">بيتزا إيطالية</span>
+        <span class="marquee__item">منذ 2010</span>
+        <span class="marquee__item">فرعان في المنيا</span>
+        <span class="marquee__item">Crafted to be Remembered</span>
+        <span class="marquee__item">جلسات خارجية</span>
+        <span class="marquee__item">اطلب واتساب</span>
+        <!-- نسخة مكررة من العناصر عشان اللف يكون مستمر بدون تقطيع -->
+        <span class="marquee__item">قهوة مختصة</span>
+        <span class="marquee__item">باستا طازة يومياً</span>
+        <span class="marquee__item">بيتزا إيطالية</span>
+        <span class="marquee__item">منذ 2010</span>
+        <span class="marquee__item">فرعان في المنيا</span>
+        <span class="marquee__item">Crafted to be Remembered</span>
+        <span class="marquee__item">جلسات خارجية</span>
+        <span class="marquee__item">اطلب واتساب</span>
+      </div>
+    </div>
   </section>
 
   <!-- ======================================================================
