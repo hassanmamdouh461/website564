@@ -106,6 +106,36 @@
   </script>
 
   <style>
+    /* === شاشة التحميل: غطاء بورجندي + لوجو بينبض وبيختفي fade === */
+    #preloader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--color-primary-dark);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .preloader-logo {
+      width: clamp(90px, 18vw, 150px); height: auto;
+      filter: drop-shadow(0 6px 24px rgba(0,0,0,0.4));
+      animation: preloader-pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes preloader-pulse {
+      0%, 100% { transform: scale(1);    opacity: 1; }
+      50%      { transform: scale(1.07); opacity: 0.85; }
+    }
+    .preloader-dot {
+      width: 34px; height: 3px; border-radius: 999px;
+      background: var(--color-accent);
+      animation: preloader-bar 1.2s ease-in-out infinite;
+    }
+    @keyframes preloader-bar {
+      0%, 100% { transform: scaleX(0.3); opacity: 0.5; }
+      50%      { transform: scaleX(1);   opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .preloader-logo, .preloader-dot { animation: none; }
+    }
+
     :root {
       /* Brand Color Palette */
       --color-primary: #5C1425;
@@ -343,6 +373,16 @@
 <!-- Page body: Tailwind base styles (font, bg, text colors, antialiased) on top of our custom CSS. -->
 <!-- جسم الصفحة: خط Inter + خلفية كريمية + لون نص بني + تحسين شكل الخط -->
 <body class="font-body bg-cream text-espresso antialiased">
+
+  <!-- ======================================================================
+       شاشة التحميل (Preloader) — غطاء بورجندي بلوجو باتشينوس
+       اللوجو بينبض أثناء التحميل ثم تختفي بتأثير fade (الجافاسكريبت بيضيف .done)
+       فيه مؤقت أمان 4 ثواني عشان الزائر عمره ما يفضل محبوس
+       ====================================================================== -->
+  <div id="preloader" aria-hidden="true">
+    <img src="images/logo-sm.png" alt="" class="preloader-logo" />
+    <span class="preloader-dot"></span>
+  </div>
 
   <!-- ======================================================================
        القسم 1: شريط التنقل العلوي (Navbar شفاف في أول الصفحة ويكتسب شكل بالتمرير)
@@ -906,6 +946,16 @@
        الجافاسكريبت: قائمة الموبايل + أنيميشن الظهور + سنة الفوتر
        ====================================================================== -->
   <script>
+    // شاشة التحميل: تختفي بـ fade أول ما الصفحة تخلص تحميل
+    // مؤقت أمان 4 ثواني عشان أي asset بطيء ما يحبسش الزائر
+    (function(){
+      var pre = document.getElementById('preloader');
+      if (!pre) return;
+      function hidePreloader(){ pre.classList.add('done'); }
+      window.addEventListener('load', hidePreloader);
+      setTimeout(hidePreloader, 4000);
+    })();
+
     // Scroll reveal
     const revealObserver = new IntersectionObserver(
       (entries) => {

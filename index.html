@@ -90,6 +90,36 @@
   </script>
 
   <style>
+    /* === Preloader: burgundy splash + pulsing logo, fades out on load === */
+    #preloader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--color-primary-dark);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .preloader-logo {
+      width: clamp(90px, 18vw, 150px); height: auto;
+      filter: drop-shadow(0 6px 24px rgba(0,0,0,0.4));
+      animation: preloader-pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes preloader-pulse {
+      0%, 100% { transform: scale(1);    opacity: 1; }
+      50%      { transform: scale(1.07); opacity: 0.85; }
+    }
+    .preloader-dot {
+      width: 34px; height: 3px; border-radius: 999px;
+      background: var(--color-accent);
+      animation: preloader-bar 1.2s ease-in-out infinite;
+    }
+    @keyframes preloader-bar {
+      0%, 100% { transform: scaleX(0.3); opacity: 0.5; }
+      50%      { transform: scaleX(1);   opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .preloader-logo, .preloader-dot { animation: none; }
+    }
+
     /* 1) Brand color variables. Defined once on :root so every component can reference
        them by name. Keeping them in CSS variables means the JS only has to know the name
        ("--color-primary"), not the hex value. */
@@ -324,6 +354,16 @@
 </head>
   <!-- Page body: Tailwind base styles (font, bg, text colors, antialiased) on top of our custom CSS. -->
 <body class="font-body bg-cream text-espresso antialiased">
+
+  <!-- ====================================================================
+       PRELOADER — full-screen burgundy splash with the Paccino's logo.
+       Pulses while the page loads, then fades out (JS adds .done on load).
+       The 4s safety timeout guarantees it never traps the visitor.
+       ==================================================================== -->
+  <div id="preloader" aria-hidden="true">
+    <img src="images/logo-sm.png" alt="" class="preloader-logo" />
+    <span class="preloader-dot"></span>
+  </div>
   <!-- ====================================================================
        NAVBAR — fixed glassy bar at the top of the page.
        z-50 keeps it above all other content. transition-all + duration-500 makes the
@@ -821,6 +861,16 @@
   </footer>
 
   <script>
+    // Preloader: fade the splash out as soon as the page finishes loading.
+    // The 4s timeout is a safety net so a slow asset can never trap the visitor.
+    (function(){
+      var pre = document.getElementById('preloader');
+      if (!pre) return;
+      function hidePreloader(){ pre.classList.add('done'); }
+      window.addEventListener('load', hidePreloader);
+      setTimeout(hidePreloader, 4000);
+    })();
+
     // Scroll reveal: add .visible when elements enter the viewport
     const revealObserver = new IntersectionObserver(
       (entries) => {
