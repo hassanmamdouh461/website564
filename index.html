@@ -90,11 +90,11 @@
   </script>
 
   <style>
-    /* === Cinematic intro: the full Paccino's artwork sits centered on its own
-       exact brand red (#6d142a sampled from the file) filling the screen, then
-       an expanding circle mask opens from the center and reveals the site.
-       No opacity/fade of any kind — the circle is the ONLY exit. === */
-    @property --intro-r { syntax: '<length>'; inherits: false; initial-value: 0px; }
+    /* === Cinematic intro: the full Paccino's artwork centered on its own exact
+       brand red (#6d142a). JS animates the --intro-r mask radius frame-by-frame
+       (requestAnimationFrame) so the expanding circle works in EVERY browser —
+       no reliance on @property transitions. No opacity anywhere: the circle is
+       the only exit. === */
     #preloader {
       position: fixed; inset: 0; z-index: 9999;
       background-color: #6d142a;
@@ -103,18 +103,12 @@
       background-position: center;
       background-size: 72vmin;            /* whole emblem, never oversized */
       --intro-r: 0px;
-      -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1px));
-      mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1px));
-      transition: --intro-r 1.4s cubic-bezier(.65, 0, .35, 1);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1.5px));
+      mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1.5px));
       pointer-events: none;
     }
-    /* JS adds .reveal to open the circle; .done fully detaches the layer.
-       display (not opacity) so there is zero transparency at any point. */
-    #preloader.reveal { --intro-r: 165vmax; }
+    /* .done fully detaches the layer (display, not opacity — zero transparency). */
     #preloader.done { display: none; }
-    @media (prefers-reduced-motion: reduce) {
-      #preloader { transition: none; }
-    }
 
     /* 1) Brand color variables. Defined once on :root so every component can reference
        them by name. Keeping them in CSS variables means the JS only has to know the name
@@ -854,16 +848,37 @@
   </footer>
 
   <script>
-    // Cinematic intro: hold the full-screen artwork briefly after load,
-    // then open the center circle (mask radius transition) to reveal the
-    // site, and finally remove the layer from the DOM entirely.
+    // Cinematic intro: hold the artwork briefly after load, then expand the
+    // center circle frame-by-frame (rAF + easing). Manual animation = works in
+    // every browser, unlike CSS custom-property transitions.
     (function(){
       var pre = document.getElementById('preloader');
       if (!pre) return;
+      var DURATION = 1400;
+      function radiusMax(){
+        return Math.max(window.innerWidth, window.innerHeight) * 1.7; // past every corner
+      }
+      function easeInOutCubic(t){
+        return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+      }
+      var revealed = false;
       function reveal(){
-        pre.classList.add('reveal');
-        setTimeout(function(){ pre.classList.add('done'); }, 1500);
-        setTimeout(function(){ pre.remove(); }, 2200);
+        if (revealed) return;
+        revealed = true;
+        var start = null;
+        function frame(now){
+          if (start === null) start = now;
+          var t = Math.min(1, (now - start) / DURATION);
+          var r = Math.round(easeInOutCubic(t) * radiusMax());
+          pre.style.setProperty('--intro-r', r + 'px');
+          if (t < 1) {
+            requestAnimationFrame(frame);
+          } else {
+            pre.classList.add('done');
+            setTimeout(function(){ pre.remove(); }, 200);
+          }
+        }
+        requestAnimationFrame(frame);
       }
       window.addEventListener('load', function(){ setTimeout(reveal, 900); });
       setTimeout(reveal, 4500); // safety net — never trap the visitor

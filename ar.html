@@ -106,11 +106,10 @@
   </script>
 
   <style>
-    /* === افتتاحية سينمائية: اللوجو كامل في المنتصف فوق نفس أحمر البراند بتاعه
-       بالظبط (#6d142a متس-sample من الملف نفسه) بيملأ الشاشة، وبعدين دايرة
-       بتفتح من المنتصف وتتوسع لحد ما يظهر الموقع. من غير أي شفافية خالص —
-       الدايرة هي وسيلة الخروج الوحيدة === */
-    @property --intro-r { syntax: '<length>'; inherits: false; initial-value: 0px; }
+    /* === افتتاحية سينمائية: اللوجو كامل في المنتصف فوق نفس أحمر البراند
+       (#6d142a). الجافاسكريبت ب يحرك نصف قطر الدايرة (--intro-r) فريم-بفريم
+       (requestAnimationFrame) فبفتح الدايرة شغال في كل المتصفحات — من غير
+       الاعتماد على @property. من غير أي شفافية: الدايرة هي الخروج الوحيد === */
     #preloader {
       position: fixed; inset: 0; z-index: 9999;
       background-color: #6d142a;
@@ -119,18 +118,12 @@
       background-position: center;
       background-size: 72vmin;            /* الشعار كامل وبمقاس محترم */
       --intro-r: 0px;
-      -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1px));
-      mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1px));
-      transition: --intro-r 1.4s cubic-bezier(.65, 0, .35, 1);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1.5px));
+      mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-r), black calc(var(--intro-r) + 1.5px));
       pointer-events: none;
     }
-    /* الجافاسكريبت بيضيف .reveal لفتح الدايرة، و .done لفصل الطبقة تماماً.
-       display (مش opacity) عشان ميبقاش فيه أي شفافية في أي لحظة */
-    #preloader.reveal { --intro-r: 165vmax; }
+    /* .done بتفصل الطبقة تماماً (display مش opacity — صفر شفافية) */
     #preloader.done { display: none; }
-    @media (prefers-reduced-motion: reduce) {
-      #preloader { transition: none; }
-    }
 
     :root {
       /* Brand Color Palette */
@@ -939,16 +932,37 @@
        الجافاسكريبت: قائمة الموبايل + أنيميشن الظهور + سنة الفوتر
        ====================================================================== -->
   <script>
-    // الافتتاحية السينمائية: نثبت الصورة شوية بعد اكتمال التحميل،
-    // بعدين نفتح دايرة المنتصف (transition على نصف قطر الـ mask) عشان يظهر الموقع،
-    // وأخيراً نشيل الطبقة من الـ DOM تماماً
+    // الافتتاحية السينمائية: نثبت الصورة شوية بعد التحميل، بعدين نوسّع دايرة
+    // المنتصف فريم-بفريم (rAF + easing). التحريك اليدوي = يشتغل في كل المتصفحات
+    // بعكس transition على الـ custom property
     (function(){
       var pre = document.getElementById('preloader');
       if (!pre) return;
+      var DURATION = 1400;
+      function radiusMax(){
+        return Math.max(window.innerWidth, window.innerHeight) * 1.7; // أكبر من أي زاوية
+      }
+      function easeInOutCubic(t){
+        return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+      }
+      var revealed = false;
       function reveal(){
-        pre.classList.add('reveal');
-        setTimeout(function(){ pre.classList.add('done'); }, 1500);
-        setTimeout(function(){ pre.remove(); }, 2200);
+        if (revealed) return;
+        revealed = true;
+        var start = null;
+        function frame(now){
+          if (start === null) start = now;
+          var t = Math.min(1, (now - start) / DURATION);
+          var r = Math.round(easeInOutCubic(t) * radiusMax());
+          pre.style.setProperty('--intro-r', r + 'px');
+          if (t < 1) {
+            requestAnimationFrame(frame);
+          } else {
+            pre.classList.add('done');
+            setTimeout(function(){ pre.remove(); }, 200);
+          }
+        }
+        requestAnimationFrame(frame);
       }
       window.addEventListener('load', function(){ setTimeout(reveal, 900); });
       setTimeout(reveal, 4500); // مؤقت أمان — الزائر مستحيل يفضل محبوس
