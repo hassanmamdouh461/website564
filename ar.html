@@ -271,6 +271,24 @@
     .sideCta:hover { background: white; transform: scale(1.02); }
     body.menuOpen { overflow: hidden; }
 
+    /* === زوم سينمائي بطيء لصورة الهيرو (Ken Burns) === */
+    .ken-burns { animation: ken-burns 20s ease-out forwards; }
+    @keyframes ken-burns {
+      from { transform: scale(1); }
+      to   { transform: scale(1.08); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ken-burns { animation: none; }
+    }
+
+    /* === تايب رايتر الهيرو: مؤشر وامض + كتابة تدريجية بالجافاسكريبت === */
+    .type-cursor {
+      display: inline-block; width: 2px; height: 1.1em; margin-left: 2px;
+      background: var(--color-accent); vertical-align: text-bottom;
+      animation: caret-blink 0.85s step-end infinite;
+    }
+    @keyframes caret-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
     /* === الشريط المتحرك (marquee) — CSS خالص، يتوقف عند المرور عليه، حواف متلاشية === */
     .marquee-section { background: var(--color-primary-dark); padding: 1.4rem 0; overflow: hidden; }
     .marquee {
@@ -391,11 +409,9 @@
     <!-- صورة الخلفية + طبقة تعتيم فوقها -->
     <!-- Background image + overlay. position absolute fills the entire <section>. -->
     <div class="absolute inset-0">
-      <!-- صورة الخلفية: التراس الخارجي بتاع باتشينوس — بتمركز على الجزء العلوي اللي فيه اللوجو -->
-      <!-- Terrace photo (edited). object-cover fills the container; object-[center_30%]
-           shifts the focal point upward so the lit sign stays visible after cropping. -->
+      <!-- صورة التراس مع زوم سينمائي بطيء (Ken Burns) -->
       <img src="images/paccino-12.jpg"
-           alt="Paccino's café" class="w-full h-full object-cover object-[center_30%]" />
+           alt="Paccino's café" class="w-full h-full object-cover object-[center_30%] ken-burns" />
       <!-- طبقة بنية شفافة 70% عشان النص الأبيض يبقى واضح -->
       <!-- Dark overlay (70% opacity espresso) tints the image and guarantees readable text. -->
       <div class="absolute inset-0 bg-espresso/70"></div>
@@ -409,10 +425,13 @@
       <!-- Brand name in large serif. responsive text size: 5xl on mobile, 7xl on desktop. -->
       <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">باتشينوس Paccino's</h1>
 
-      <!-- السطر التعريفي تحت العنوان -->
-      <!-- Tagline — one line on desktop, two on mobile (flex-wrap handles it). -->
-      <p class="text-lg md:text-2xl text-cream/90 mb-10 font-light max-w-2xl mx-auto">
-        Coffee &amp; Food Experience — باتشينوس عشرة من 2010. قهوة مختصة وأكل إيطالي في قلب المنيا.
+      <!-- السطر التعريفي: جملة ثابتة + تايب رايتر بيتنقل بين جمل مميزة -->
+      <p class="text-lg md:text-2xl text-cream/90 mb-2 font-light max-w-2xl mx-auto">
+        باتشينوس عشرة من 2010 — قهوة مختصة وأكل إيطالي في قلب المنيا.
+      </p>
+      <p class="text-lg md:text-2xl mb-10 font-light max-w-2xl mx-auto min-h-[1.6em]">
+        <span class="text-caramel font-semibold typewriter" aria-hidden="true"></span><span class="type-cursor" aria-hidden="true"></span>
+        <span class="sr-only">قهوة وأكل بتجربة كاملة. Crafted to be remembered. فرعان في المنيا. اطلب واتساب.</span>
       </p>
 
       <!-- الزرارين جنب بعض على الكمبيوتر، وتحت بعض على الموبايل -->
@@ -908,6 +927,34 @@
     updateNavbarState();
     window.addEventListener('scroll', updateNavbarState, { passive: true });
     window.addEventListener('resize', updateNavbarState);
+
+    // تايب رايتر الهيرو: يكتب الجملة، يتوقف، يمسحها، وينتقل للتالية في حلقة مستمرة
+    (function(){
+      var el = document.querySelector('.typewriter');
+      if (!el) return;
+      var phrases = [
+        'قهوة وأكل بتجربة كاملة',
+        'Crafted to be remembered',
+        'فرعان في المنيا',
+        'اطلب واتساب'
+      ];
+      var p = 0, i = 0, deleting = false;
+      function tick(){
+        var word = phrases[p];
+        if (!deleting) {
+          i++;
+          el.textContent = word.slice(0, i);
+          if (i === word.length) { deleting = true; setTimeout(tick, 2200); return; }
+          setTimeout(tick, 75);
+        } else {
+          i--;
+          el.textContent = word.slice(0, i);
+          if (i === 0) { deleting = false; p = (p + 1) % phrases.length; setTimeout(tick, 500); return; }
+          setTimeout(tick, 40);
+        }
+      }
+      setTimeout(tick, 900);
+    })();
 
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();

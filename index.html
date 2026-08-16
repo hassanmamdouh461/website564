@@ -256,6 +256,24 @@
     .sideCta:hover { background: white; transform: scale(1.02); }
     body.menuOpen { overflow: hidden; }
 
+    /* === Hero Ken Burns: slow cinematic zoom on the terrace photo === */
+    .ken-burns { animation: ken-burns 20s ease-out forwards; }
+    @keyframes ken-burns {
+      from { transform: scale(1); }
+      to   { transform: scale(1.08); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ken-burns { animation: none; }
+    }
+
+    /* === Hero typewriter: blinking caret + clipped reveal driven by JS === */
+    .type-cursor {
+      display: inline-block; width: 2px; height: 1.1em; margin-right: 2px;
+      background: var(--color-accent); vertical-align: text-bottom;
+      animation: caret-blink 0.85s step-end infinite;
+    }
+    @keyframes caret-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
     /* === Infinite marquee ticker — pure CSS, pauses on hover, faded edges === */
     .marquee-section { background: var(--color-primary-dark); padding: 1.4rem 0; overflow: hidden; }
     .marquee {
@@ -369,9 +387,9 @@
   <section id="home" class="relative min-h-screen flex items-center justify-center text-center">
     <!-- Background image + overlay. position absolute fills the entire <section>. -->
     <div class="absolute inset-0">
-      <!-- Terrace photo (edited). object-cover fills the container; object-[center_30%]
-           shifts the focal point upward so the lit sign stays visible after cropping. -->
-      <img src="images/paccino-12.jpg" alt="Paccino's terrace by night" class="w-full h-full object-cover object-[center_30%]" />
+      <!-- Terrace photo (edited) with a slow cinematic zoom (Ken Burns effect):
+           scales 1 → 1.08 over 20s and holds, keeping the lit sign in frame. -->
+      <img src="images/paccino-12.jpg" alt="Paccino's terrace by night" class="w-full h-full object-cover object-[center_30%] ken-burns" />
       <!-- Dark overlay (70% opacity espresso) tints the image and guarantees readable text. -->
       <div class="absolute inset-0 bg-espresso/70"></div>
     </div>
@@ -379,9 +397,13 @@
     <div class="relative z-10 px-6 max-w-4xl mx-auto reveal visible pt-24 pb-16">
       <!-- Brand name in large serif. responsive text size: 5xl on mobile, 7xl on desktop. -->
       <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">Paccino's</h1>
-      <!-- Tagline — one line on desktop, two on mobile (flex-wrap handles it). -->
-      <p class="text-lg md:text-2xl text-cream/90 mb-10 font-light max-w-2xl mx-auto">
-        Coffee &amp; Food Experience — serving Minya since 2010. Specialty coffee and Italian dishes in the heart of the city.
+      <!-- Tagline: static lead + typewriter that cycles through highlight phrases. -->
+      <p class="text-lg md:text-2xl text-cream/90 mb-2 font-light max-w-2xl mx-auto">
+        Serving Minya since 2010 — specialty coffee &amp; Italian dishes.
+      </p>
+      <p class="text-lg md:text-2xl mb-10 font-light max-w-2xl mx-auto min-h-[1.6em]">
+        <span class="text-caramel font-semibold typewriter" aria-hidden="true"></span><span class="type-cursor" aria-hidden="true"></span>
+        <span class="sr-only">Coffee &amp; Food Experience. Crafted to be remembered. Two branches in Minya. Order on WhatsApp.</span>
       </p>
       <!-- CTA button row. Stacks on mobile (flex-col), side-by-side on tablet+ (sm:flex-row). -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
@@ -822,6 +844,34 @@
     updateNavbarState();
     window.addEventListener('scroll', updateNavbarState, { passive: true });
     window.addEventListener('resize', updateNavbarState);
+
+    // Hero typewriter: type each phrase, pause, delete, move to the next, loop forever
+    (function(){
+      var el = document.querySelector('.typewriter');
+      if (!el) return;
+      var phrases = [
+        'Coffee & Food Experience',
+        'Crafted to be remembered',
+        'Two branches in Minya',
+        'Order on WhatsApp'
+      ];
+      var p = 0, i = 0, deleting = false;
+      function tick(){
+        var word = phrases[p];
+        if (!deleting) {
+          i++;
+          el.textContent = word.slice(0, i);
+          if (i === word.length) { deleting = true; setTimeout(tick, 2200); return; }
+          setTimeout(tick, 75);
+        } else {
+          i--;
+          el.textContent = word.slice(0, i);
+          if (i === 0) { deleting = false; p = (p + 1) % phrases.length; setTimeout(tick, 500); return; }
+          setTimeout(tick, 40);
+        }
+      }
+      setTimeout(tick, 900);
+    })();
 
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
