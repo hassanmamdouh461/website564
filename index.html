@@ -194,7 +194,9 @@
     html { scrollbar-width: none; -ms-overflow-style: none; }
     html::-webkit-scrollbar { display: none; width: 0; height: 0; }
     body::-webkit-scrollbar { display: none; width: 0; height: 0; }
-    html, body { overflow-x: hidden; }
+    /* `clip` (not `hidden`) — hidden creates a scroll container that breaks
+       backdrop-filter on the fixed navbar (glass appears cut/glitchy). */
+    html, body { overflow-x: clip; }
     /* 6) Mobile side menu (slide-in drawer from the right).
        The drawer is hidden by default via the [hidden] HTML attribute, then JS sets
        hidden=false + aria-expanded=true to animate it in. The coffee-cup SVG icon
@@ -289,7 +291,11 @@
       animation: marquee-scroll 28s linear infinite;
       will-change: transform;
     }
-    .marquee:hover .marquee__track { animation-play-state: paused; }
+    /* Pause on hover — real mouse devices only. On touch, :hover sticks after a tap
+       and would freeze the ticker permanently. */
+    @media (hover: hover) {
+      .marquee:hover .marquee__track { animation-play-state: paused; }
+    }
     .marquee__item {
       color: var(--color-accent); font-size: 1.05rem; font-weight: 600;
       letter-spacing: 0.06em; text-transform: uppercase;

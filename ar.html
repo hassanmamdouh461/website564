@@ -216,7 +216,9 @@
     html { scrollbar-width: none; -ms-overflow-style: none; }
     html::-webkit-scrollbar { display: none; width: 0; height: 0; }
     body::-webkit-scrollbar { display: none; width: 0; height: 0; }
-    html, body { overflow-x: hidden; }
+    /* `clip` (وليس `hidden`) — الـ hidden بيعمل scroll container بيكسر الـ backdrop-filter
+       بتاع النافبار الزجاجي فبيبان مقصوص/بيرتعش */
+    html, body { overflow-x: clip; }
   /* === Mobile side menu (clean rebuild) === */
     #menuBtn {
       display: none; align-items: center; justify-content: center;
@@ -307,7 +309,11 @@
       animation: marquee-scroll 26s linear infinite;
       will-change: transform;
     }
-    .marquee:hover .marquee__track { animation-play-state: paused; }
+    /* إيقاف عند المرور — لأجهزة الماوس الحقيقية بس. على اللمس الـ :hover بيلزق بعد اللمسة
+       وبيجمّد الشريط نهائياً */
+    @media (hover: hover) {
+      .marquee:hover .marquee__track { animation-play-state: paused; }
+    }
     .marquee__item {
       color: var(--color-accent); font-size: 1.1rem; font-weight: 700;
       display: inline-flex; align-items: center; gap: 3rem;
