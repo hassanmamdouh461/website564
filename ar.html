@@ -218,7 +218,9 @@
     body::-webkit-scrollbar { display: none; width: 0; height: 0; }
     /* `clip` (وليس `hidden`) — الـ hidden بيعمل scroll container بيكسر الـ backdrop-filter
        بتاع النافبار الزجاجي فبيبان مقصوص/بيرتعش */
-    html, body { overflow-x: clip; }
+    /* على BODY بس — الـ clip على <html> بيسبب bug في كروم بيرعّش الشريط المتحرك
+       ويصغّره بعد السكرول */
+    body { overflow-x: clip; }
   /* === Mobile side menu (clean rebuild) === */
     #menuBtn {
       display: none; align-items: center; justify-content: center;
@@ -297,7 +299,9 @@
     @keyframes caret-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
     /* === الشريط المتحرك (marquee) — CSS خالص، يتوقف عند المرور عليه، حواف متلاشية === */
-    .marquee-section { background: var(--color-primary-dark); padding: 1.4rem 0; overflow: hidden; }
+    /* contain:paint بتعزل منطقة رسم الشريط لوحدها فالسكرول والنافبار الزجاجي
+       مقدرش يعيد تركيبها ويعمل glitches في وسط الأنيميشن */
+    .marquee-section { background: var(--color-primary-dark); padding: 1.4rem 0; overflow: hidden; contain: paint; }
     .marquee {
       position: relative;
       overflow: hidden; white-space: nowrap;
@@ -424,9 +428,10 @@
        ====================================================================== -->
   <section id="home" class="relative min-h-screen flex items-center justify-center text-center">
 
-    <!-- صورة الخلفية + طبقة تعتيم فوقها -->
-    <!-- Background image + overlay. position absolute fills the entire <section>. -->
-    <div class="absolute inset-0">
+    <!-- صورة الخلفية + طبقة تعتيم فوقها — overflow-hidden بيقص الزوم جوه الهيرو
+         فالصورة المكبرة عمرها ما تطلع برا النطاق فوق النافبار أو الأقسام اللي تحت -->
+    <!-- Background image + overlay. overflow-hidden clips the Ken Burns zoom. -->
+    <div class="absolute inset-0 overflow-hidden">
       <!-- صورة التراس مع زوم سينمائي بطيء (Ken Burns) -->
       <img src="images/paccino-12.jpg"
            alt="Paccino's café" class="w-full h-full object-cover object-[center_30%] ken-burns" />

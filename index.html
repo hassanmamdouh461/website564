@@ -196,7 +196,9 @@
     body::-webkit-scrollbar { display: none; width: 0; height: 0; }
     /* `clip` (not `hidden`) — hidden creates a scroll container that breaks
        backdrop-filter on the fixed navbar (glass appears cut/glitchy). */
-    html, body { overflow-x: clip; }
+    /* Applied to BODY only — clipping on <html> triggers a Chrome compositing bug
+       that glitches the animated marquee after scrolling (it twitches/shrinks). */
+    body { overflow-x: clip; }
     /* 6) Mobile side menu (slide-in drawer from the right).
        The drawer is hidden by default via the [hidden] HTML attribute, then JS sets
        hidden=false + aria-expanded=true to animate it in. The coffee-cup SVG icon
@@ -279,7 +281,9 @@
     @keyframes caret-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
     /* === Infinite marquee ticker — pure CSS, pauses on hover, faded edges === */
-    .marquee-section { background: var(--color-primary-dark); padding: 1.4rem 0; overflow: hidden; }
+    /* contain:paint gives the ticker its own isolated paint region so scrolling
+       + the fixed glass navbar can never re-composite/glitch it mid-animation. */
+    .marquee-section { background: var(--color-primary-dark); padding: 1.4rem 0; overflow: hidden; contain: paint; }
     .marquee {
       position: relative;
       overflow: hidden; white-space: nowrap;
@@ -400,8 +404,10 @@
        ==================================================================== -->
   <!-- Hero: full-screen terrace photo with burgundy overlay -->
   <section id="home" class="relative min-h-screen flex items-center justify-center text-center">
-    <!-- Background image + overlay. position absolute fills the entire <section>. -->
-    <div class="absolute inset-0">
+    <!-- Background image + overlay. position absolute fills the entire <section>.
+         overflow-hidden CLIPS the Ken Burns zoom so the scaled image can never
+         spill outside the hero onto the navbar or the sections below. -->
+    <div class="absolute inset-0 overflow-hidden">
       <!-- Terrace photo (edited) with a slow cinematic zoom (Ken Burns effect):
            scales 1 → 1.08 over 20s and holds, keeping the lit sign in frame. -->
       <img src="images/paccino-12.jpg" alt="Paccino's terrace by night" class="w-full h-full object-cover object-[center_30%] ken-burns" />
