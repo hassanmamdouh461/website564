@@ -309,30 +309,37 @@
       .ken-burns { animation: none; }
     }
 
-    /* === Reviews carousel: auto-rotating testimonials + dot indicators === */
-    .rc-viewport { overflow: hidden; }
-    .rc-track {
-      display: flex;
-      transition: transform 0.65s cubic-bezier(.65, 0, .35, 1);
+    /* === شريط التقييمات: ماركي مستمر بسرعة ثابتة مع بلور متدرج على الطرفين === */
+    .rc-marquee { position: relative; overflow: hidden; }
+    .rc-strip {
+      display: flex; align-items: stretch; gap: 2rem;
+      width: max-content; padding-right: 2rem;
+      animation: rc-scroll 36s linear infinite;
+      will-change: transform;
     }
-    .rc-slide { flex: 0 0 100%; padding: 0 0.5rem; }
-    .rc-slide blockquote {
+    .rc-card {
+      flex: 0 0 min(420px, 84vw);
       border-radius: 1rem; padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
       background-color: #F3EFE4; color: #1C2B1A;
-      min-height: 15rem; display: flex; flex-direction: column; justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      display: flex; flex-direction: column; justify-content: center;
+      min-height: 14rem;
     }
-    .rc-dots { display: flex; justify-content: center; gap: 0.6rem; margin-top: 1.6rem; }
-    .rc-dot {
-      width: 10px; height: 10px; border-radius: 50%;
-      background: rgba(234,213,193,0.35); border: none; padding: 0; cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
+    @keyframes rc-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(50%); }
     }
-    .rc-dot.active { background: var(--color-accent); transform: scale(1.3); }
+    /* بلور متدرج على الطرفين — شرائط overlay بتأثير backdrop-filter بتتلاشى بـ mask */
+    .rc-edge {
+      position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2;
+      pointer-events: none;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    }
+    .rc-edge--start { left: 0;  -webkit-mask-image: linear-gradient(to right, #000 35%, transparent); mask-image: linear-gradient(to right, #000 35%, transparent); }
+    .rc-edge--end   { right: 0; -webkit-mask-image: linear-gradient(to left,  #000 35%, transparent); mask-image: linear-gradient(to left,  #000 35%, transparent); }
     @media (prefers-reduced-motion: reduce) {
-      .rc-track { transition: none; }
+      .rc-strip { animation: none; }
     }
-
     /* === بخار القهوة: تلات خيوط بخار ناعمة بتطلع فوق كروت المشروبات (CSS خالص) === */
     .steam {
       position: absolute; top: 6%; left: 50%; transform: translateX(-50%);
@@ -816,36 +823,45 @@
       </div>
 
       <!-- كروت التقييمات الثلاثة -->
-      <!-- كاروسيل التقييمات: تقييم واحد في كل مرة مع نقاط تحكم تحته،
-           الجافاسكريبت بيلف كل 4.5 ثانية (بيقف عند المرور بالماوس ويدعم الاتجاه العربي) -->
-      <div class="reveal rc-viewport">
-        <div class="rc-track" id="rcTrack">
-          <div class="rc-slide">
-            <blockquote>
-              <p class="leading-relaxed mb-6 italic">"من أفضل الأماكن — أكل بجودة عالية وأسعار مناسبة. الفريق ودود جدًا والكميات كبيرة. دائمًا مكاني المفضل ❤️"</p>
-              <footer class="font-semibold" style="color:#A98A4B;">— ميرال روبرت (فيسبوك)</footer>
-            </blockquote>
+      <!-- شريط التقييمات: ماركي مستمر بسرعة ثابتة مع بلور على الطرفين (من غير نقاط) -->
+      <div class="reveal rc-marquee">
+        <div class="rc-strip">
+          <div class="rc-card">
+            <p class="leading-relaxed mb-4 italic">"من أفضل الأماكن — أكل بجودة عالية وأسعار مناسبة. الفريق ودود جدًا والكميات كبيرة. دائمًا مكاني المفضل ❤️"</p>
+            <footer class="font-semibold" style="color:#A98A4B;">— ميرال روبرت (فيسبوك)</footer>
           </div>
-          <div class="rc-slide">
-            <blockquote>
-              <p class="leading-relaxed mb-6 italic">"جربت مشروب البطيخ المنعش في يوم حر وما خيبش ظني — منعش جدًا!"</p>
-              <footer class="font-semibold" style="color:#A98A4B;">— زائر من المنيا</footer>
-            </blockquote>
+          <div class="rc-card">
+            <p class="leading-relaxed mb-4 italic">"جربت مشروب البطيخ المنعش في يوم حر وما خيبش ظني — منعش جدًا!"</p>
+            <footer class="font-semibold" style="color:#A98A4B;">— زائر من المنيا</footer>
           </div>
-          <div class="rc-slide">
-            <blockquote>
-              <p class="leading-relaxed mb-6 italic">"القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."</p>
-              <footer class="font-semibold" style="color:#A98A4B;">— عميل دائم</footer>
-            </blockquote>
+          <div class="rc-card">
+            <p class="leading-relaxed mb-4 italic">"القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."</p>
+            <footer class="font-semibold" style="color:#A98A4B;">— عميل دائم</footer>
           </div>
-          <div class="rc-slide">
-            <blockquote>
-              <p class="leading-relaxed mb-6 italic">"أحسن مكان في المنيا للقهوة والأكل — التشيز كيك عندهم تحفة والخدمة سريعة جدًا."</p>
-              <footer class="font-semibold" style="color:#A98A4B;">— عميل من المنيا الجديدة</footer>
-            </blockquote>
+          <div class="rc-card">
+            <p class="leading-relaxed mb-4 italic">"أحسن مكان في المنيا للقهوة والأكل — التشيز كيك عندهم تحفة والخدمة سريعة جدًا."</p>
+            <footer class="font-semibold" style="color:#A98A4B;">— عميل من المنيا الجديدة</footer>
+          </div>
+          <div class="rc-card">
+            <p class="leading-relaxed mb-4 italic">"من أفضل الأماكن — أكل بجودة عالية وأسعار مناسبة. الفريق ودود جدًا والكميات كبيرة. دائمًا مكاني المفضل ❤️"</p>
+            <footer class="font-semibold" style="color:#A98A4B;">— ميرال روبرت (فيسبوك)</footer>
+          </div>
+          <div class="rc-card">
+            <p class="leading-relaxed mb-4 italic">"جربت مشروب البطيخ المنعش في يوم حر وما خيبش ظني — منعش جدًا!"</p>
+            <footer class="font-semibold" style="color:#A98A4B;">— زائر من المنيا</footer>
+          </div>
+          <div class="rc-card">
+            <p class="leading-relaxed mb-4 italic">"القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."</p>
+            <footer class="font-semibold" style="color:#A98A4B;">— عميل دائم</footer>
+          </div>
+          <div class="rc-card">
+            <p class="leading-relaxed mb-4 italic">"أحسن مكان في المنيا للقهوة والأكل — التشيز كيك عندهم تحفة والخدمة سريعة جدًا."</p>
+            <footer class="font-semibold" style="color:#A98A4B;">— عميل من المنيا الجديدة</footer>
           </div>
         </div>
-        <div class="rc-dots" id="rcDots" role="tablist" aria-label="كاروسيل التقييمات"></div>
+        <span class="rc-edge rc-edge--start" aria-hidden="true"></span>
+        <span class="rc-edge rc-edge--end" aria-hidden="true"></span>
+      </div>
       </div>
       <div class="reveal text-center mt-14">
         <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener"
@@ -1148,36 +1164,6 @@
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Reviews carousel: auto-advance every 4.5s, dot indicators, hover-pause.
-    // Direction-aware: in RTL the track slides the opposite way.
-    (function(){
-      var track = document.getElementById("rcTrack");
-      var dotsBox = document.getElementById("rcDots");
-      if (!track || !dotsBox) return;
-      var slides = track.children;
-      var total = slides.length;
-      var index = 0;
-      var dirSign = (document.documentElement.dir === "rtl") ? 1 : -1;
-      var timer = null;
-      for (var d = 0; d < total; d++) {
-        var dot = document.createElement("button");
-        dot.className = "rc-dot" + (d === 0 ? " active" : "");
-        dot.setAttribute("aria-label", "review " + (d + 1));
-        (function(n){ dot.addEventListener("click", function(){ goTo(n); restart(); }); })(d);
-        dotsBox.appendChild(dot);
-      }
-      var dots = dotsBox.children;
-      function goTo(n){
-        index = (n + total) % total;
-        track.style.transform = "translateX(" + (dirSign * index * 100) + "%)";
-        for (var i = 0; i < dots.length; i++) dots[i].classList.toggle("active", i === index);
-      }
-      function next(){ goTo(index + 1); }
-      function restart(){ if (timer) clearInterval(timer); timer = setInterval(next, 4500); }
-      track.addEventListener("mouseenter", function(){ if (timer) clearInterval(timer); });
-      track.addEventListener("mouseleave", restart);
-      restart();
-    })();
   </script>
   
   
