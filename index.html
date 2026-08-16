@@ -292,38 +292,6 @@
       .ken-burns { animation: none; }
     }
 
-    /* === Reviews strip: continuously-moving marquee at constant speed,
-       with a progressive BLUR on both edges (no dots, no stop-and-go). === */
-    .rc-marquee { position: relative; overflow: hidden; }
-    .rc-strip {
-      display: flex; align-items: stretch; gap: 2rem;
-      width: max-content; padding-left: 2rem;
-      animation: rc-scroll 36s linear infinite;
-      will-change: transform;
-    }
-    .rc-card {
-      flex: 0 0 min(420px, 84vw);
-      border-radius: 1rem; padding: 2rem;
-      background-color: #F3EFE4; color: #1C2B1A;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-      display: flex; flex-direction: column; justify-content: center;
-      min-height: 14rem;
-    }
-    @keyframes rc-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    /* Progressive blur edges — overlay strips with backdrop-filter faded by a mask */
-    .rc-edge {
-      position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2;
-      pointer-events: none;
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    }
-    .rc-edge--start { left: 0;  -webkit-mask-image: linear-gradient(to right, #000 35%, transparent); mask-image: linear-gradient(to right, #000 35%, transparent); }
-    .rc-edge--end   { right: 0; -webkit-mask-image: linear-gradient(to left,  #000 35%, transparent); mask-image: linear-gradient(to left,  #000 35%, transparent); }
-    @media (prefers-reduced-motion: reduce) {
-      .rc-strip { animation: none; }
-    }
     /* === Coffee steam: three soft wisps rising above the drink cards (pure CSS) === */
     .steam {
       position: absolute; top: 6%; left: 50%; transform: translateX(-50%);
@@ -752,71 +720,7 @@
     </div>
   <!-- End of hero -->
   </section>
-  <!-- ====================================================================
-       REVIEWS — three testimonial cards on a dark section.
-       5-star rating row above the cards, then the 3 quotes from real Facebook reviews.
-       ==================================================================== -->
-  <!-- Reviews -->
-  <section id="reviews" class="bg-espresso text-white py-24 px-6">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">What Our Guests Say</h2>
-      <!-- 5 gold stars. Each is an inline SVG filled with currentColor (inherits text-caramel). -->
-      <div class="reveal flex items-center justify-center gap-1.5 mb-14 text-caramel">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
-      </div>
-      <!-- Reviews strip: constant-speed infinite marquee with blurred edges (no dots) -->
-      <div class="reveal rc-marquee">
-        <div class="rc-strip">
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"One of the best places — high quality food with reasonable prices. The staff is so friendly, and the portions are generous. Always my favorite place ❤️"</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— Miral Robert (Facebook)</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"Tried the Watermelon Blast refresher on a hot day and it did not disappoint. Super refreshing!"</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— A visitor from Minya</footer>
-          </div>
-          <div class="rc-card" dir="rtl">
-            <p class="leading-relaxed mb-4 italic">"القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— عميل دائم</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"Best spot in Minya for coffee and food — their cheesecake is amazing and the service is super fast."</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— A customer from New Minya</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"One of the best places — high quality food with reasonable prices. The staff is so friendly, and the portions are generous. Always my favorite place ❤️"</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— Miral Robert (Facebook)</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"Tried the Watermelon Blast refresher on a hot day and it did not disappoint. Super refreshing!"</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— A visitor from Minya</footer>
-          </div>
-          <div class="rc-card" dir="rtl">
-            <p class="leading-relaxed mb-4 italic">"القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— عميل دائم</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"Best spot in Minya for coffee and food — their cheesecake is amazing and the service is super fast."</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— A customer from New Minya</footer>
-          </div>
-        </div>
-        <span class="rc-edge rc-edge--start" aria-hidden="true"></span>
-        <span class="rc-edge rc-edge--end" aria-hidden="true"></span>
-      </div>
-      </div>
-      <div class="reveal text-center mt-14">
-        <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener"
-           class="inline-block bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md">
-          More Photos on Instagram
-        </a>
-      </div>
-    </div>
-  <!-- End of hero -->
-  </section>
+
   <!-- ====================================================================
        REVIEWS — three testimonial cards on a dark section.
        5-star rating row above the cards, then the 3 quotes from real Facebook reviews.

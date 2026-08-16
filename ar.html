@@ -309,37 +309,6 @@
       .ken-burns { animation: none; }
     }
 
-    /* === شريط التقييمات: ماركي مستمر بسرعة ثابتة مع بلور متدرج على الطرفين === */
-    .rc-marquee { position: relative; overflow: hidden; }
-    .rc-strip {
-      display: flex; align-items: stretch; gap: 2rem;
-      width: max-content; padding-right: 2rem;
-      animation: rc-scroll 36s linear infinite;
-      will-change: transform;
-    }
-    .rc-card {
-      flex: 0 0 min(420px, 84vw);
-      border-radius: 1rem; padding: 2rem;
-      background-color: #F3EFE4; color: #1C2B1A;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-      display: flex; flex-direction: column; justify-content: center;
-      min-height: 14rem;
-    }
-    @keyframes rc-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(50%); }
-    }
-    /* بلور متدرج على الطرفين — شرائط overlay بتأثير backdrop-filter بتتلاشى بـ mask */
-    .rc-edge {
-      position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2;
-      pointer-events: none;
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    }
-    .rc-edge--start { left: 0;  -webkit-mask-image: linear-gradient(to right, #000 35%, transparent); mask-image: linear-gradient(to right, #000 35%, transparent); }
-    .rc-edge--end   { right: 0; -webkit-mask-image: linear-gradient(to left,  #000 35%, transparent); mask-image: linear-gradient(to left,  #000 35%, transparent); }
-    @media (prefers-reduced-motion: reduce) {
-      .rc-strip { animation: none; }
-    }
     /* === بخار القهوة: تلات خيوط بخار ناعمة بتطلع فوق كروت المشروبات (CSS خالص) === */
     .steam {
       position: absolute; top: 6%; left: 50%; transform: translateX(-50%);
@@ -806,72 +775,7 @@
   <!-- End of hero -->
   </section>
 
-  <!-- ======================================================================
-       القسم 7: آراء العملاء (قسم داكن مع 5 نجوم)
-       ====================================================================== -->
-  <section id="reviews" class="bg-espresso text-white py-24 px-6">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">آراء عملائنا</h2>
 
-      <!-- رسمة الـ 5 نجوم الذهبية (5 أيقونات SVG مكررة) -->
-      <div class="reveal flex items-center justify-center gap-1.5 mb-14 text-caramel">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7"><path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
-      </div>
-
-      <!-- كروت التقييمات الثلاثة -->
-      <!-- شريط التقييمات: ماركي مستمر بسرعة ثابتة مع بلور على الطرفين (من غير نقاط) -->
-      <div class="reveal rc-marquee">
-        <div class="rc-strip">
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"من أفضل الأماكن — أكل بجودة عالية وأسعار مناسبة. الفريق ودود جدًا والكميات كبيرة. دائمًا مكاني المفضل ❤️"</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— ميرال روبرت (فيسبوك)</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"جربت مشروب البطيخ المنعش في يوم حر وما خيبش ظني — منعش جدًا!"</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— زائر من المنيا</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— عميل دائم</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"أحسن مكان في المنيا للقهوة والأكل — التشيز كيك عندهم تحفة والخدمة سريعة جدًا."</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— عميل من المنيا الجديدة</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"من أفضل الأماكن — أكل بجودة عالية وأسعار مناسبة. الفريق ودود جدًا والكميات كبيرة. دائمًا مكاني المفضل ❤️"</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— ميرال روبرت (فيسبوك)</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"جربت مشروب البطيخ المنعش في يوم حر وما خيبش ظني — منعش جدًا!"</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— زائر من المنيا</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— عميل دائم</footer>
-          </div>
-          <div class="rc-card">
-            <p class="leading-relaxed mb-4 italic">"أحسن مكان في المنيا للقهوة والأكل — التشيز كيك عندهم تحفة والخدمة سريعة جدًا."</p>
-            <footer class="font-semibold" style="color:#A98A4B;">— عميل من المنيا الجديدة</footer>
-          </div>
-        </div>
-        <span class="rc-edge rc-edge--start" aria-hidden="true"></span>
-        <span class="rc-edge rc-edge--end" aria-hidden="true"></span>
-      </div>
-      </div>
-      <div class="reveal text-center mt-14">
-        <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener"
-           class="inline-block bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md">
-          شوف باقي الصور على إنستجرام
-        </a>
-      </div>
-    </div>
-  <!-- End of hero -->
-  </section>
 
   <!-- ======================================================================
        القسم 7: آراء العملاء (قسم داكن مع 5 نجوم)
