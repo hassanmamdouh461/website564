@@ -92,16 +92,15 @@
     tailwind.config = {
       theme: {
         extend: {
-          // ألوان الهوية البصرية للبراند
           colors: {
-            espresso: '#3D0A17', // بني إسبريسو غامق -> خلفيات الأقسام الداكنة
-            cream: '#FAF6F0',    // بيج كريمي فاتح -> خلفيات الأقسام الفاتحة
-            caramel: '#EAD5C1',  // ذهبي/كراميل -> الأزرار والأسعار والتفاصيل
+            espresso: '#3D0A17',
+            cream: '#FAF6F0',
+            caramel: '#EAD5C1',
           },
           fontFamily: {
-            heading: ['"Playfair Display"', '"Cairo"', 'serif'], // كلاس font-heading
-            body: ['"Cairo"', 'sans-serif'],            // كلاس font-body
-      },
+            heading: ['"Playfair Display"', '"Cairo"', 'serif'],
+            body: ['"Cairo"', 'sans-serif'],
+          },
         },
       },
     };
@@ -799,53 +798,21 @@
        الجافاسكريبت: قائمة الموبايل + أنيميشن الظهور + سنة الفوتر
        ====================================================================== -->
   <script>
-    /* ====================================================================
-       SECTION 2: NAVBAR STATE
-       Inspects scroll position and the mobile menu state, then toggles the right CSS
-       class on the navbar so it always looks correct. The CSS only needs to know about
-       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
-       specific colors or blur values.
-       ==================================================================== */
-    // --------------------------------------------------------
-    /* ====================================================================
-       SECTION 1: SCROLL REVEAL
-       IntersectionObserver adds .visible to any .reveal element when it scrolls into view.
-       The observer is one-shot (unobserve after first hit) so animations don't replay on
-       every scroll pass. threshold=0.15 means the element is considered "in view" when
-       15% of it is on screen. rootMargin -40px shrinks the trigger area at the bottom so
-       elements animate as they enter, not after they're fully on screen.
-       ==================================================================== */
-    // 1) أنيميشن الظهور عند التمرير (Scroll Reveal)
-    //    IntersectionObserver بيراقب العناصر: أول ما عنصر يدخل
-    //    الشاشة، بنضيفله كلاس .visible فيظهر بحركة ناعمة
-    /* ====================================================================
-       SECTION 2: NAVBAR STATE
-       Inspects scroll position and the mobile menu state, then toggles the right CSS
-       class on the navbar so it always looks correct. The CSS only needs to know about
-       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
-       specific colors or blur values.
-       ==================================================================== */
-    // --------------------------------------------------------
-    // Build the observer. The callback fires every time an observed element's intersection changes.
+    // Scroll reveal
     const revealObserver = new IntersectionObserver(
       (entries) => {
-        // entries = قائمة العناصر اللي حالتها اتغيرت
         entries.forEach((entry) => {
-          // لو العنصر داخل في نطاق الرؤية
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            revealObserver.unobserve(entry.target);      // نبطل نراقبه (الأنيميشن بيحصل مرة واحدة بس)
+            revealObserver.unobserve(entry.target);
           }
         });
       },
-      // الإعدادات: العنصر يظهر لما 15% منه يكون باين، مع هامش سفلي 40px
-  // Observation config: 15% visibility threshold + 40px bottom margin.
       { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
-    // نراقب كل العناصر اللي عليها كلاس .reveal
-    // Find every element with the .reveal class and ask the observer to watch it.
     document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
-    // Gallery: trigger the cascade animation only when the section scrolls into view
+
+    // Gallery cascade
     const gallerySection = document.getElementById('gallery');
     if (gallerySection) {
       const galleryObs = new IntersectionObserver((entries) => {
@@ -853,90 +820,30 @@
       }, { threshold: 0.05 });
       galleryObs.observe(gallerySection);
     }
-    /* MOBILE GALLERY FALLBACK: CSS multi-column layout can hide images from
-       the IntersectionObserver (a tall image in column 2 may be inside the layout but
-       outside the viewport in the observer's math). This on-scroll check finds any
-       .reveal element that's already on screen but still hidden, and shows it. */
-    // Fallback for CSS-columns masonry on mobile: observer can miss an image
-    // inside a column, so on scroll also check anything still hidden that is
-    // already on screen
- below-the-fold sections keep their animation.
+
+    // Mobile gallery fallback
     function revealMissed() {
-      // Loop over every hidden reveal element (the :not(.visible) filter is important
- so we don't re-process already-visible ones).
       document.querySelectorAll('.reveal:not(.visible)').forEach((el) => {
         const r = el.getBoundingClientRect();
-        // If the element's top edge is within 92% of viewport height AND bottom > 0 (not above), then it's "in view" by any reasonable definition
- show it.
         if (r.top < window.innerHeight * 0.92 && r.bottom > 0) el.classList.add('visible');
       });
     }
-    // Listen on scroll and on load (catches the initial visible items). passive:true tells
-     the browser we won't call preventDefault, so it can't block scrolling.
     window.addEventListener('scroll', revealMissed, { passive: true });
     window.addEventListener('load', revealMissed);
 
-
-    /* ====================================================================
-       SECTION 2: NAVBAR STATE
-       Inspects scroll position and the mobile menu state, then toggles the right CSS
-       class on the navbar so it always looks correct. The CSS only needs to know about
-       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
-       specific colors or blur values.
-       ==================================================================== */
-    // --------------------------------------------------------
-    // Cache the navbar element for the next block.
+    // Navbar state
     const navbar = document.getElementById('navbar');
-
     function updateNavbarState() {
-      // Capture scroll position once per call (used multiple times below).
-  const y = window.scrollY;
+      const y = window.scrollY;
       const menuOpen = document.body.classList.contains('menuOpen');
       navbar.classList.toggle('nav-scrolled', y > 40 || menuOpen);
       navbar.classList.toggle('nav-mid', !menuOpen && y > 0 && y <= 40);
     }
     updateNavbarState();
-    // Re-evaluate on every scroll (passive: same as before, doesn't block scroll).
     window.addEventListener('scroll', updateNavbarState, { passive: true });
-    // Re-evaluate on window resize (mobile menu state may differ after rotation).
     window.addEventListener('resize', updateNavbarState);
 
-    /* ====================================================================
-       SECTION 2: NAVBAR STATE
-       Inspects scroll position and the mobile menu state, then toggles the right CSS
-       class on the navbar so it always looks correct. The CSS only needs to know about
-       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
-       specific colors or blur values.
-       ==================================================================== */
-    // --------------------------------------------------------
-    // 3) تحويل الـ Navbar من شفاف لـ burgundy أثناء التمرير
-    /* ====================================================================
-       SECTION 2: NAVBAR STATE
-       Inspects scroll position and the mobile menu state, then toggles the right CSS
-       class on the navbar so it always looks correct. The CSS only needs to know about
-       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
-       specific colors or blur values.
-       ==================================================================== */
-    // --------------------------------------------------------
-
-    /* ====================================================================
-       SECTION 2: NAVBAR STATE
-       Inspects scroll position and the mobile menu state, then toggles the right CSS
-       class on the navbar so it always looks correct. The CSS only needs to know about
-       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
-       specific colors or blur values.
-       ==================================================================== */
-    // --------------------------------------------------------
-    // Footer copyright year: filled in dynamically so the page never goes out of date.
-    // 4) كتابة السنة الحالية في الفوتر أوتوماتيك
-    /* ====================================================================
-       SECTION 2: NAVBAR STATE
-       Inspects scroll position and the mobile menu state, then toggles the right CSS
-       class on the navbar so it always looks correct. The CSS only needs to know about
-       three states (default glassy, nav-mid, nav-scrolled); JS never has to worry about
-       specific colors or blur values.
-       ==================================================================== */
-    // --------------------------------------------------------
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
   
@@ -944,66 +851,37 @@
   <!-- Side menu (clean rebuild): IIFE-scoped, doesn't pollute the global namespace. -->
   <!-- Side menu (clean rebuild) -->
   <script>
+  // Side menu drawer
   (function(){
     var btn = document.getElementById("menuBtn");
     var menu = document.getElementById("sideMenu");
     var overlay = document.getElementById("menuOverlay");
-    // Defensive exit: if any element is missing (e.g. cached HTML), do nothing rather than throwing on every click.
     if (!btn || !menu || !overlay) return;
-    /* Open the drawer. Order of operations matters:
-       1) Make elements visible (hidden=false) so the browser lays them out.
-       2) On the next animation frame, set aria-* and add the body class so CSS
-          transitions can animate from the off-screen state. */
     function open(){
-      // Show both elements first (CSS transition needs a layout to animate from).
-  menu.hidden = false;
-      // Same for the backdrop.
-  overlay.hidden = false;
-      // Wait one frame so the browser paints the "before" state, then trigger the
-   "after" state — otherwise the transition has nothing to animate from.
+      menu.hidden = false;
+      overlay.hidden = false;
       requestAnimationFrame(function(){
-        // Update ARIA: screen readers will announce the menu is now open.
-    btn.setAttribute("aria-expanded","true");
-        // ARIA: drawer content is now visible.
-    menu.setAttribute("aria-hidden","false");
-        // Add the body class that the navbar state machine uses to keep the nav solid.
-    document.body.classList.add("menuOpen");
+        btn.setAttribute("aria-expanded","true");
+        menu.setAttribute("aria-hidden","false");
+        document.body.classList.add("menuOpen");
       });
     }
-    /* Close the drawer. Mirrors open() in reverse, with an extra setTimeout that
-       matches the CSS transition duration (400ms) before setting hidden=true. */
     function close(){
-      // ARIA: closed.
-  btn.setAttribute("aria-expanded","false");
-      // ARIA: drawer is hidden from assistive tech.
-  menu.setAttribute("aria-hidden","true");
-      // Body class removed so navbar can return to its scroll-based state.
-  document.body.classList.remove("menuOpen");
-      // Wait for the slide-out animation to finish before removing from the DOM flow.
-  setTimeout(function(){
-        // Hide the menu from the layout (accessibility + tab order).
-    menu.hidden = true;
-        // Same for the backdrop.
-    overlay.hidden = true;
-      // 400ms matches the CSS transition-duration on transform.
-  }, 400);
+      btn.setAttribute("aria-expanded","false");
+      menu.setAttribute("aria-hidden","true");
+      document.body.classList.remove("menuOpen");
+      setTimeout(function(){
+        menu.hidden = true;
+        overlay.hidden = true;
+      }, 400);
     }
-    /* Convenience wrapper: read the current ARIA state and call open or close. */
     function toggle(){
-      // ARIA is the source of truth
- never trust a separate boolean. —  btn.getAttribute("aria-expanded") === "true" ? close() : open();
+      btn.getAttribute("aria-expanded") === "true" ? close() : open();
     }
-    // Main trigger: clicking the coffee-cup/X icon toggles the drawer.
     btn.addEventListener("click", toggle);
-    // Clicking the dark backdrop closes the drawer.
     overlay.addEventListener("click", close);
-    // Pressing Escape closes the drawer (a standard a11y pattern).
     document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
-    // Find every link inside the drawer (the section anchors + the language switch).
     var links = menu.querySelectorAll("[data-close]");
-    // For each link, attach a click listener that closes the drawer
- so navigating
-     to a section happens with a clean UI (no drawer over the content).
     for (var i = 0; i < links.length; i++) links[i].addEventListener("click", close);
   })();
   </script>
