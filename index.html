@@ -10,9 +10,9 @@
     <!-- Makes the page mobile-friendly by matching the viewport width to device pixels -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Browser tab title + Google search result headline -->
-  <title>باتشينوس | Paccino's Coffee &amp; Food — Italian Restaurant in Minya, Egypt</title>
+  <title>Paccino's Café Minya | Coffee, Italian Food &amp; Menu</title>
     <!-- SEO snippet shown under the page title in search results -->
-  <meta name="description" content="باتشينوس (Paccino's) — Italian restaurant & specialty coffee shop in Minya since 2010. Two branches: Taha Hussein St & New Minya Corner Plaza. Specialty coffee, pasta, pizza. Order via WhatsApp 01007811378." />
+  <meta name="description" content="Specialty coffee, fresh Italian dishes and desserts at Paccino's Minya. See our menu, hours and both branches: Taha Hussein St &amp; Corner Plaza." />
     <!-- SEO keywords — Arabic (primary) + English + Arabic transliteration for search variations -->
   <meta name="keywords" content="باتشينوس, Paccino's, paccinos, بنى, مقهى المنيا, مطعم إيطالي المنيا, كافيه المنيا, مطاعم المنيا, قهوة مختصة, Italian restaurant Minya, coffee shop Minya, Paccinos Minya, Minya restaurant" />
   <meta name="author" content="Paccino's" />
@@ -53,13 +53,21 @@
   <meta name="twitter:image" content="https://pacinos.engaz.tech/images/paccino-12.jpg" />
   <meta name="twitter:image:alt" content="باتشينوس Paccino's terrace at night" />
 
-    <!-- Favicon — burgundy "P" badge shown in the browser tab -->
+    <!-- Favicon / site icon set. Google Search picks a raster icon of at least
+         48x48 for the SERP result icon, so the PNGs below matter more than the SVG:
+         without them Search falls back to a generic globe. All are the brand
+         emblem cropped from images/logo.png on the exact brand burgundy. -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="images/icon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="images/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="images/icon-512.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icon-180.png" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#5C1425" />
   <meta name="msapplication-TileColor" content="#5C1425" />
+  <meta name="msapplication-TileImage" content="images/icon-192.png" />
   <link rel="dns-prefetch" href="https://maps.google.com" />
-  <link rel="apple-touch-icon" href="favicon.svg" />
     <!-- Language preference redirect: if visitor has not explicitly chosen English, send them to ar.html
          (Arabic is the default language of the site). We use the hash so deep-links to sections survive the redirect. -->
   <!-- Remember visitor's language choice: if they previously picked Arabic, take them to ar.html.
@@ -1145,13 +1153,13 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Restaurant",
+    "@type": ["CafeOrCoffeeShop", "Restaurant"],
     "@id": "https://pacinos.engaz.tech/#restaurant",
     "name": "Paccino's",
-    "alternateName": ["باتشينوس", "Paccinos", "Paccino's Coffee & Food Experience", "Paccino's Minya"],
+    "alternateName": ["باتشينوس", "بنشينوس", "Pacinos", "Paccinos", "Paccino's", "Paccino's Café", "Paccino's Coffee & Food Experience", "Paccino's Minya"],
     "description": "Italian restaurant & specialty coffee shop in Minya, Egypt. Open since 2010 with two branches.",
     "url": "https://pacinos.engaz.tech/",
-    "logo": "https://pacinos.engaz.tech/favicon.svg",
+    "logo": "https://pacinos.engaz.tech/images/icon-512.png",
     "image": [
       "https://pacinos.engaz.tech/images/paccino-12.jpg",
       "https://pacinos.engaz.tech/images/paccino-5.jpg",
@@ -1160,7 +1168,7 @@
     "telephone": "+201228784569",
     "email": "paccinoscafe@gmail.com",
     "priceRange": "$$",
-    "servesCuisine": ["Italian", "Egyptian", "Coffee"],
+    "servesCuisine": ["Coffee", "Italian", "Desserts", "Egyptian"],
     "foundingDate": "2010",
     "address": [
       {
@@ -1390,6 +1398,7 @@
         "name": "Paccino's",
         "alternateName": ["باتشينوس", "Paccinos"],
         "image": "https://pacinos.engaz.tech/images/paccino-12.jpg",
+        "logo": "https://pacinos.engaz.tech/images/icon-512.png",
         "telephone": "+201228784569",
         "email": "paccinoscafe@gmail.com",
         "url": "https://pacinos.engaz.tech/",

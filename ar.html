@@ -12,11 +12,11 @@
 
     <!-- Browser tab title + Google search result headline (Arabic primary, brand name first) -->
   <!-- عنوان الصفحة اللي بيظهر في تبويب المتصفح ونتائج جوجل -->
-  <title>باتشينوس — مقهى ومطعم إيطالي في المنيا منذ 2010 | Paccino's Minya</title>
+  <title>باتشينوس كافيه المنيا | Paccino's - المنيو والفروع</title>
 
     <!-- SEO snippet shown under the page title in search results (Arabic) -->
   <!-- وصف الموقع لمحركات البحث (SEO) -->
-  <meta name="description" content="باتشينوس Paccino's — مقهى ومطعم إيطالي في المنيا. قهوة مختصة وأطباق إيطالية طازة يومياً. فرعان: شارع طه حسين والمنيا الجديدة (مول كورنر بلازا). اطلب واتساب 01007811378." />
+  <meta name="description" content="استمتع بأفضل قهوة مختصة وأطباق إيطالية وحلويات طازجة في كافيه باتشينوس بالمنيا. تصفح المنيو ومواعيد العمل وفرعي شارع طه حسين والمنيا الجديدة." />
   <meta name="keywords" content="باتشينوس, Paccino's, paccinos, بنى, مقهى المنيا, مطعم إيطالي المنيا, كافيه المنيا, مطاعم المنيا, قهوة مختصة, Minya restaurant, Italian restaurant Minya" />
   <meta name="author" content="Paccino's" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
@@ -52,14 +52,22 @@
   <meta name="twitter:image" content="https://pacinos.engaz.tech/images/paccino-12.jpg" />
   <meta name="twitter:image:alt" content="باتشينوس Paccino's — تراس خارجي" />
 
-    <!-- Favicon — burgundy "P" badge shown in the browser tab -->
+    <!-- Favicon / site icon set. Google Search picks a raster icon of at least
+         48x48 for the SERP result icon, so the PNGs below matter more than the SVG:
+         without them Search falls back to a generic globe. All are the brand
+         emblem cropped from images/logo.png on the exact brand burgundy. -->
   <!-- أيقونة الموقع (favicon) -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="images/icon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="images/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="images/icon-512.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icon-180.png" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#5C1425" />
   <meta name="msapplication-TileColor" content="#5C1425" />
+  <meta name="msapplication-TileImage" content="images/icon-192.png" />
   <link rel="dns-prefetch" href="https://maps.google.com" />
-  <link rel="apple-touch-icon" href="favicon.svg" />
     <!-- Language preference redirect: if the visitor has explicitly chosen English,
          take them to index.html. Otherwise, stay here (Arabic). -->
   <!-- نتذكر اختيار اللغة -->
@@ -1217,14 +1225,14 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Restaurant",
+    "@type": ["CafeOrCoffeeShop", "Restaurant"],
     "@id": "https://pacinos.engaz.tech/ar.html#restaurant",
     "name": "باتشينوس Paccino's",
-    "alternateName": ["باتشينوس", "Paccinos", "Paccino's", "Paccino's Coffee & Food Experience", "باتشينوس المنيا"],
+    "alternateName": ["باتشينوس", "بنشينوس", "Pacinos", "Paccinos", "Paccino's", "باتشينوس كافيه", "Paccino's Coffee & Food Experience", "باتشينوس المنيا"],
     "description": "باتشينوس Paccino's — مقهى ومطعم إيطالي في المنيا منذ 2010. قهوة مختصة وأطباق إيطالية طازة يومياً. فرعان: طه حسين والمنيا الجديدة.",
     "url": "https://pacinos.engaz.tech/ar.html",
     "inLanguage": "ar",
-    "logo": "https://pacinos.engaz.tech/favicon.svg",
+    "logo": "https://pacinos.engaz.tech/images/icon-512.png",
     "image": [
       "https://pacinos.engaz.tech/images/paccino-12.jpg",
       "https://pacinos.engaz.tech/images/paccino-5.jpg",
@@ -1233,7 +1241,7 @@
     "telephone": "+201228784569",
     "email": "paccinoscafe@gmail.com",
     "priceRange": "$$",
-    "servesCuisine": ["Italian", "Egyptian", "Coffee", "مأكولات إيطالية", "قهوة"],
+    "servesCuisine": ["Coffee", "Italian", "Desserts", "قهوة", "مأكولات إيطالية", "حلويات"],
     "foundingDate": "2010",
     "address": [
       {
@@ -1458,6 +1466,7 @@
         "name": "باتشينوس Paccino's",
         "alternateName": ["Paccino's", "باتشينوس"],
         "image": "https://pacinos.engaz.tech/images/paccino-12.jpg",
+        "logo": "https://pacinos.engaz.tech/images/icon-512.png",
         "telephone": "+201228784569",
         "email": "paccinoscafe@gmail.com",
         "url": "https://pacinos.engaz.tech/",
