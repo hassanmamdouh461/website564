@@ -1,0 +1,20 @@
+/* TEAM */
+Paccino's Minya — Italian restaurant & specialty coffee shop
+Founded: 2010
+Site: https://pacinos.engaz.tech
+Contact: paccinoscafe@gmail.com · +20 12 28784569
+
+/* THANKS */
+- Google Search Central for documentation
+- GitHub Pages for free hosting
+- Cloudflare DNS
+- Tailwind CSS team
+- Cairo & Playfair Display font authors (Google Fonts)
+
+/* SITE */
+Last update: 2026/08/17
+Standards: HTML5, CSS3, ES2017+
+Components: PWA manifest.json, JSON-LD structured data, Open Graph, Twitter Cards
+Language: Arabic (default) + English (mirror)
+Generator: hand-written
+IDE: any text editor

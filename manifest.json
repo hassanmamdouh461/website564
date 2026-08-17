@@ -1,0 +1,29 @@
+{
+  "name": "باتشينوس Paccino's",
+  "short_name": "Paccino's",
+  "description": "Italian restaurant & specialty coffee shop in Minya, Egypt. Two branches, full menu, WhatsApp ordering.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#5C1425",
+  "theme_color": "#5C1425",
+  "lang": "en",
+  "dir": "auto",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/logo-sm.png",
+      "sizes": "300x300",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["food", "lifestyle", "business"],
+  "langs": ["en", "ar"]
+}

@@ -55,6 +55,10 @@
 
     <!-- Favicon — burgundy "P" badge shown in the browser tab -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#5C1425" />
+  <meta name="msapplication-TileColor" content="#5C1425" />
+  <link rel="dns-prefetch" href="https://maps.google.com" />
   <link rel="apple-touch-icon" href="favicon.svg" />
     <!-- Language preference redirect: if visitor has not explicitly chosen English, send them to ar.html
          (Arabic is the default language of the site). We use the hash so deep-links to sections survive the redirect. -->
@@ -1147,6 +1151,52 @@
       { "@type": "ListItem", "position": 4, "name": "Gallery","item": "https://pacinos.engaz.tech/#gallery" },
       { "@type": "ListItem", "position": 5, "name": "Reviews","item": "https://pacinos.engaz.tech/#reviews" },
       { "@type": "ListItem", "position": 6, "name": "Contact","item": "https://pacinos.engaz.tech/#contact" }
+    ]
+  }
+  </script>
+
+  <!-- ======================================================================
+       JSON-LD: FAQPage schema — surfaces questions directly in Google search
+       results as expandable rich results. Targets long-tail keywords.
+       ====================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Where is Paccino's Coffee located in Minya?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paccino's has two branches in Minya, Egypt. The first is on Taha Hussein Street (in front of Wabour El-Nour) and the second is in the New Minya 3rd District at Corner Plaza Mall. Both branches serve the full menu and offer delivery."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Paccino's offer delivery in Minya?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Paccino's offers delivery across Minya. Order via WhatsApp at +20 10 07811378 (Taha Hussein branch) or +20 10 3377117 (New Minya branch). The full Italian menu is available for delivery, including specialty coffee, pasta, and pizza."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does Paccino's Coffee serve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paccino's serves specialty Italian coffee (Paccino's Latte, Mocha, Vanilla, Spanish Latte) and a full Italian kitchen menu including Fettuccine Alfredo, Penne Arrabbiata, Margherita Pizza, and a house-special Paccino's Pizza. Everything is made fresh daily."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are Paccino's opening hours?",
+        "answerCount": 1,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paccino's is open daily from 9:00 AM to 11:59 PM, including weekends and most holidays. Both the Taha Hussein and New Minya Corner Plaza branches follow the same schedule."
+        }
+      }
     ]
   }
   </script>

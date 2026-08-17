@@ -55,6 +55,10 @@
     <!-- Favicon — burgundy "P" badge shown in the browser tab -->
   <!-- أيقونة الموقع (favicon) -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#5C1425" />
+  <meta name="msapplication-TileColor" content="#5C1425" />
+  <link rel="dns-prefetch" href="https://maps.google.com" />
   <link rel="apple-touch-icon" href="favicon.svg" />
     <!-- Language preference redirect: if the visitor has explicitly chosen English,
          take them to index.html. Otherwise, stay here (Arabic). -->
@@ -1229,6 +1233,51 @@
       { "@type": "ListItem", "position": 4, "name": "الصور",   "item": "https://pacinos.engaz.tech/ar.html#gallery" },
       { "@type": "ListItem", "position": 5, "name": "الآراء",   "item": "https://pacinos.engaz.tech/ar.html#reviews" },
       { "@type": "ListItem", "position": 6, "name": "تواصل",   "item": "https://pacinos.engaz.tech/ar.html#contact" }
+    ]
+  }
+  </script>
+
+  <!-- ======================================================================
+       JSON-LD: FAQPage schema (Arabic) — questions in Arabic surface in Arabic search
+       ====================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "ar",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "فين فروع باتشينوس في المنيا؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "باتشينوس ليه فرعين في المنيا. الفرع الأول في شارع طه حسين (أمام وابور النور)، والفرع التاني في المنيا الجديدة - الحي الثالث - مول كورنر بلازا. الفرعين بيقدموا نفس المنيو الكامل وخدمة الديليفري."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل باتشينوس بيقدم خدمة الديليفري؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "أيوه. باتشينوس بيقدم خدمة الديليفري في كل المنيا. اطلب عبر واتساب على 01007811378 (فرع طه حسين) أو 0103377117 (فرع المنيا الجديدة). المنيو الإيطالي الكامل متاح للديليفري، بما في ذلك القهوة المختصة والباستا والبيتزا."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "إيه اللي بيقدمه باتشينوس؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "باتشينوس بيقدم قهوة إيطالية مختصة (باتشينوس لاتيه، موكا، فانيليا، سبانيش لاتيه) ومينيو مطبخ إيطالي كامل فيهم فيتوتشيني ألفريدو، بيني أرابياتا، بيتزا مارجريتا، وبيتزا باتشينوس سبيشيال. كل حاجة بتتعمل يومياً من أول وآخر."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "إيه مواعيد عمل باتشينوس؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "باتشينوس مفتوح يومياً من الساعة 9:00 صباحاً حتى 11:59 مساءً، بما في ذلك الويك إند ومعظم الأعياد. كلاً من فرع طه حسين وفرع المنيا الجديدة كورنر بلازا بيتبع نفس المواعيد."
+        }
+      }
     ]
   }
   </script>
