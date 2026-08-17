@@ -10,155 +10,269 @@
 
 ## Stack
 
-- **HTML5** (single page each, no framework)
-- **Tailwind CSS** via CDN
-- **Vanilla JS** (mobile menu, scroll reveal, language redirect)
-- **GitHub Pages** for hosting (no backend, no SSR)
-- **Custom domain:** `pacinos.engaz.tech`
+- **HTML5** — two standalone pages, no framework, no build step
+- **Tailwind CSS** via CDN, with brand tokens declared inline in `tailwind.config`
+- **Vanilla JS** — cinematic intro (rAF mask), side drawer, scroll reveal, language redirect
+- **GitHub Pages** hosting from the `gh-pages` branch (`main` is kept in sync)
+- **Custom domain:** `pacinos.engaz.tech` (see `CNAME`)
 
 ## File structure
 
 ```
 website564/
-├── index.html              ← English version
-├── ar.html                 ← Arabic version (default landing)
-├── robots.txt              ← Search engine rules + sitemap pointer
-├── sitemap.xml             ← All public URLs with hreflang
-├── favicon.svg             ← Brand "P" badge
-├── CNAME                   ← Custom domain config
-├── paccinos-data.json      ← Source-of-truth business data
-├── images/                 ← All photos (optimized JPGs)
-└── .well-known/
-    └── security.txt        ← RFC 9116 — vulnerability reporting
+├── index.html                    ← English version
+├── ar.html                       ← Arabic version (default landing)
+├── 404.html                      ← Branded not-found page
+├── validate.js                   ← Pre-commit checker (run before every commit)
+├── robots.txt                    ← Crawler rules + sitemap pointer
+├── sitemap.xml                   ← Both language URLs with hreflang
+├── manifest.json                 ← PWA manifest (install + theme color)
+├── browserconfig.xml             ← Windows tile colors
+├── humans.txt                    ← Credits / trust signal
+├── security.txt                  ← RFC 9116 vulnerability contact
+├── favicon.svg                   ← Brand "P" badge
+├── CNAME                         ← Custom domain
+├── paccinos-data.json            ← Source-of-truth business data
+├── google4a500f27301bceae.html   ← Search Console verification — DO NOT DELETE
+├── BingSiteAuth.xml              ← Bing Webmaster verification
+└── images/                       ← All photos
 ```
 
-## SEO infrastructure
+## Brand tokens
 
-| File | Purpose |
-|---|---|
-| `<head>` in both pages | Title, description, keywords, Open Graph, Twitter Cards, hreflang, canonical |
-| JSON-LD `<script>` blocks | `Restaurant`, `Menu`, `BreadcrumbList` schema.org data |
-| `robots.txt` | Allows all crawlers, points to sitemap |
-| `sitemap.xml` | Lists both language versions with hreflang annotations |
-| `BingSiteAuth.xml` | Bing Webmaster verification (replace with real token) |
-| `google-site-verification.html` | Google Search Console verification placeholder |
-| `.well-known/security.txt` | Security researcher contact per RFC 9116 |
+Do not change these without asking. They are referenced from Tailwind config,
+CSS variables, and inline `style` attributes throughout both pages.
 
----
-
-## Step-by-step: Get "باتشينوس" to rank in Google
-
-### ✅ Step 1 — Technical SEO (DONE in this repo)
-
-- ✅ Title, meta description, keywords in both languages
-- ✅ Open Graph + Twitter Card tags
-- ✅ Canonical URLs + hreflang annotations
-- ✅ JSON-LD structured data: Restaurant + Menu + BreadcrumbList
-- ✅ `robots.txt` + `sitemap.xml`
-- ✅ Security headers reference (`.well-known/security.txt`)
-- ✅ H1 in Arabic page includes Arabic brand
-
-### 📋 Step 2 — Google Search Console (MANUAL)
-
-1. Open https://search.google.com/search-console
-2. Click **Add property** → choose **URL prefix**
-3. Enter: `https://pacinos.engaz.tech/`
-4. Verification method: **HTML file**
-5. Google generates a file like `google12a3bc4d5e6f7g8h9.html`
-6. **Save that file** in the repo root (or send me the content and I'll create it)
-7. Push to gh-pages → Google will verify within 24h
-8. After verification → **Sitemaps** → submit `https://pacinos.engaz.tech/sitemap.xml`
-
-**Alternative — DNS verification (faster, fewer steps):**
-- Choose **Domain** property type instead of URL prefix
-- Google gives a TXT record like `google-site-verification=abc123...`
-- In **Cloudflare** → DNS → Records → Add:
-  - Type: `TXT`
-  - Name: `pacinos` (NOT `@`, because the subdomain is `pacinos.engaz.tech`)
-  - Content: the full verification string
-  - Proxy: **DNS only** (grey cloud, not orange)
-- Wait 5-30 min, click Verify
-
-### 📋 Step 3 — Bing Webmaster Tools (MANUAL)
-
-1. Open https://www.bing.com/webmasters
-2. Add site: `https://pacinos.engaz.tech/`
-3. Verify with **HTML <meta> tag** (or XML file in `BingSiteAuth.xml`)
-4. Submit sitemap
-
-### 📋 Step 4 — Google Business Profile (CRITICAL for local SEO)
-
-This is the **#1 thing** for ranking in local search "باتشينوس المنيا":
-
-1. Open https://business.google.com/
-2. Add your business:
-   - **Name:** Paccino's (باتشينوس)
-   - **Category:** Italian restaurant + Coffee shop
-   - **Address:** Taha Hussein St (in front of Wabour El-Nour), Minya
-   - **Second branch:** Corner Plaza Mall, New Minya
-   - **Phone:** +20 12 28784569
-   - **Website:** https://pacinos.engaz.tech
-   - **Hours:** 9:00 AM – 12:00 AM daily
-3. Verify by phone/postcard
-4. Upload high-quality photos of both branches
-5. Get customer reviews on Google Maps (encourage via WhatsApp)
-
-### 📋 Step 5 — Off-page SEO (DO MANUALLY)
-
-Ranking in Google depends heavily on **backlinks from other sites**. A few easy wins:
-
-- **Facebook page** (https://www.facebook.com/PaccinosCoffee) — post weekly, link to your site
-- **Instagram** (https://www.instagram.com/paccino_s) — link in bio
-- **Yellow Pages Egypt** — list your business with the same name/address/phone (NAP consistency)
-- **Egyptian food directories** — RestaurantGuru, Zomato, Talabat
-- **TripAdvisor** — claim your listing, get reviews
-- **Medium / LinkedIn** — write 1-2 articles about Paccino's history (the bio is already in `paccinos-data.json`)
-
-### 📋 Step 6 — Content growth (LONG-TERM)
-
-- **Add an /about page** with the full bio
-- **Add /menu page** with the full menu and prices
-- **Add a blog** for SEO articles ("Best Italian restaurants in Minya", "What makes Egyptian-style coffee special", etc.)
-- **Customer testimonials** with schema.org/Review markup
+| Token | Hex | Used for |
+|---|---|---|
+| burgundy | `#5C1425` | headings, borders, accents |
+| espresso | `#3D0A17` | dark sections, buttons, body text |
+| cream | `#FAF6F0` | light section backgrounds, cards |
+| caramel | `#EAD5C1` | stars, hover states, links |
+| intro red | `#6d142a` | cinematic intro backdrop only |
 
 ---
 
-## Cloudflare configuration (optional but recommended)
+## Canonical NAP — use this exact text everywhere
 
-Currently the site is hosted on GitHub Pages. Cloudflare can add:
-- **Free CDN** (faster load for Egyptian users)
-- **Free SSL** (already have one, but Cloudflare can add edge security)
-- **Bot management** (block bad crawlers)
-- **Response headers** (X-Content-Type-Options, Referrer-Policy, etc.)
+Local search works by matching the **same** Name / Address / Phone across many
+independent sources. Every character below is what appears in the pages, in the
+JSON-LD, and in the `#findus` section. Copy it verbatim into any directory
+listing; do not reword, abbreviate, or reformat the phone numbers.
 
-If the user wants Cloudflare proxy, point `pacinos.engaz.tech` CNAME to `<username>.github.io` and enable orange-cloud proxy. But this is optional — GitHub Pages already serves the site fine.
+```
+Name:      Paccino's
+Also:      باتشينوس  ·  Paccino's Coffee & Food Experience
+
+Address 1: Taha Hussein St (in front of Wabour El-Nour), Minya, Egypt — 61661
+Address 2: Corner Plaza Mall, 3rd District, New Minya, Egypt
+
+Phone:     +20 12 28784569
+Delivery:  01007811378  (Taha Hussein branch)
+           01033777117  (New Minya branch)
+
+Email:     paccinoscafe@gmail.com
+WhatsApp:  https://wa.me/201228784569
+Website:   https://pacinos.engaz.tech
+Instagram: https://instagram.com/paccino_s
+Facebook:  https://facebook.com/PaccinosCoffee
+Hours:     Daily 09:00 – 23:59
+Founded:   2010
+Cuisine:   Italian · Coffee · Egyptian
+```
+
+Arabic form (for Arabic-language directories):
+
+```
+الاسم:     باتشينوس Paccino's
+العنوان 1: شارع طه حسين (أمام وابور النور)، المنيا — 61661
+العنوان 2: مول كورنر بلازا، الحي الثالث، المنيا الجديدة
+```
 
 ---
 
-## Deploying changes
+## The Aug 17 Google Business Profile request — how to avoid it
+
+**Situation.** A claim request was filed for the Paccino's listing on Google
+Business Profile. The listing is currently attached to another Google account
+(`ea…@gmail.com`). Google's rule is that if the current owner does not respond
+within seven days, the request is **auto-approved** — which was set to happen on
+**Aug 17, 2026**. Auto-approval transfers the listing and notifies the previous
+owner by email, which is exactly the outcome we wanted to avoid.
+
+**What "avoiding it" means.** There is no way to keep a pending request open
+indefinitely and no way to take over the listing silently. The two clean options
+are:
+
+1. **Cancel the request before it resolves.** Sign in at
+   https://business.google.com/ with the account that filed the claim →
+   **Businesses** → find the pending Paccino's listing → **Cancel request**
+   (may appear as *Withdraw request* or *Remove from account*). Once cancelled,
+   nothing transfers and no notification is sent to the current owner.
+   This is the only action that actually stops the clock.
+2. **Let it lapse and stop using that path.** If the request is already past its
+   deadline and was auto-approved, the transfer is done and cannot be undone from
+   our side. If it was rejected, do not re-file — repeated claim attempts on the
+   same listing are rate-limited and get flagged.
+
+**After cancelling, do not re-file a claim.** Everything below achieves local
+visibility without touching Google Business Profile at all.
+
+---
+
+## Local visibility without a Google Business Profile
+
+Being findable locally is not one switch — it is the sum of many independent
+sources saying the same thing about the same business. GBP is the loudest single
+source, but the other sources still work on their own, and Google reads several
+of them directly.
+
+### What is already shipped in this repo
+
+| Signal | Where | What it does |
+|---|---|---|
+| `Restaurant` + `LocalBusiness` JSON-LD | both pages | Tells Google the name, both addresses, geo coordinates, phone, hours, cuisine, price range — the same fields a GBP listing would supply |
+| `Review` + `aggregateRating` JSON-LD | both pages | Star rating eligibility in **organic** results, independent of GBP |
+| `FAQPage` JSON-LD | both pages | Expandable Q&A in results, including "how do I leave a review" |
+| `hasMap` on the Restaurant node | both pages | Points Google at the two Maps place URLs |
+| `sameAs` on the Restaurant node | both pages | Links the domain to Facebook, Instagram, WhatsApp |
+| `#findus` section | both pages | Human-readable NAP for both branches + links to nine platforms |
+| `sitemap.xml` + `robots.txt` | root | Discovery, already accepted in Search Console |
+
+The `Review` markup is intentionally limited to the three real testimonials shown
+on the page. Google requires that reviewer-visible content match the markup, so
+**do not add a review to the JSON-LD that is not also rendered in the
+`#reviews` section.** Inflating `reviewCount` or adding invented authors is the
+fastest way to lose the rich result entirely.
+
+### Manual citation checklist — do these in order
+
+Each entry below is a separate business listing you create yourself, using the
+canonical NAP above. Highest impact first.
+
+1. **Bing Places** — https://www.bingplaces.com/ · free, no owner approval needed,
+   feeds Bing Maps, DuckDuckGo, and some Apple/Alexa results.
+2. **Apple Business Connect** — https://businessconnect.apple.com/ · covers Apple
+   Maps and Siri for every iPhone user in Minya.
+3. **OpenStreetMap** — https://www.openstreetmap.org/ · add both branches as
+   `amenity=cafe` / `amenity=restaurant` nodes with `name`, `phone`, `website`,
+   `opening_hours`. Feeds a long tail of apps and aggregators that Google crawls.
+4. **Facebook page** — already live. Keep the **About → address and hours**
+   fields identical to the canonical NAP; Google indexes them.
+5. **Instagram bio** — already live. Keep the website link as
+   `https://pacinos.engaz.tech`.
+6. **Tripadvisor** — https://www.tripadvisor.com/Owners · add the restaurant, then
+   collect reviews. Tripadvisor pages rank on their own for "restaurants Minya".
+7. **Foursquare** — https://foursquare.com/ · one of the sources Apple and several
+   travel apps license.
+8. **Talabat / elmenus** — delivery aggregators with strong domain authority in
+   Egypt. A listing there ranks for branded searches even without GBP.
+9. **Yelp** — https://business.yelp.com/ · low traffic in Egypt but a cheap,
+   high-authority citation.
+10. **Yellow Pages Egypt** — https://yellowpages.com.eg/ · local directory, still
+    crawled.
+
+After each listing goes live, add its public URL to the `sameAs` array in the
+`Restaurant` JSON-LD in **both** `index.html` and `ar.html`. That is what closes
+the loop: the directory points at the site, and the site points back at the
+directory, so Google can treat them as the same entity.
+
+### Driving reviews without owning the Maps listing
+
+Anyone can review a place on Google Maps — ownership only controls *replying* and
+*editing the profile*. So reviews still accumulate on the existing listing and
+still feed the local ranking of that place. The `#findus` section links directly
+to both branches' Maps entries with an "Add your review" call to action; share
+that link over WhatsApp after orders.
+
+### What is genuinely lost without GBP
+
+Be realistic about this: no owner replies to reviews, no posts/offers, no photo
+curation, no Maps insights, and no editing wrong hours if someone submits them.
+Everything above recovers discoverability, not control.
+
+---
+
+## Search Console / Bing status
+
+- Google Search Console: verified via the HTML file
+  `google4a500f27301bceae.html`. **Never delete or rename this file** — removing
+  it un-verifies the property. Sitemap `https://pacinos.engaz.tech/sitemap.xml`
+  submitted and accepted.
+- Bing Webmaster Tools: verified via `BingSiteAuth.xml`.
+- After any structured-data change, re-test both URLs at
+  https://search.google.com/test/rich-results and request re-indexing in
+  Search Console → URL Inspection.
+
+---
+
+## Before every commit
 
 ```bash
-git checkout gh-pages
-git add -A
-git commit -m "Your message"
-git push origin gh-pages
+node validate.js
 ```
 
-The site updates within 30-60 seconds.
+It parses every inline `<script>` with `new Function()`, every
+`application/ld+json` block with `JSON.parse()`, checks `<section>` tag balance
+in both pages, and validates `manifest.json` and `paccinos-data.json`. Non-zero
+exit means do not commit.
+
+## Deploying
+
+`gh-pages` is the branch GitHub Pages serves. `main` is force-synced to match it
+so both branches always show the same tree.
+
+```bash
+node validate.js                       # must pass first
+
+git add -A
+git commit -m "Your message"
+
+# Plain `git push` fails here with a /dev/tty credential prompt.
+# The cached credential helper is the only reliable form:
+git -c "credential.helper=cache --timeout=300" push origin gh-pages --force
+
+# Keep main identical to gh-pages
+git checkout main
+git reset --hard gh-pages
+git -c "credential.helper=cache --timeout=300" push origin main --force
+git checkout gh-pages
+```
+
+⚠️ `git checkout` and `git reset --hard` **discard uncommitted work**. Always
+`add` + `commit` before switching branches.
+
+The live site updates 30–90 seconds after the push. Verify with:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" https://pacinos.engaz.tech/
+curl -s -o /dev/null -w "%{http_code}\n" https://pacinos.engaz.tech/ar.html
+```
 
 ## Language switch
 
 `localStorage.pac_lang`:
-- Not set (or anything other than 'en') → redirect to `ar.html`
+
+- not set, or any value other than `'en'` → redirect to `ar.html`
 - `'en'` → stay on `index.html`
 
-The redirect script is in the `<head>` of `index.html` (the first script tag). To reset a visitor's language preference, they need to clear site data in their browser.
+The redirect runs in the `<head>` of `index.html` before paint, and preserves
+`location.hash` so deep links to sections survive it.
+
+## Notes for future edits
+
+- `overflow-x: clip` belongs on `body` only. Putting it on `html` makes the news
+  marquee glitch against the navbar's `backdrop-filter`.
+- The marquee pauses on hover only inside `@media (hover: hover)`, so touch
+  devices never get a stuck ticker.
+- The reviews section is three fixed cards by deliberate choice. A carousel and a
+  marquee were both tried and rejected — do not reintroduce them.
 
 ---
 
 ## Contact
 
 - **Email:** paccinoscafe@gmail.com
-- **WhatsApp:** +20 12 28784569
-- **Instagram:** https://www.instagram.com/paccino_s
-- **Facebook:** https://www.facebook.com/PaccinosCoffee
+- **WhatsApp:** https://wa.me/201228784569
+- **Instagram:** https://instagram.com/paccino_s
+- **Facebook:** https://facebook.com/PaccinosCoffee

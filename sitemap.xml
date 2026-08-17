@@ -11,7 +11,7 @@
   <!-- ============== English version (default) ============== -->
   <url>
     <loc>https://pacinos.engaz.tech/</loc>
-    <lastmod>2026-08-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://pacinos.engaz.tech/" />
@@ -22,7 +22,7 @@
   <!-- ============== Arabic version ============== -->
   <url>
     <loc>https://pacinos.engaz.tech/ar.html</loc>
-    <lastmod>2026-08-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ar" href="https://pacinos.engaz.tech/ar.html" />
