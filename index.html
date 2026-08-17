@@ -425,7 +425,6 @@
         <li><a href="#gallery" class="hover:text-caramel transition-colors duration-300">Gallery</a></li>
         <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">Reviews</a></li>
         <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">Contact</a></li>
-        <li><a href="#findus" class="hover:text-caramel transition-colors duration-300">Find Us</a></li>
       </ul>
 
       <!-- Language switcher (English -> Arabic). The onclick saves the choice in
@@ -470,7 +469,6 @@
       <li><a href="#gallery" data-close>Gallery</a></li>
       <li><a href="#reviews" data-close>Reviews</a></li>
       <li><a href="#contact" data-close>Contact</a></li>
-      <li><a href="#findus" data-close>Find Us</a></li>
       <li><a href="ar.html" onclick="try{localStorage.setItem('pac_lang','ar')}catch(e){}" data-close>Switch to Arabic</a></li>
     </ul>
     <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer" class="sideCta">Order on WhatsApp</a>
@@ -843,110 +841,7 @@
       </div>
     </div>  </section>
 
-  <!-- ====================================================================
-       FIND US — public NAP citations + third-party directory links.
-       Every entry repeats the exact same Name / Address / Phone as the rest of
-       the site and as the JSON-LD below, so search engines can match this
-       domain to the business across directories without a Google Business
-       Profile. The "review" links point at each platform's own listing/search
-       so visitors can post reviews we do not host ourselves.
-       ==================================================================== -->
-  <section id="findus" class="bg-white py-24 px-6">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">Find Us Everywhere</h2>
-      <div class="reveal w-20 h-1 bg-caramel mx-auto mb-6 rounded-full"></div>
-      <p class="reveal text-center text-lg max-w-2xl mx-auto mb-14" style="color:#5C1425;">
-        Same name, same address, same phone — on every map and every app.
-        Pick the platform you already use, find us there, and leave a review.
-      </p>
-      <!-- Two NAP blocks, one per branch. Each repeats the canonical address and
-           the branch delivery line exactly as written in the JSON-LD. -->
-      <div class="grid gap-8 md:grid-cols-2 mb-16">
-        <div class="reveal reveal-delay-1 rounded-2xl p-8 shadow-lg" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <p class="font-heading text-2xl font-bold mb-3" style="color:#5C1425;">Paccino's — Taha Hussein Branch</p>
-          <p class="mb-2" style="color:#3D0A17;">Taha Hussein St (in front of Wabour El-Nour), Minya, Egypt — 61661</p>
-          <p class="mb-2" style="color:#3D0A17;">Phone: <a href="tel:+201228784569" class="font-semibold hover:text-caramel" dir="ltr">+20 12 28784569</a></p>
-          <p class="mb-6" style="color:#3D0A17;">Delivery: <a href="tel:+201007811378" class="font-semibold hover:text-caramel" dir="ltr">01007811378</a></p>
-          <div class="flex flex-wrap gap-3">
-            <a href="https://www.google.com/maps/search/?api=1&query=Paccino%27s+Taha+Hussein+St+Minya+Egypt" target="_blank" rel="noopener noreferrer"
-               class="bg-espresso text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-caramel hover:text-espresso transition-all duration-300">Open in Google Maps</a>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Paccino%27s+Taha+Hussein+St+Minya+Egypt" target="_blank" rel="noopener noreferrer"
-               class="border-2 border-espresso text-espresso text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-espresso hover:text-white transition-all duration-300">Get Directions</a>
-          </div>
-        </div>
-        <div class="reveal reveal-delay-2 rounded-2xl p-8 shadow-lg" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <p class="font-heading text-2xl font-bold mb-3" style="color:#5C1425;">Paccino's — New Minya Branch</p>
-          <p class="mb-2" style="color:#3D0A17;">Corner Plaza Mall, 3rd District, New Minya, Egypt</p>
-          <p class="mb-2" style="color:#3D0A17;">Phone: <a href="tel:+201228784569" class="font-semibold hover:text-caramel" dir="ltr">+20 12 28784569</a></p>
-          <p class="mb-6" style="color:#3D0A17;">Delivery: <a href="tel:+201033777117" class="font-semibold hover:text-caramel" dir="ltr">01033777117</a></p>
-          <div class="flex flex-wrap gap-3">
-            <a href="https://www.google.com/maps/search/?api=1&query=Corner+Plaza+Mall+New+Minya+Egypt" target="_blank" rel="noopener noreferrer"
-               class="bg-espresso text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-caramel hover:text-espresso transition-all duration-300">Open in Google Maps</a>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Corner+Plaza+Mall+New+Minya+Egypt" target="_blank" rel="noopener noreferrer"
-               class="border-2 border-espresso text-espresso text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-espresso hover:text-white transition-all duration-300">Get Directions</a>
-          </div>
-        </div>
-      </div>
-      <!-- Directory grid. Each tile links to that platform's listing or its
-           Minya search page when a listing does not exist yet, so the same NAP
-           is discoverable from more than one source. -->
-      <h3 class="reveal font-heading text-2xl md:text-3xl font-bold text-center mb-3" style="color:#5C1425;">Rate us on your favourite platform</h3>
-      <p class="reveal text-center mb-10" style="color:#3D0A17;">Reviews on any of these help other people in Minya find us.</p>
-      <div class="reveal grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="https://www.google.com/maps/search/?api=1&query=Paccino%27s+Taha+Hussein+St+Minya+Egypt" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">Google Maps</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">Add your review →</span>
-        </a>
-        <a href="https://www.facebook.com/PaccinosCoffee/reviews" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">Facebook</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">Add your review →</span>
-        </a>
-        <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">Instagram</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">Tag us →</span>
-        </a>
-        <a href="https://www.tripadvisor.com/Search?q=Paccino%27s%20Minya%20Egypt" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">Tripadvisor</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">Add your review →</span>
-        </a>
-        <a href="https://www.yelp.com/search?find_desc=Paccino%27s&find_loc=Minya%2C+Egypt" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">Yelp</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">Add your review →</span>
-        </a>
-        <a href="https://foursquare.com/explore?near=Minya%2C%20Egypt&q=Paccino%27s" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">Foursquare</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">Add your review →</span>
-        </a>
-        <a href="https://www.elmenus.com/minya" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">elmenus</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">Browse Minya →</span>
-        </a>
-        <a href="https://www.talabat.com/egypt" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">Talabat</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">Order &amp; rate →</span>
-        </a>
-        <a href="https://www.openstreetmap.org/search?query=Paccino%27s%20Minya" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">OpenStreetMap</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">See us on the map →</span>
-        </a>
-      </div>
-      <!-- Direct-contact row: the two channels we control ourselves. -->
-      <div class="reveal flex flex-col sm:flex-row justify-center gap-4 mt-14">
-        <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
-           class="bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md text-center">Order on WhatsApp</a>
-        <a href="mailto:paccinoscafe@gmail.com"
-           class="border-2 border-espresso text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-espresso hover:text-white hover:scale-105 transition-all duration-300 text-center">paccinoscafe@gmail.com</a>
-      </div>
-    </div>  </section>
+
 
   <!-- ====================================================================
        FOOTER — dark burgundy section with brand statement, quick links, and contacts.
@@ -971,7 +866,6 @@
             <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">Menu</a></li>
             <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">Reviews</a></li>
             <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">Contact</a></li>
-            <li><a href="#findus" class="hover:text-caramel transition-colors duration-300">Find Us</a></li>
             <li><a href="ar.html" class="hover:text-caramel transition-colors duration-300">النسخة العربية</a></li>
           </ul>
         </div>
@@ -1311,8 +1205,7 @@
       { "@type": "ListItem", "position": 3, "name": "Menu",  "item": "https://pacinos.engaz.tech/#menu" },
       { "@type": "ListItem", "position": 4, "name": "Gallery","item": "https://pacinos.engaz.tech/#gallery" },
       { "@type": "ListItem", "position": 5, "name": "Reviews","item": "https://pacinos.engaz.tech/#reviews" },
-      { "@type": "ListItem", "position": 6, "name": "Find Us","item": "https://pacinos.engaz.tech/#findus" },
-      { "@type": "ListItem", "position": 7, "name": "Contact","item": "https://pacinos.engaz.tech/#contact" }
+      { "@type": "ListItem", "position": 6, "name": "Contact","item": "https://pacinos.engaz.tech/#contact" }
     ]
   }
   </script>
@@ -1365,7 +1258,7 @@
         "answerCount": 1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can rate Paccino's on Google Maps, Facebook, Tripadvisor, Yelp, Foursquare, or Talabat. The Find Us section on pacinos.engaz.tech links directly to every platform for both the Taha Hussein and New Minya branches."
+          "text": "You can rate Paccino's on Google Maps, Facebook, Tripadvisor, Yelp, Foursquare, or Talabat. Search for Paccino's Minya on any of them — both the Taha Hussein and New Minya Corner Plaza branches are listed."
         }
       }
     ]

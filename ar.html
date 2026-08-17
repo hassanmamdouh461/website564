@@ -438,7 +438,6 @@
         <li><a href="#gallery" class="hover:text-caramel transition-colors duration-300">الصور</a></li>
         <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">الآراء</a></li>
         <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">تواصل</a></li>
-        <li><a href="#findus" class="hover:text-caramel transition-colors duration-300">لاقينا</a></li>
       </ul>
 
       <!-- Language switcher (Arabic -> English). The onclick saves the choice in
@@ -485,7 +484,6 @@
       <li><a href="#gallery" data-close>الصور</a></li>
       <li><a href="#reviews" data-close>الآراء</a></li>
       <li><a href="#contact" data-close>تواصل</a></li>
-      <li><a href="#findus" data-close>لاقينا</a></li>
       <li><a href="index.html" onclick="try{localStorage.setItem('pac_lang','en')}catch(e){}" data-close>English Version</a></li>
     </ul>
     <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer" class="sideCta">اطلب واتساب</a>
@@ -909,107 +907,6 @@
     </div>  </section>
 
   <!-- ======================================================================
-       القسم 8.5: لاقينا في كل مكان (Find Us) — NAP citations + directories.
-       Every entry repeats the exact same Name / Address / Phone as the JSON-LD
-       so search engines can match this domain to the business across
-       directories without a Google Business Profile.
-       ====================================================================== -->
-  <section id="findus" class="bg-white py-24 px-6">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">لاقينا في كل مكان</h2>
-      <div class="reveal w-20 h-1 bg-caramel mx-auto mb-6 rounded-full"></div>
-      <p class="reveal text-center text-lg max-w-2xl mx-auto mb-14" style="color:#5C1425;">
-        نفس الاسم، نفس العنوان، نفس الرقم — على كل الخرائط وكل التطبيقات.
-        اختار المنصة اللي بتستخدمها، لاقينا عليها، وسيب تقييمك.
-      </p>
-      <!-- كارتين NAP — واحد لكل فرع، بنفس العنوان والأرقام الموجودة في الـ JSON-LD -->
-      <div class="grid gap-8 md:grid-cols-2 mb-16">
-        <div class="reveal reveal-delay-1 rounded-2xl p-8 shadow-lg" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <p class="font-heading text-2xl font-bold mb-3" style="color:#5C1425;">باتشينوس — فرع طه حسين</p>
-          <p class="mb-2" style="color:#3D0A17;">شارع طه حسين (أمام وابور النور)، المنيا — 61661</p>
-          <p class="mb-2" style="color:#3D0A17;">تليفون: <a href="tel:+201228784569" class="font-semibold hover:text-caramel" style="direction:ltr;display:inline-block;">+20 12 28784569</a></p>
-          <p class="mb-6" style="color:#3D0A17;">ديليفري: <a href="tel:+201007811378" class="font-semibold hover:text-caramel" style="direction:ltr;display:inline-block;">01007811378</a></p>
-          <div class="flex flex-wrap gap-3">
-            <a href="https://www.google.com/maps/search/?api=1&query=Paccino%27s+Taha+Hussein+St+Minya+Egypt" target="_blank" rel="noopener noreferrer"
-               class="bg-espresso text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-caramel hover:text-espresso transition-all duration-300">افتح في خرائط جوجل</a>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Paccino%27s+Taha+Hussein+St+Minya+Egypt" target="_blank" rel="noopener noreferrer"
-               class="border-2 border-espresso text-espresso text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-espresso hover:text-white transition-all duration-300">الاتجاهات</a>
-          </div>
-        </div>
-        <div class="reveal reveal-delay-2 rounded-2xl p-8 shadow-lg" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <p class="font-heading text-2xl font-bold mb-3" style="color:#5C1425;">باتشينوس — فرع المنيا الجديدة</p>
-          <p class="mb-2" style="color:#3D0A17;">مول كورنر بلازا، الحي الثالث، المنيا الجديدة</p>
-          <p class="mb-2" style="color:#3D0A17;">تليفون: <a href="tel:+201228784569" class="font-semibold hover:text-caramel" style="direction:ltr;display:inline-block;">+20 12 28784569</a></p>
-          <p class="mb-6" style="color:#3D0A17;">ديليفري: <a href="tel:+201033777117" class="font-semibold hover:text-caramel" style="direction:ltr;display:inline-block;">01033777117</a></p>
-          <div class="flex flex-wrap gap-3">
-            <a href="https://www.google.com/maps/search/?api=1&query=Corner+Plaza+Mall+New+Minya+Egypt" target="_blank" rel="noopener noreferrer"
-               class="bg-espresso text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-caramel hover:text-espresso transition-all duration-300">افتح في خرائط جوجل</a>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Corner+Plaza+Mall+New+Minya+Egypt" target="_blank" rel="noopener noreferrer"
-               class="border-2 border-espresso text-espresso text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-espresso hover:text-white transition-all duration-300">الاتجاهات</a>
-          </div>
-        </div>
-      </div>
-      <!-- شبكة الأدلة (directories) — كل كارت بيودّي لصفحة المكان على المنصة
-           أو لصفحة البحث بتاعت المنيا لو لسه مفيش listing -->
-      <h3 class="reveal font-heading text-2xl md:text-3xl font-bold text-center mb-3" style="color:#5C1425;">قيّمنا على المنصة اللي تحبها</h3>
-      <p class="reveal text-center mb-10" style="color:#3D0A17;">تقييمك على أي منصة من دول يساعد ناس تانية في المنيا توصلنا.</p>
-      <div class="reveal grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="https://www.google.com/maps/search/?api=1&query=Paccino%27s+Taha+Hussein+St+Minya+Egypt" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">خرائط جوجل</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">أضف تقييمك ←</span>
-        </a>
-        <a href="https://www.facebook.com/PaccinosCoffee/reviews" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">فيسبوك</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">أضف تقييمك ←</span>
-        </a>
-        <a href="https://www.instagram.com/paccino_s" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">إنستجرام</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">اعملنا تاج ←</span>
-        </a>
-        <a href="https://www.tripadvisor.com/Search?q=Paccino%27s%20Minya%20Egypt" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">تريب أدفايزر</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">أضف تقييمك ←</span>
-        </a>
-        <a href="https://www.yelp.com/search?find_desc=Paccino%27s&find_loc=Minya%2C+Egypt" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">يلب (Yelp)</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">أضف تقييمك ←</span>
-        </a>
-        <a href="https://foursquare.com/explore?near=Minya%2C%20Egypt&q=Paccino%27s" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">فورسكوير</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">أضف تقييمك ←</span>
-        </a>
-        <a href="https://www.elmenus.com/minya" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">الميوز (elmenus)</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">تصفح المنيا ←</span>
-        </a>
-        <a href="https://www.talabat.com/egypt" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">طلبات (Talabat)</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">اطلب وقيّم ←</span>
-        </a>
-        <a href="https://www.openstreetmap.org/search?query=Paccino%27s%20Minya" target="_blank" rel="noopener noreferrer"
-           class="group flex items-center justify-between gap-4 rounded-xl px-6 py-5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300" style="background-color:#FAF6F0;border:1px solid rgba(92,20,37,.12);">
-          <span class="font-semibold" style="color:#5C1425;">OpenStreetMap</span>
-          <span class="text-sm font-semibold group-hover:text-espresso" style="color:#A98A4B;">شوفنا على الخريطة ←</span>
-        </a>
-      </div>
-      <!-- قنوات التواصل المباشرة -->
-      <div class="reveal flex flex-col sm:flex-row justify-center gap-4 mt-14">
-        <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer"
-           class="bg-espresso text-white font-semibold px-8 py-3.5 rounded-full hover:bg-caramel hover:text-espresso hover:scale-105 transition-all duration-300 shadow-md text-center">اطلب على واتساب</a>
-        <a href="mailto:paccinoscafe@gmail.com"
-           class="border-2 border-espresso text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-espresso hover:text-white hover:scale-105 transition-all duration-300 text-center">paccinoscafe@gmail.com</a>
-      </div>
-    </div>  </section>
-
-  <!-- ======================================================================
        القسم 9: التذييل (Footer)
        ====================================================================== -->
   <footer class="bg-espresso text-white pt-20 pb-10 px-6 border-t border-white/10">
@@ -1038,7 +935,6 @@
             <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">المنيو</a></li>
             <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">الآراء</a></li>
             <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">تواصل</a></li>
-            <li><a href="#findus" class="hover:text-caramel transition-colors duration-300">لاقينا</a></li>
           </ul>
         </div>
 
@@ -1381,8 +1277,7 @@
       { "@type": "ListItem", "position": 3, "name": "المنيو",  "item": "https://pacinos.engaz.tech/ar.html#menu" },
       { "@type": "ListItem", "position": 4, "name": "الصور",   "item": "https://pacinos.engaz.tech/ar.html#gallery" },
       { "@type": "ListItem", "position": 5, "name": "الآراء",   "item": "https://pacinos.engaz.tech/ar.html#reviews" },
-      { "@type": "ListItem", "position": 6, "name": "لاقينا",   "item": "https://pacinos.engaz.tech/ar.html#findus" },
-      { "@type": "ListItem", "position": 7, "name": "تواصل",   "item": "https://pacinos.engaz.tech/ar.html#contact" }
+      { "@type": "ListItem", "position": 6, "name": "تواصل",   "item": "https://pacinos.engaz.tech/ar.html#contact" }
     ]
   }
   </script>
@@ -1433,7 +1328,7 @@
         "name": "أقيّم باتشينوس إزاي؟",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "تقدر تقيّم باتشينوس على خرائط جوجل، فيسبوك، تريب أدفايزر، يلب، فورسكوير، أو طلبات. قسم «لاقينا في كل مكان» على pacinos.engaz.tech فيه روابط مباشرة لكل منصة للفرعين: طه حسين والمنيا الجديدة."
+          "text": "تقدر تقيّم باتشينوس على خرائط جوجل، فيسبوك، تريب أدفايزر، يلب، فورسكوير، أو طلبات. دوّر على «باتشينوس المنيا» على أي منصة منهم — الفرعين موجودين: طه حسين والمنيا الجديدة كورنر بلازا."
         }
       }
     ]

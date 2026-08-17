@@ -59,7 +59,7 @@ CSS variables, and inline `style` attributes throughout both pages.
 
 Local search works by matching the **same** Name / Address / Phone across many
 independent sources. Every character below is what appears in the pages, in the
-JSON-LD, and in the `#findus` section. Copy it verbatim into any directory
+JSON-LD. Copy it verbatim into any directory
 listing; do not reword, abbreviate, or reformat the phone numbers.
 
 ```
@@ -138,7 +138,7 @@ of them directly.
 | `FAQPage` JSON-LD | both pages | Expandable Q&A in results, including "how do I leave a review" |
 | `hasMap` on the Restaurant node | both pages | Points Google at the two Maps place URLs |
 | `sameAs` on the Restaurant node | both pages | Links the domain to Facebook, Instagram, WhatsApp |
-| `#findus` section | both pages | Human-readable NAP for both branches + links to nine platforms |
+| Contact section | both pages | Human-readable NAP for both branches + an embedded map each |
 | `sitemap.xml` + `robots.txt` | root | Discovery, already accepted in Search Console |
 
 The `Review` markup is intentionally limited to the three real testimonials shown
@@ -183,9 +183,12 @@ directory, so Google can treat them as the same entity.
 
 Anyone can review a place on Google Maps — ownership only controls *replying* and
 *editing the profile*. So reviews still accumulate on the existing listing and
-still feed the local ranking of that place. The `#findus` section links directly
-to both branches' Maps entries with an "Add your review" call to action; share
-that link over WhatsApp after orders.
+still feed the local ranking of that place. Share the branch Maps link over
+WhatsApp after orders:
+
+```
+https://www.google.com/maps/search/?api=1&query=Paccino%27s+Taha+Hussein+St+Minya+Egypt
+```
 
 ### What is genuinely lost without GBP
 
