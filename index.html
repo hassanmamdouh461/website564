@@ -62,9 +62,17 @@
   <link rel="apple-touch-icon" href="favicon.svg" />
     <!-- Language preference redirect: if visitor has not explicitly chosen English, send them to ar.html
          (Arabic is the default language of the site). We use the hash so deep-links to sections survive the redirect. -->
-  <!-- Remember visitor's language choice: if they previously picked Arabic, take them to ar.html -->
+  <!-- Remember visitor's language choice: if they previously picked Arabic, take them to ar.html.
+       Search crawlers are exempt: they arrive with an empty localStorage, so redirecting them
+       would make this English page look like nothing but a bounce to ar.html and it would never
+       be indexed on its own. Real visitors are unaffected. -->
   <script>
-    try{ if(localStorage.getItem('pac_lang')!=='en' && location.pathname.indexOf('ar.html')===-1){ location.replace('ar.html'+location.hash); } }catch(e){}
+    try{
+      var isCrawler = /bot|crawl|spider|slurp|bingpreview|googlebot|google-inspectiontool|duckduckbot|yandex|baiduspider|applebot|facebookexternalhit|twitterbot|embedly|quora link preview|whatsapp|telegrambot|linkedinbot|ia_archiver|semrush|ahrefs|petalbot|lighthouse|chrome-lighthouse|headlesschrome/i.test(navigator.userAgent||'');
+      if(!isCrawler && localStorage.getItem('pac_lang')!=='en' && location.pathname.indexOf('ar.html')===-1){
+        location.replace('ar.html'+location.hash);
+      }
+    }catch(e){}
   </script>
     <!-- Preconnect opens the TCP/TLS handshake to Google Fonts early so font requests start sooner. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
