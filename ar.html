@@ -237,7 +237,7 @@
     body::-webkit-scrollbar { display: none; width: 0; height: 0; }
     /* `clip` (وليس `hidden`) — الـ hidden بيعمل scroll container بيكسر الـ backdrop-filter
        بتاع النافبار الزجاجي فبيبان مقصوص/بيرتعش */
-    /* على BODY بس — الـ clip على <html> بيسبب bug في كروم بيرعّش الشريط المتحرك
+    /* على BODY بس — الـ clip على  بيسبب bug في كروم بيرعّش الشريط المتحرك
        ويصغّره بعد السكرول */
     body { overflow-x: clip; }
   /* === Mobile side menu (clean rebuild) === */
@@ -412,7 +412,7 @@
            visible as a horizontal flex row on screens >= 1024px wide. -->
       <!-- روابط التنقل — مخفية على الموبايل (hidden) وظاهرة على الشاشات الكبيرة (lg:flex) -->
       <ul class="hidden lg:flex items-center gap-8 text-white text-sm font-medium tracking-wider uppercase">
-        <!-- Each anchor uses smooth-scroll thanks to the .scroll-smooth class on <html>. -->
+        <!-- Each anchor uses smooth-scroll thanks to the .scroll-smooth class on . -->
         <!-- كل رابط بينزل بسلاسة للقسم المطلوب (بسبب scroll-smooth) -->
         <li><a href="#home" class="hover:text-caramel transition-colors duration-300">الرئيسية</a></li>
         <li><a href="#about" class="hover:text-caramel transition-colors duration-300">عننا</a></li>
@@ -448,7 +448,6 @@
         <svg class="menuIcon menuIcon-coffee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
         <svg class="menuIcon menuIcon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
       </button>
-    </nav>
     </nav>
 
     <!-- قائمة الموبايل المنبثقة — مخفية افتراضياً (hidden) والجافاسكريبت بينوّرها -->
@@ -542,9 +541,7 @@
           </svg>
         </a>
       </div>
-    </div>
-  <!-- End of hero -->
-  </section>
+    </div>  </section>
 
   <!-- ======================================================================
        الشريط المتحرك (Marquee) — مميزات بتتحرك بشكل مستمر (CSS خالص)
@@ -643,9 +640,7 @@
           اطلب واتساب
         </a>
       </div>
-    </div>
-  <!-- End of hero -->
-  </section>
+    </div>  </section>
 
   <!-- ======================================================================
        القسم 4: نبذة عن البراند (قسم داكن)
@@ -678,9 +673,7 @@
          class="reveal reveal-delay-3 inline-block mt-10 bg-caramel text-espresso font-semibold px-8 py-3.5 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-md">
         تابعنا على إنستجرام @paccino_s
       </a>
-    </div>
-  <!-- End of hero -->
-  </section>
+    </div>  </section>
 
   <!-- ======================================================================
        القسم 5: المنيو (فئتين مع خطوط منقطة تربط الاسم بالسعر)
@@ -725,9 +718,7 @@
           </div>
         </div>
       </div>
-    </div>
-  <!-- End of hero -->
-  </section>
+    </div>  </section>
 
   <!-- ======================================================================
        القسم 6: معرض الصور (6 صور في شبكة)
@@ -771,9 +762,7 @@
           شوف باقي الصور على إنستجرام
         </a>
       </div>
-    </div>
-  <!-- End of hero -->
-  </section>
+    </div>  </section>
 
 
 
@@ -821,9 +810,7 @@
           شوف كل الآراء
         </a>
       </div>
-    </div>
-  <!-- End of hero -->
-  </section>
+    </div>  </section>
 
   <!-- ======================================================================
        القسم 8: الموقع والتواصل (نص + خريطة جنب بعض)
@@ -899,9 +886,7 @@
           <p class="text-center font-semibold" style="color:#5C1425;">📍 فرع المنيا الجديدة — مول كورنر بلازا</p>
         </div>
       </div>
-    </div>
-  <!-- End of hero -->
-  </section>
+    </div>  </section>
 
   <!-- ======================================================================
        القسم 9: التذييل (Footer)
