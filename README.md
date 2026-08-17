@@ -24,6 +24,7 @@ website564/
 ├── ar.html                       ← Arabic version (default landing)
 ├── 404.html                      ← Branded not-found page
 ├── validate.js                   ← Pre-commit checker (run before every commit)
+├── .gitignore                    ← Excludes node_modules (sharp is installed on demand)
 ├── robots.txt                    ← Crawler rules + sitemap pointer
 ├── sitemap.xml                   ← Both language URLs with hreflang
 ├── manifest.json                 ← PWA manifest (install + theme color)
@@ -191,6 +192,46 @@ that link over WhatsApp after orders.
 Be realistic about this: no owner replies to reviews, no posts/offers, no photo
 curation, no Maps insights, and no editing wrong hours if someone submits them.
 Everything above recovers discoverability, not control.
+
+---
+
+## Images and performance
+
+Every `<img>` on both pages serves a **WebP** file and carries intrinsic
+`width`/`height`, descriptive `alt` text naming the brand and the city, and
+`decoding="async"`. The hero is `fetchpriority="high"` and never lazy-loaded
+(it is the LCP element); everything else is `loading="lazy"`.
+
+The intro logo is delivered through `image-set()` so WebP-capable browsers get
+`logo.webp` (23 KB) and anything older falls back to `logo.png` (203 KB).
+
+Page image weight: **1688 KB → 986 KB (42% lighter)**, and the two assets needed
+for first paint went from 672 KB to 320 KB.
+
+`og:image`, `twitter:image`, and the JSON-LD `image` arrays deliberately still
+point at the **JPEG** — some social scrapers do not handle WebP.
+
+### Regenerating the WebP files
+
+The `.jpg` and `.png` originals stay in the repo as the source of truth. `sharp`
+is not committed; install it on demand:
+
+```bash
+npm install --no-save sharp@0.34.2
+node -e "
+const sharp=require('sharp');
+for (const n of ['paccino-4','paccino-5','paccino-6','paccino-7','paccino-8','paccino-9','paccino-12','paccino-13','paccino-14','paccino-15'])
+  sharp('images/'+n+'.jpg').webp({quality:80,effort:6}).toFile('images/'+n+'.webp');
+sharp('images/logo.png').webp({quality:88,effort:6}).toFile('images/logo.webp');
+"
+```
+
+Keep the pixel dimensions unchanged — the `width`/`height` attributes in the HTML
+are hardcoded to the originals, and changing one without the other reintroduces
+layout shift.
+
+The oversized `paccino-*.png` originals (~2.4 MB each, 23 MB total) are not
+referenced by either page. They are kept as archival masters only.
 
 ---
 

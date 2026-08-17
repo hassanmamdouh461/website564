@@ -1,0 +1,4 @@
+# Local tooling only — sharp is installed on demand to regenerate WebP images.
+node_modules/
+package-lock.json
+package.json

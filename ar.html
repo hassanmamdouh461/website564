@@ -73,6 +73,10 @@
 
   <!-- ================= تحميل الخطوط من Google Fonts ================= -->
 
+    <!-- Preload the LCP image (hero) and the intro logo: both are needed for first paint,
+         so discovering them via CSS/markup alone costs a round trip. -->
+  <link rel="preload" as="image" href="images/paccino-12.webp" type="image/webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="images/logo.webp" type="image/webp" />
     <!-- Preconnect opens the TCP/TLS handshake to Google Fonts early so font requests start sooner. -->
   <!-- تحسين سرعة التحميل: الاتصال المبكر بسيرفرات جوجل -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -118,6 +122,8 @@
       position: fixed; inset: 0; z-index: 9999;
       background-color: #6d142a;
       background-image: url('images/logo.png');
+      background-image: -webkit-image-set(url('images/logo.webp') type('image/webp'), url('images/logo.png') type('image/png'));
+      background-image: image-set(url('images/logo.webp') type('image/webp'), url('images/logo.png') type('image/png'));
       background-repeat: no-repeat;
       background-position: center;
       background-size: 72vmin;            /* الشعار كامل وبمقاس محترم */
@@ -489,8 +495,8 @@
     <!-- Background image + overlay. overflow-hidden clips the Ken Burns zoom. -->
     <div class="absolute inset-0 overflow-hidden">
       <!-- صورة التراس مع زوم سينمائي بطيء (Ken Burns) -->
-      <img src="images/paccino-12.jpg"
-           alt="Paccino's café" class="w-full h-full object-cover object-[center_30%] ken-burns" />
+      <img width="1600" height="1600" fetchpriority="high" decoding="async" src="images/paccino-12.webp"
+           alt="تراس باتشينوس بالليل، شارع طه حسين، المنيا" class="w-full h-full object-cover object-[center_30%] ken-burns" />
       <!-- طبقة بنية شفافة 70% عشان النص الأبيض يبقى واضح -->
       <!-- Dark overlay (70% opacity espresso) tints the image and guarantees readable text. -->
       <div class="absolute inset-0 bg-espresso/70"></div>
@@ -592,8 +598,8 @@
 
         <!-- الكارت الأول: آيس كوفي -->
         <article class="relative reveal reveal-delay-1 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-          <img src="images/paccino-13.jpg"
-               alt="آيس كوفي" loading="lazy" class="w-full aspect-[4/3] object-cover object-center" />
+          <img width="900" height="900" src="images/paccino-13.webp"
+               alt="آيس كوفي في باتشينوس المنيا" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-cover object-center" />
         <span class="steam" aria-hidden="true"><span></span><span></span><span></span></span>
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
@@ -606,8 +612,8 @@
 
         <!-- الكارت التاني: فرابتشينو -->
         <article class="relative reveal reveal-delay-2 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-          <img src="images/paccino-14.jpg"
-               alt="فرابتشينو" loading="lazy" class="w-full aspect-[4/3] object-cover object-center" />
+          <img width="900" height="900" src="images/paccino-14.webp"
+               alt="فرابتشينو بالكريمة في باتشينوس المنيا" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-cover object-center" />
         <span class="steam" aria-hidden="true"><span></span><span></span><span></span></span>
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
@@ -620,8 +626,8 @@
 
         <!-- الكارت التالت: مشروبات منعشة -->
         <article class="relative reveal reveal-delay-3 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-          <img src="images/paccino-15.jpg"
-               alt="مشروبات باتشينوس المنعشة" loading="lazy" class="w-full aspect-[4/3] object-cover object-center" />
+          <img width="900" height="900" src="images/paccino-15.webp"
+               alt="سموذي فراولة طازة في باتشينوس المنيا" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-cover object-center" />
         <span class="steam" aria-hidden="true"><span></span><span></span><span></span></span>
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
@@ -738,27 +744,27 @@
       <div class="columns-2 md:columns-3 gap-4 md:gap-6 gallery-fade">
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img src="images/paccino-5.jpg" alt="جلسات باتشينوس الداخلية" loading="lazy"
+        <img width="900" height="900" src="images/paccino-5.webp" alt="الجلسات الداخلية في باتشينوس المنيا" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img src="images/paccino-6.jpg" alt="ترابيزة الشغل" loading="lazy"
+        <img width="900" height="900" src="images/paccino-6.webp" alt="ترابيزة مناسبة للشغل في باتشينوس المنيا" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img src="images/paccino-7.jpg" alt="ترابيزة الهدوء وقت الغروب" loading="lazy"
+        <img width="900" height="900" src="images/paccino-7.webp" alt="ترابيزة هادية وقت الغروب في باتشينوس المنيا" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img src="images/paccino-4.jpg" alt="جلسة على الواجهة الزجاجية" loading="lazy"
+        <img width="900" height="900" src="images/paccino-4.webp" alt="جلسة على الواجهة الزجاجية في باتشينوس المنيا" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img src="images/paccino-8.jpg" alt="ترابيزة الحبيبة" loading="lazy"
+        <img width="900" height="900" src="images/paccino-8.webp" alt="جلسة في الرُكن الهادي في باتشينوس المنيا" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img src="images/paccino-9.jpg" alt="جلسة بجانب البلكونة" loading="lazy"
+        <img width="900" height="900" src="images/paccino-9.webp" alt="جلسات خارجية على الشارع في باتشينوس المنيا" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
       </div>
 
