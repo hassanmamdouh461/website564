@@ -84,34 +84,21 @@
   </script>
     <!-- Preload the LCP image (hero) and the intro logo: both are needed for first paint,
          so discovering them via CSS/markup alone costs a round trip. -->
-  <link rel="preload" as="image" href="images/paccino-12.webp" type="image/webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="images/paccino-12.webp" type="image/webp" fetchpriority="high"
+        imagesrcset="images/paccino-12-800.webp 800w, images/paccino-12-1200.webp 1200w, images/paccino-12.webp 1600w"
+        imagesizes="100vw" />
   <link rel="preload" as="image" href="images/logo.webp" type="image/webp" />
     <!-- Preconnect opens the TCP/TLS handshake to Google Fonts early so font requests start sooner. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
     <!-- Preconnect opens the TCP/TLS handshake to Google Fonts early so font requests start sooner. -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Load Playfair Display (serif headings) + Cairo (body text) — these are also the Tailwind font-family tokens. -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
-    <!-- Tailwind CSS via CDN — no build step. Generates utility classes on the fly from the markup. -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-      // Brand color tokens + custom font families (extended into Tailwind JIT generation)
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            espresso: '#3D0A17',
-            cream: '#FAF6F0',
-            caramel: '#EAD5C1',
-          },
-          fontFamily: {
-            heading: ['"Playfair Display"', 'serif'],
-            body: ['"Cairo"', '"Inter"', 'sans-serif'],
-          },
-        },
-      },
-    };
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <!-- Tailwind CSS, prebuilt. The CDN script was a 400 KB JIT compiler that
+         blocked rendering and regenerated the same CSS in every visitor's browser;
+         tailwind.css is the 16 KB static build of only the classes used here.
+         Rebuild with: ./node_modules/.bin/tailwindcss -i tailwind.src.css -o tailwind.css --minify -->
+  <link rel="stylesheet" href="tailwind.css" />
 
   <style>
     /* === Cinematic intro: the full Paccino's artwork centered on its own exact
@@ -487,7 +474,7 @@
     <div class="absolute inset-0 overflow-hidden">
       <!-- Terrace photo (edited) with a slow cinematic zoom (Ken Burns effect):
            scales 1 → 1.08 over 20s and holds, keeping the lit sign in frame. -->
-      <img width="1600" height="1600" fetchpriority="high" decoding="async" src="images/paccino-12.webp" alt="Paccino's terrace lit up at night, Taha Hussein St, Minya" class="w-full h-full object-cover object-[center_30%] ken-burns" />
+      <img width="1600" height="1600" fetchpriority="high" decoding="async" srcset="images/paccino-12-800.webp 800w, images/paccino-12-1200.webp 1200w, images/paccino-12.webp 1600w" sizes="100vw" src="images/paccino-12.webp" alt="Paccino's terrace lit up at night, Taha Hussein St, Minya" class="w-full h-full object-cover object-[center_30%] ken-burns" />
       <!-- Dark overlay (70% opacity espresso) tints the image and guarantees readable text. -->
       <div class="absolute inset-0 bg-espresso/70"></div>
     </div>
@@ -571,7 +558,7 @@
       <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
       <div class="grid gap-10 md:grid-cols-3">
         <article class="relative reveal reveal-delay-1 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-          <img width="900" height="900" src="images/paccino-13.webp" alt="Iced coffee served at Paccino's Minya" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-cover object-center" />
+          <img width="900" height="900" srcset="images/paccino-13-400.webp 400w, images/paccino-13-600.webp 600w, images/paccino-13.webp 900w" sizes="(max-width: 767px) 92vw, (max-width: 1280px) 31vw, 400px" src="images/paccino-13.webp" alt="Iced coffee served at Paccino's Minya" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-cover object-center" />
         <span class="steam" aria-hidden="true"><span></span><span></span><span></span></span>
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
@@ -582,7 +569,7 @@
           </div>
         </article>
         <article class="relative reveal reveal-delay-2 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-          <img width="900" height="900" src="images/paccino-14.webp" alt="Frappuccino topped with cream at Paccino's Minya" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-cover object-center" />
+          <img width="900" height="900" srcset="images/paccino-14-400.webp 400w, images/paccino-14-600.webp 600w, images/paccino-14.webp 900w" sizes="(max-width: 767px) 92vw, (max-width: 1280px) 31vw, 400px" src="images/paccino-14.webp" alt="Frappuccino topped with cream at Paccino's Minya" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-cover object-center" />
         <span class="steam" aria-hidden="true"><span></span><span></span><span></span></span>
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
@@ -593,7 +580,7 @@
           </div>
         </article>
         <article class="relative reveal reveal-delay-3 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-          <img width="900" height="900" src="images/paccino-15.webp" alt="Fresh strawberry smoothie at Paccino's Minya" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-cover object-center" />
+          <img width="900" height="900" srcset="images/paccino-15-400.webp 400w, images/paccino-15-600.webp 600w, images/paccino-15.webp 900w" sizes="(max-width: 767px) 92vw, (max-width: 1280px) 31vw, 400px" src="images/paccino-15.webp" alt="Fresh strawberry smoothie at Paccino's Minya" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-cover object-center" />
         <span class="steam" aria-hidden="true"><span></span><span></span><span></span></span>
           <div class="p-7">
             <div class="flex items-center justify-between mb-3">
@@ -705,27 +692,27 @@
       <div class="columns-2 md:columns-3 gap-4 md:gap-6 gallery-fade">
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img width="900" height="900" src="images/paccino-5.webp" alt="Indoor seating area inside Paccino's Minya" loading="lazy" decoding="async"
+        <img width="900" height="900" srcset="images/paccino-5-400.webp 400w, images/paccino-5-600.webp 600w, images/paccino-5.webp 900w" sizes="(max-width: 767px) 45vw, (max-width: 1280px) 30vw, 400px" src="images/paccino-5.webp" alt="Indoor seating area inside Paccino's Minya" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img width="900" height="900" src="images/paccino-6.webp" alt="Work-friendly table with power outlets at Paccino's Minya" loading="lazy" decoding="async"
+        <img width="900" height="900" srcset="images/paccino-6-400.webp 400w, images/paccino-6-600.webp 600w, images/paccino-6.webp 900w" sizes="(max-width: 767px) 45vw, (max-width: 1280px) 30vw, 400px" src="images/paccino-6.webp" alt="Work-friendly table with power outlets at Paccino's Minya" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img width="900" height="900" src="images/paccino-7.webp" alt="Quiet corner table at sunset in Paccino's Minya" loading="lazy" decoding="async"
+        <img width="900" height="900" srcset="images/paccino-7-400.webp 400w, images/paccino-7-600.webp 600w, images/paccino-7.webp 900w" sizes="(max-width: 767px) 45vw, (max-width: 1280px) 30vw, 400px" src="images/paccino-7.webp" alt="Quiet corner table at sunset in Paccino's Minya" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img width="900" height="900" src="images/paccino-4.webp" alt="Window-side seating overlooking the street at Paccino's Minya" loading="lazy" decoding="async"
+        <img width="900" height="900" srcset="images/paccino-4-400.webp 400w, images/paccino-4-600.webp 600w, images/paccino-4.webp 900w" sizes="(max-width: 767px) 45vw, (max-width: 1280px) 30vw, 400px" src="images/paccino-4.webp" alt="Window-side seating overlooking the street at Paccino's Minya" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img width="900" height="900" src="images/paccino-8.webp" alt="Cozy corner seating at Paccino's Minya" loading="lazy" decoding="async"
+        <img width="900" height="900" srcset="images/paccino-8-400.webp 400w, images/paccino-8-600.webp 600w, images/paccino-8.webp 900w" sizes="(max-width: 767px) 45vw, (max-width: 1280px) 30vw, 400px" src="images/paccino-8.webp" alt="Cozy corner seating at Paccino's Minya" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
         <!-- Each img: full width, rounded corners, hover scales it 2% with shadow boost.
              `loading="lazy"` defers off-screen images to improve first-paint performance. -->
-        <img width="900" height="900" src="images/paccino-9.webp" alt="Street-view seating outside Paccino's Minya" loading="lazy" decoding="async"
+        <img width="900" height="900" srcset="images/paccino-9-400.webp 400w, images/paccino-9-600.webp 600w, images/paccino-9.webp 900w" sizes="(max-width: 767px) 45vw, (max-width: 1280px) 30vw, 400px" src="images/paccino-9.webp" alt="Street-view seating outside Paccino's Minya" loading="lazy" decoding="async"
              class="w-full mb-4 md:mb-6 rounded-xl shadow-md hover:scale-[1.02] hover:shadow-xl transition-all duration-300" style="break-inside:avoid;" />
       </div>
       <div class="reveal text-center mt-14">

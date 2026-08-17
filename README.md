@@ -10,11 +10,43 @@
 
 ## Stack
 
-- **HTML5** — two standalone pages, no framework, no build step
-- **Tailwind CSS** via CDN, with brand tokens declared inline in `tailwind.config`
+- **HTML5** — two standalone pages, no framework
+- **Tailwind CSS** — prebuilt into `tailwind.css`, not the CDN (see below)
 - **Vanilla JS** — cinematic intro (rAF mask), side drawer, scroll reveal, language redirect
 - **GitHub Pages** hosting from the `gh-pages` branch (`main` is kept in sync)
 - **Custom domain:** `pacinos.engaz.tech` (see `CNAME`)
+
+## CSS build
+
+The pages used to load `cdn.tailwindcss.com`, which is a **400 KB JIT compiler**
+that blocks rendering and regenerates the same stylesheet in every visitor's
+browser. It is replaced by a static 16 KB build containing only the classes the
+markup actually uses.
+
+Rebuild after adding or changing any class in the markup:
+
+```bash
+npm install --no-save tailwindcss@3.4.17
+./node_modules/.bin/tailwindcss -i tailwind.src.css -o tailwind.css --minify
+node audit-classes.js      # every class must resolve
+```
+
+Call the **local binary**, not `npx tailwindcss`. If a global `@tailwindcss/cli`
+v4 is installed, npx picks it, and v4 silently ignores this v3-style config — the
+build "succeeds" but emits a 6.5 KB file with none of the utilities the markup
+needs. `audit-classes.js` is what catches that.
+
+`audit-classes.js` cross-checks every `class="..."` token in both pages against
+`tailwind.css` and each page's inline `<style>` block, so a class that silently
+stopped being generated fails loudly instead of quietly losing its styling.
+
+Two things matter if you touch this:
+
+- The `<link rel="stylesheet" href="tailwind.css">` must stay **before** each
+  page's own `<style>` block. The inline CSS deliberately overrides Tailwind
+  (for example `.reveal.visible` vs Tailwind's `.visible`).
+- `tailwind.config.js` must keep the same theme tokens the old CDN config
+  declared, or the brand colours and fonts shift.
 
 ## File structure
 
@@ -24,7 +56,11 @@ website564/
 ├── ar.html                       ← Arabic version (default landing)
 ├── 404.html                      ← Branded not-found page
 ├── validate.js                   ← Pre-commit checker (run before every commit)
-├── .gitignore                    ← Excludes node_modules (sharp is installed on demand)
+├── audit-classes.js              ← Verifies every markup class exists in the CSS
+├── tailwind.config.js            ← Build config (theme tokens)
+├── tailwind.src.css              ← Build input (@tailwind directives)
+├── tailwind.css                  ← Built stylesheet, SERVED — commit it
+├── .gitignore                    ← Excludes node_modules (installed on demand)
 ├── robots.txt                    ← Crawler rules + sitemap pointer
 ├── sitemap.xml                   ← Both language URLs with hreflang
 ├── manifest.json                 ← PWA manifest (install + theme color)
@@ -201,15 +237,22 @@ Everything above recovers discoverability, not control.
 ## Images and performance
 
 Every `<img>` on both pages serves a **WebP** file and carries intrinsic
-`width`/`height`, descriptive `alt` text naming the brand and the city, and
-`decoding="async"`. The hero is `fetchpriority="high"` and never lazy-loaded
-(it is the LCP element); everything else is `loading="lazy"`.
+`width`/`height`, a `srcset`/`sizes` pair, descriptive `alt` text naming the
+brand and the city, and `decoding="async"`. The hero is `fetchpriority="high"`
+and never lazy-loaded (it is the LCP element); everything else is
+`loading="lazy"`.
+
+Each photo ships at three widths so a phone does not download a 900px file to
+paint it at 180px: gallery and signature cards at 400/600/900, the hero at
+800/1200/1600. The hero's `<link rel="preload">` carries a matching
+`imagesrcset`/`imagesizes` so the preload and the `srcset` pick the same file
+instead of fetching two copies.
 
 The intro logo is delivered through `image-set()` so WebP-capable browsers get
 `logo.webp` (23 KB) and anything older falls back to `logo.png` (203 KB).
 
-Page image weight: **1688 KB → 986 KB (42% lighter)**, and the two assets needed
-for first paint went from 672 KB to 320 KB.
+Estimated payload for a phone: **~1361 KB → ~261 KB (81% lighter)**, counting the
+dropped CDN compiler and the narrower image variants.
 
 `og:image`, `twitter:image`, and the JSON-LD `image` arrays deliberately still
 point at the **JPEG** — some social scrapers do not handle WebP.
@@ -223,8 +266,14 @@ is not committed; install it on demand:
 npm install --no-save sharp@0.34.2
 node -e "
 const sharp=require('sharp');
-for (const n of ['paccino-4','paccino-5','paccino-6','paccino-7','paccino-8','paccino-9','paccino-12','paccino-13','paccino-14','paccino-15'])
-  sharp('images/'+n+'.jpg').webp({quality:80,effort:6}).toFile('images/'+n+'.webp');
+const all=['paccino-4','paccino-5','paccino-6','paccino-7','paccino-8','paccino-9','paccino-12','paccino-13','paccino-14','paccino-15'];
+for (const n of all) sharp('images/'+n+'.jpg').webp({quality:80,effort:6}).toFile('images/'+n+'.webp');
+// Responsive variants referenced by srcset
+for (const n of all.filter(x=>x!=='paccino-12'))
+  for (const w of [400,600])
+    sharp('images/'+n+'.jpg').resize(w,w).webp({quality:78,effort:6}).toFile('images/'+n+'-'+w+'.webp');
+for (const w of [800,1200])
+  sharp('images/paccino-12.jpg').resize(w,w).webp({quality:80,effort:6}).toFile('images/paccino-12-'+w+'.webp');
 sharp('images/logo.png').webp({quality:88,effort:6}).toFile('images/logo.webp');
 "
 ```
@@ -256,12 +305,14 @@ referenced by either page. They are kept as archival masters only.
 
 ```bash
 node validate.js
+node audit-classes.js
 ```
 
-It parses every inline `<script>` with `new Function()`, every
-`application/ld+json` block with `JSON.parse()`, checks `<section>` tag balance
-in both pages, and validates `manifest.json` and `paccinos-data.json`. Non-zero
-exit means do not commit.
+`validate.js` parses every inline `<script>` with `new Function()`, every
+`application/ld+json` block with `JSON.parse()`, checks `<section>` tag balance in
+both pages, and validates `manifest.json` and `paccinos-data.json`.
+`audit-classes.js` confirms every markup class is still covered by `tailwind.css`
+or the page's inline CSS. Non-zero exit from either means do not commit.
 
 ## Deploying
 
@@ -270,6 +321,7 @@ so both branches always show the same tree.
 
 ```bash
 node validate.js                       # must pass first
+node audit-classes.js                  # and this
 
 git add -A
 git commit -m "Your message"
