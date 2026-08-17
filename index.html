@@ -1200,5 +1200,44 @@
     ]
   }
   </script>
+
+
+
+
+  <!-- ======================================================================
+       JSON-LD: WebSite + LocalBusiness schema — Google Knowledge Panel signals
+       ====================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://pacinos.engaz.tech/#website",
+        "url": "https://pacinos.engaz.tech/",
+        "name": "Paccino's",
+        "inLanguage": "en",
+        "description": "Italian restaurant & specialty coffee shop in Minya, Egypt since 2010.",
+        "publisher": { "@id": "https://pacinos.engaz.tech/#restaurant" }
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://pacinos.engaz.tech/#localbusiness",
+        "@parent": { "@id": "https://pacinos.engaz.tech/#restaurant" },
+        "name": "Paccino's",
+        "alternateName": ["باتشينوس", "Paccinos"],
+        "image": "https://pacinos.engaz.tech/images/paccino-12.jpg",
+        "telephone": "+201228784569",
+        "email": "paccinoscafe@gmail.com",
+        "url": "https://pacinos.engaz.tech/",
+        "address": { "@type": "PostalAddress", "addressLocality": "Minya", "addressRegion": "Minya", "addressCountry": "EG" },
+        "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "23:59"}],
+        "priceRange": "$",
+        "paymentAccepted": "Cash, Credit Card",
+        "currenciesAccepted": "EGP"
+      }
+    ]
+  }
+  </script>
 </body>
 </html>
