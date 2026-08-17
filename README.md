@@ -34,6 +34,7 @@ website564/
 ├── CNAME                         ← Custom domain
 ├── paccinos-data.json            ← Source-of-truth business data
 ├── google4a500f27301bceae.html   ← Search Console verification — DO NOT DELETE
+├── googlec1c84b6ac35a711a.html   ← Search Console verification — DO NOT DELETE
 ├── BingSiteAuth.xml              ← Bing Webmaster verification
 └── images/                       ← All photos
 ```
@@ -195,10 +196,11 @@ Everything above recovers discoverability, not control.
 
 ## Search Console / Bing status
 
-- Google Search Console: verified via the HTML file
-  `google4a500f27301bceae.html`. **Never delete or rename this file** — removing
-  it un-verifies the property. Sitemap `https://pacinos.engaz.tech/sitemap.xml`
-  submitted and accepted.
+- Google Search Console: verified via HTML file. **Never delete or rename these
+  files** — removing one un-verifies that property.
+  - `google4a500f27301bceae.html` — first property
+  - `googlec1c84b6ac35a711a.html` — second property
+  Sitemap `https://pacinos.engaz.tech/sitemap.xml` submitted and accepted.
 - Bing Webmaster Tools: verified via `BingSiteAuth.xml`.
 - After any structured-data change, re-test both URLs at
   https://search.google.com/test/rich-results and request re-indexing in
