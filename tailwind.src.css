@@ -1,3 +1,8 @@
+/* Font faces are declared here rather than in a separate stylesheet so the whole
+   page needs exactly one CSS request. Regenerate with the command in the README
+   after changing anything in fonts/. */
+@import './fonts.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

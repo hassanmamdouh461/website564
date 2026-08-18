@@ -20,8 +20,8 @@
 
 The pages used to load `cdn.tailwindcss.com`, which is a **400 KB JIT compiler**
 that blocks rendering and regenerates the same stylesheet in every visitor's
-browser. It is replaced by a static 16 KB build containing only the classes the
-markup actually uses.
+browser. It is replaced by a static ~18 KB build containing only the classes the
+markup actually uses, plus the `@font-face` rules (see Fonts below).
 
 Rebuild after adding or changing any class in the markup:
 
@@ -48,6 +48,42 @@ Two things matter if you touch this:
 - `tailwind.config.js` must keep the same theme tokens the old CDN config
   declared, or the brand colours and fonts shift.
 
+## Fonts
+
+Both fonts are **self-hosted** from `fonts/`. They used to come from
+`fonts.googleapis.com`, which is a render-blocking stylesheet on one origin that
+then resolves `woff2` files on a *second* origin (`fonts.gstatic.com`) — two
+extra connections standing between the visitor and the first paint.
+
+`fonts.css` holds the four `@font-face` rules and is `@import`-ed by
+`tailwind.src.css`, so the build inlines it and the whole page needs exactly one
+CSS request.
+
+| File | Size | Used for |
+|---|---|---|
+| `cairo-arabic.woff2` | 30 KB | all Arabic text |
+| `cairo-latin.woff2` | 33 KB | latin inside Arabic text (brand name, numbers) |
+| `playfair-latin.woff2` | 38 KB | `.font-heading`, e.g. "Paccino's" in the h1 |
+| `playfair-latin-italic.woff2` | 21 KB | the italic testimonial blockquotes |
+
+Both are variable fonts, so one file covers the whole weight range and the
+`@font-face` rules declare a span (`font-weight: 300 700`) instead of a single
+value. The `unicode-range` strings are copied verbatim from Google's CSS, so a
+browser still only downloads the Arabic file when Arabic text is present. The
+cyrillic, vietnamese and latin-ext subsets Google also serves are dropped —
+nothing on either page uses them.
+
+`index.html` preloads the two latin faces; `ar.html` also preloads
+`cairo-arabic.woff2`, since its `h1` renders "باتشينوس Paccino's" and genuinely
+needs all three before the first paint.
+
+Both families are OFL-licensed, so self-hosting is permitted.
+
+To replace a font file: fetch Google's CSS with a modern browser User-Agent (the
+response varies by UA), take the `woff2` URLs from it, and keep the
+`unicode-range` strings in `fonts.css` in sync with what that CSS declares. Then
+rebuild `tailwind.css` — the `@font-face` rules live inside it.
+
 ## File structure
 
 ```
@@ -58,7 +94,9 @@ website564/
 ├── validate.js                   ← Pre-commit checker (run before every commit)
 ├── audit-classes.js              ← Verifies every markup class exists in the CSS
 ├── tailwind.config.js            ← Build config (theme tokens)
-├── tailwind.src.css              ← Build input (@tailwind directives)
+├── tailwind.src.css              ← Build input (@tailwind directives + fonts)
+├── fonts.css                     ← @font-face rules, inlined into tailwind.css
+├── fonts/                        ← Self-hosted woff2 (Cairo + Playfair Display)
 ├── tailwind.css                  ← Built stylesheet, SERVED — commit it
 ├── .gitignore                    ← Excludes node_modules (installed on demand)
 ├── robots.txt                    ← Crawler rules + sitemap pointer
@@ -242,17 +280,22 @@ brand and the city, and `decoding="async"`. The hero is `fetchpriority="high"`
 and never lazy-loaded (it is the LCP element); everything else is
 `loading="lazy"`.
 
-Each photo ships at three widths so a phone does not download a 900px file to
+Each photo ships at several widths so a phone does not download a 900px file to
 paint it at 180px: gallery and signature cards at 400/600/900, the hero at
-800/1200/1600. The hero's `<link rel="preload">` carries a matching
+500/600/800/1200/1600. The hero's `<link rel="preload">` carries a matching
 `imagesrcset`/`imagesizes` so the preload and the `srcset` pick the same file
 instead of fetching two copies.
+
+The hero is encoded at quality 70 rather than 80. It sits behind a 70% opaque
+espresso overlay, so the extra fidelity is not visible, and the 800w step drops
+from 110 KB to 83 KB.
 
 The intro logo is delivered through `image-set()` so WebP-capable browsers get
 `logo.webp` (23 KB) and anything older falls back to `logo.png` (203 KB).
 
-Estimated payload for a phone: **~1361 KB → ~261 KB (81% lighter)**, counting the
-dropped CDN compiler and the narrower image variants.
+First-paint payload on a phone is now roughly **18 KB CSS + 101 KB fonts + 83 KB
+hero ≈ 201 KB**, against a 398 KB render-blocking CDN script plus a 297 KB hero
+and cross-origin fonts before this work.
 
 `og:image`, `twitter:image`, and the JSON-LD `image` arrays deliberately still
 point at the **JPEG** — some social scrapers do not handle WebP.
@@ -266,14 +309,16 @@ is not committed; install it on demand:
 npm install --no-save sharp@0.34.2
 node -e "
 const sharp=require('sharp');
-const all=['paccino-4','paccino-5','paccino-6','paccino-7','paccino-8','paccino-9','paccino-12','paccino-13','paccino-14','paccino-15'];
-for (const n of all) sharp('images/'+n+'.jpg').webp({quality:80,effort:6}).toFile('images/'+n+'.webp');
-// Responsive variants referenced by srcset
-for (const n of all.filter(x=>x!=='paccino-12'))
+const photos=['paccino-4','paccino-5','paccino-6','paccino-7','paccino-8','paccino-9','paccino-13','paccino-14','paccino-15'];
+for (const n of photos) {
+  sharp('images/'+n+'.jpg').webp({quality:80,effort:6}).toFile('images/'+n+'.webp');
   for (const w of [400,600])
     sharp('images/'+n+'.jpg').resize(w,w).webp({quality:78,effort:6}).toFile('images/'+n+'-'+w+'.webp');
-for (const w of [800,1200])
-  sharp('images/paccino-12.jpg').resize(w,w).webp({quality:80,effort:6}).toFile('images/paccino-12-'+w+'.webp');
+}
+// Hero: quality 70, it is behind a 70% overlay
+sharp('images/paccino-12.jpg').webp({quality:70,effort:6}).toFile('images/paccino-12.webp');
+for (const w of [500,600,800,1200])
+  sharp('images/paccino-12.jpg').resize(w,w).webp({quality:70,effort:6}).toFile('images/paccino-12-'+w+'.webp');
 sharp('images/logo.png').webp({quality:88,effort:6}).toFile('images/logo.webp');
 "
 ```

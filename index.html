@@ -85,15 +85,15 @@
     <!-- Preload the LCP image (hero) and the intro logo: both are needed for first paint,
          so discovering them via CSS/markup alone costs a round trip. -->
   <link rel="preload" as="image" href="images/paccino-12.webp" type="image/webp" fetchpriority="high"
-        imagesrcset="images/paccino-12-800.webp 800w, images/paccino-12-1200.webp 1200w, images/paccino-12.webp 1600w"
+        imagesrcset="images/paccino-12-500.webp 500w, images/paccino-12-600.webp 600w, images/paccino-12-800.webp 800w, images/paccino-12-1200.webp 1200w, images/paccino-12.webp 1600w"
         imagesizes="100vw" />
   <link rel="preload" as="image" href="images/logo.webp" type="image/webp" />
-    <!-- Preconnect opens the TCP/TLS handshake to Google Fonts early so font requests start sooner. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <!-- Preconnect opens the TCP/TLS handshake to Google Fonts early so font requests start sooner. -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Load Playfair Display (serif headings) + Cairo (body text) — these are also the Tailwind font-family tokens. -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <!-- Fonts are self-hosted (see fonts/ and the @font-face rules at the top of
+         tailwind.css). The Google Fonts link used to sit here: a render-blocking
+         stylesheet on one origin that then fetched woff2 files from a second one.
+         Preloading the two faces the first screen needs removes that whole chain. -->
+  <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="fonts/playfair-latin.woff2" crossorigin />
     <!-- Tailwind CSS, prebuilt. The CDN script was a 400 KB JIT compiler that
          blocked rendering and regenerated the same CSS in every visitor's browser;
          tailwind.css is the 16 KB static build of only the classes used here.
@@ -474,7 +474,7 @@
     <div class="absolute inset-0 overflow-hidden">
       <!-- Terrace photo (edited) with a slow cinematic zoom (Ken Burns effect):
            scales 1 → 1.08 over 20s and holds, keeping the lit sign in frame. -->
-      <img width="1600" height="1600" fetchpriority="high" decoding="async" srcset="images/paccino-12-800.webp 800w, images/paccino-12-1200.webp 1200w, images/paccino-12.webp 1600w" sizes="100vw" src="images/paccino-12.webp" alt="Paccino's terrace lit up at night, Taha Hussein St, Minya" class="w-full h-full object-cover object-[center_30%] ken-burns" />
+      <img width="1600" height="1600" fetchpriority="high" decoding="async" srcset="images/paccino-12-500.webp 500w, images/paccino-12-600.webp 600w, images/paccino-12-800.webp 800w, images/paccino-12-1200.webp 1200w, images/paccino-12.webp 1600w" sizes="100vw" src="images/paccino-12.webp" alt="Paccino's terrace lit up at night, Taha Hussein St, Minya" class="w-full h-full object-cover object-[center_30%] ken-burns" />
       <!-- Dark overlay (70% opacity espresso) tints the image and guarantees readable text. -->
       <div class="absolute inset-0 bg-espresso/70"></div>
     </div>
