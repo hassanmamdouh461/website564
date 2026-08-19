@@ -390,6 +390,37 @@
     @media (prefers-reduced-motion: reduce) {
       .marquee__track { animation: none; }
     }
+
+    /* === FAQ accordion. <details> is styled directly so the section needs no
+       JavaScript; the marker is replaced with a rotating chevron drawn in CSS. === */
+    .faq-item {
+      background: #fff; border: 1px solid rgba(92,20,37,.12);
+      border-radius: 0.85rem; padding: 1.15rem 1.4rem;
+      box-shadow: 0 1px 3px rgba(61,10,23,.06);
+      transition: box-shadow .25s ease, border-color .25s ease;
+    }
+    .faq-item[open] { box-shadow: 0 6px 18px rgba(61,10,23,.10); border-color: rgba(92,20,37,.22); }
+    .faq-item summary {
+      cursor: pointer; list-style: none; font-weight: 600; color: #5C1425;
+      font-size: 1.08rem; display: flex; align-items: center; gap: .75rem;
+    }
+    /* Hide the native disclosure triangle in both engines. */
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::marker { content: ""; }
+    /* Chevron drawn from two borders, rotated when the item is open. */
+    .faq-item summary::after {
+      content: ""; margin-inline-start: auto; flex: 0 0 auto;
+      width: .5rem; height: .5rem;
+      border-right: 2px solid #A98A4B; border-bottom: 2px solid #A98A4B;
+      transform: rotate(45deg); transition: transform .25s ease;
+    }
+    .faq-item[open] summary::after { transform: rotate(-135deg); }
+    .faq-item p {
+      margin: .9rem 0 0; color: #3D0A17; opacity: .82; line-height: 1.85;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .faq-item, .faq-item summary::after { transition: none; }
+    }
   </style>
 </head>
 
@@ -428,6 +459,7 @@
         <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">المنيو</a></li>
         <li><a href="#gallery" class="hover:text-caramel transition-colors duration-300">الصور</a></li>
         <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">آراء الناس</a></li>
+        <li><a href="#faq" class="hover:text-caramel transition-colors duration-300">أسئلة</a></li>
         <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">كلمنا</a></li>
       </ul>
 
@@ -474,6 +506,7 @@
       <li><a href="#menu" data-close>المنيو</a></li>
       <li><a href="#gallery" data-close>الصور</a></li>
       <li><a href="#reviews" data-close>آراء الناس</a></li>
+      <li><a href="#faq" data-close>أسئلة</a></li>
       <li><a href="#contact" data-close>كلمنا</a></li>
       <li><a href="index.html" onclick="try{localStorage.setItem('pac_lang','en')}catch(e){}" data-close>English Version</a></li>
     </ul>
@@ -821,6 +854,48 @@
       </div>
     </div>  </section>
 
+
+  <!-- ======================================================================
+       القسم 7.5: أسئلة شائعة — النصوص هنا مطابقة حرفياً للـ FAQPage schema.
+       جوجل بيطلب إن أي سؤال في البيانات المنظمة يكون ظاهر للزائر، وإلا بيسحب
+       الـ rich result. أي تعديل هنا لازم يتكرر في الـ JSON-LD والعكس.
+       <details>/<summary> بدل جافاسكريبت: بيفتح ويقفل بالمتصفح نفسه، والنص
+       موجود في الـ HTML فجوجل بيقراه من غير ما يحتاج ينفّذ سكربت.
+       ====================================================================== -->
+  <section id="faq" class="bg-cream py-24 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">أسئلة بتتسأل كتير</h2>
+      <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
+      <div class="reveal space-y-4">
+
+        <details class="faq-item">
+          <summary>فين فروع باتشينوس في المنيا؟</summary>
+          <p>باتشينوس ليه فرعين في المنيا. الأول في شارع طه حسين (أمام وابور النور)، والتاني في المنيا الجديدة - الحي الثالث - مول كورنر بلازا. الفرعين بيقدموا نفس المنيو بالكامل وفيهم ديليفري.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>هل باتشينوس بيقدم خدمة الديليفري؟</summary>
+          <p>أيوه، فيه ديليفري في كل المنيا. اطلب على واتساب 01007811378 (فرع طه حسين) أو 01033777117 (فرع المنيا الجديدة). المنيو كله بيتوصّل: القهوة المختصة والباستا والبيتزا.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>إيه اللي بيقدمه باتشينوس؟</summary>
+          <p>باتشينوس بيقدم قهوة إيطالية مختصة (باتشينوس لاتيه، موكا، فانيليا، سبانيش لاتيه) ومنيو مطبخ إيطالي كامل فيه فيتوتشيني ألفريدو، بيني أرابياتا، بيتزا مارجريتا، وبيتزا باتشينوس سبيشيال. كل حاجة بتتعمل طازة كل يوم.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>إيه مواعيد عمل باتشينوس؟</summary>
+          <p>باتشينوس فاتح كل يوم من 9 الصبح لـ 12 بالليل، بما فيها الويك إند ومعظم الأعياد. الفرعين — طه حسين والمنيا الجديدة كورنر بلازا — بنفس المواعيد.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>أقيّم باتشينوس إزاي؟</summary>
+          <p>تقدر تقيّم باتشينوس على خرائط جوجل، فيسبوك، تريب أدفايزر، يلب، فورسكوير، أو طلبات. دوّر على «باتشينوس المنيا» على أي منصة منهم — الفرعين موجودين: طه حسين والمنيا الجديدة كورنر بلازا.</p>
+        </details>
+
+      </div>
+    </div>  </section>
+
   <!-- ======================================================================
        القسم 8: الموقع والتواصل (نص + خريطة جنب بعض)
        ====================================================================== -->
@@ -925,6 +1000,7 @@
             <li><a href="#home" class="hover:text-caramel transition-colors duration-300">الرئيسية</a></li>
             <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">المنيو</a></li>
             <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">آراء الناس</a></li>
+            <li><a href="#faq" class="hover:text-caramel transition-colors duration-300">أسئلة</a></li>
             <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">كلمنا</a></li>
           </ul>
         </div>
@@ -1211,6 +1287,58 @@
         "reviewBody": "القهوة عندهم تحفة والمكان نضيف والخدمة سريعة — بنصح بيه جداً."
       }
     ],
+    "slogan": "Coffee & Food Experience",
+    "areaServed": { "@type": "City", "name": "المنيا" },
+    "knowsLanguage": ["ar", "en"],
+    "currenciesAccepted": "EGP",
+    "paymentAccepted": "Cash, Credit Card",
+    "publicAccess": true,
+    "isAccessibleForFree": true,
+    "amenityFeature": [
+        { "@type": "LocationFeatureSpecification", "name": "جلسات خارجية", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "جلسات داخلية", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "ديليفري", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "تيك أواي", "value": true }
+    ],
+    "department": [
+        {
+          "@type": "Restaurant",
+          "name": "باتشينوس — فرع طه حسين",
+          "telephone": "+201007811378",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "شارع طه حسين (أمام وابور النور)",
+            "addressLocality": "المنيا",
+            "addressRegion": "المنيا",
+            "addressCountry": "EG",
+            "postalCode": "61661"
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+            "opens": "09:00",
+            "closes": "23:59"
+          }
+        },
+        {
+          "@type": "Restaurant",
+          "name": "باتشينوس — فرع المنيا الجديدة",
+          "telephone": "+201033777117",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "مول كورنر بلازا، الحي الثالث",
+            "addressLocality": "المنيا الجديدة",
+            "addressRegion": "المنيا",
+            "addressCountry": "EG"
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+            "opens": "09:00",
+            "closes": "23:59"
+          }
+        }
+    ],
     "potentialAction": {
       "@type": "OrderAction",
       "target": "https://wa.me/201228784569",
@@ -1268,7 +1396,8 @@
       { "@type": "ListItem", "position": 3, "name": "المنيو",  "item": "https://pacinos.engaz.tech/ar.html#menu" },
       { "@type": "ListItem", "position": 4, "name": "الصور",   "item": "https://pacinos.engaz.tech/ar.html#gallery" },
       { "@type": "ListItem", "position": 5, "name": "الآراء",   "item": "https://pacinos.engaz.tech/ar.html#reviews" },
-      { "@type": "ListItem", "position": 6, "name": "تواصل",   "item": "https://pacinos.engaz.tech/ar.html#contact" }
+      { "@type": "ListItem", "position": 6, "name": "أسئلة",   "item": "https://pacinos.engaz.tech/ar.html#faq" },
+      { "@type": "ListItem", "position": 7, "name": "تواصل",   "item": "https://pacinos.engaz.tech/ar.html#contact" }
     ]
   }
   </script>
@@ -1359,8 +1488,8 @@
         "inLanguage": "ar",
         
         "address": { "@type": "PostalAddress", "addressLocality": "المنيا", "addressRegion": "المنيا", "addressCountry": "EG" },
-                "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"], "opens": "09:00", "closes": "23:59"}],
-        "priceRange": "$",
+                "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "23:59"}],
+        "priceRange": "$$",
         "paymentAccepted": "Cash, Credit Card",
         "currenciesAccepted": "EGP"
       }
