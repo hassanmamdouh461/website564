@@ -1,6 +1,12 @@
 // Pre-commit sanity check: every inline <script> must parse as JS and every
 // application/ld+json block must parse as JSON. Run: node validate.js
 const fs = require('fs');
+const path = require('path');
+
+// Paths resolve against the repo root, not the caller's working directory, so
+// this runs the same from the root or from inside tools/.
+const root = path.join(__dirname, '..');
+const at = (p) => path.join(root, p);
 
 const files = ['index.html', 'ar.html', '404.html'];
 let failures = 0;
@@ -18,7 +24,7 @@ function lineOf(html, index) {
 }
 
 for (const file of files) {
-  const html = fs.readFileSync(file, 'utf8');
+  const html = fs.readFileSync(at(file), 'utf8');
   let js = 0, ld = 0;
 
   for (const b of blocks(html)) {
@@ -58,9 +64,9 @@ for (const file of files) {
 }
 
 // Standalone JSON files must parse too.
-for (const file of ['manifest.json', 'paccinos-data.json']) {
+for (const file of ['manifest.json', 'tools/paccinos-data.json']) {
   try {
-    JSON.parse(fs.readFileSync(file, 'utf8'));
+    JSON.parse(fs.readFileSync(at(file), 'utf8'));
     console.log(`${file}: valid JSON`);
   } catch (e) {
     failures++;

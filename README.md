@@ -27,8 +27,8 @@ Rebuild after adding or changing any class in the markup:
 
 ```bash
 npm install --no-save tailwindcss@3.4.17
-./node_modules/.bin/tailwindcss -i tailwind.src.css -o tailwind.css --minify
-node audit-classes.js      # every class must resolve
+./node_modules/.bin/tailwindcss -c tools/tailwind.config.js -i tailwind.src.css -o tailwind.css --minify
+node tools/audit-classes.js      # every class must resolve
 ```
 
 Call the **local binary**, not `npx tailwindcss`. If a global `@tailwindcss/cli`
@@ -91,23 +91,29 @@ website564/
 ├── index.html                    ← English version
 ├── ar.html                       ← Arabic version (default landing)
 ├── 404.html                      ← Branded not-found page
-├── validate.js                   ← Pre-commit checker (run before every commit)
-├── audit-classes.js              ← Verifies every markup class exists in the CSS
-├── tailwind.config.js            ← Build config (theme tokens)
 ├── tailwind.src.css              ← Build input (@tailwind directives + fonts)
 ├── fonts.css                     ← @font-face rules, inlined into tailwind.css
 ├── fonts/                        ← Self-hosted woff2 (Cairo + Playfair Display)
 ├── tailwind.css                  ← Built stylesheet, SERVED — commit it
+├── .nojekyll                     ← Required, or .well-known/ is never published
+├── .well-known/
+│   └── security.txt              ← RFC 9116 — must live here, not at the root
+├── tools/                        ← Build-time only, never served as content
+│   ├── validate.js               ← Pre-commit checker
+│   ├── audit-classes.js          ← Verifies every markup class exists in the CSS
+│   ├── tailwind.config.js        ← Build config (theme tokens)
+│   ├── paccinos-data.json        ← Source-of-truth business data
+│   ├── apply-colors.js           ← One-off historical migration script
+│   ├── server.js                 ← Local preview server
+│   └── setup-domain.ps1          ← One-off DNS helper
 ├── .gitignore                    ← Excludes node_modules (installed on demand)
 ├── robots.txt                    ← Crawler rules + sitemap pointer
 ├── sitemap.xml                   ← Both language URLs with hreflang
 ├── manifest.json                 ← PWA manifest (install + theme color)
 ├── browserconfig.xml             ← Windows tile colors
 ├── humans.txt                    ← Credits / trust signal
-├── security.txt                  ← RFC 9116 vulnerability contact
 ├── favicon.svg                   ← Brand "P" badge
 ├── CNAME                         ← Custom domain
-├── paccinos-data.json            ← Source-of-truth business data
 ├── google4a500f27301bceae.html   ← Search Console verification — DO NOT DELETE
 ├── googlec1c84b6ac35a711a.html   ← Search Console verification — DO NOT DELETE
 ├── BingSiteAuth.xml              ← Bing Webmaster verification
@@ -332,6 +338,28 @@ referenced by either page. They are kept as archival masters only.
 
 ---
 
+## Hosting limits worth knowing
+
+GitHub Pages does not let you set HTTP response headers, so the site has **no
+HSTS, CSP, X-Frame-Options, X-Content-Type-Options or Referrer-Policy**, and
+every asset is served with a fixed `Cache-Control: max-age=600` — fonts and
+images included, even though they never change. Brotli is unavailable too; only
+gzip is negotiated.
+
+A `public/_headers` file used to sit in the repo declaring all of these. It was
+dead weight: `_headers` is a Netlify/Cloudflare Pages convention that GitHub
+Pages ignores entirely, and the file was not even published. It has been removed
+so nobody mistakes it for active configuration.
+
+Putting Cloudflare in front of the domain is the single change that fixes all
+three (headers via Transform Rules, cache lifetimes via Page Rules, Brotli at
+the edge). Until then, the meta-equivalents in each page's `<head>` cover what
+can be covered — note that `X-Frame-Options` and `HSTS` cannot be set via
+`<meta>` at all.
+
+`.nojekyll` must stay in the repo root. Without it GitHub runs Jekyll, which
+skips every path beginning with a dot — `/.well-known/security.txt` would 404.
+
 ## Search Console / Bing status
 
 - Google Search Console: verified via HTML file. **Never delete or rename these
@@ -349,13 +377,13 @@ referenced by either page. They are kept as archival masters only.
 ## Before every commit
 
 ```bash
-node validate.js
-node audit-classes.js
+node tools/validate.js
+node tools/audit-classes.js
 ```
 
 `validate.js` parses every inline `<script>` with `new Function()`, every
 `application/ld+json` block with `JSON.parse()`, checks `<section>` tag balance in
-both pages, and validates `manifest.json` and `paccinos-data.json`.
+both pages, and validates `manifest.json` and `tools/paccinos-data.json`.
 `audit-classes.js` confirms every markup class is still covered by `tailwind.css`
 or the page's inline CSS. Non-zero exit from either means do not commit.
 
@@ -365,8 +393,8 @@ or the page's inline CSS. Non-zero exit from either means do not commit.
 so both branches always show the same tree.
 
 ```bash
-node validate.js                       # must pass first
-node audit-classes.js                  # and this
+node tools/validate.js                       # must pass first
+node tools/audit-classes.js                  # and this
 
 git add -A
 git commit -m "Your message"

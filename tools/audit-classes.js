@@ -3,8 +3,12 @@
 // Classes defined in each page's own <style> block are not Tailwind's job, so
 // they are resolved against that inline CSS instead.
 const fs = require('fs');
+const path = require('path');
 
-const css = fs.readFileSync('tailwind.css', 'utf8');
+const root = path.join(__dirname, '..');
+const at = (p) => path.join(root, p);
+
+const css = fs.readFileSync(at('tailwind.css'), 'utf8');
 
 // Tailwind escapes these characters when it emits selectors.
 function escapeClass(c) {
@@ -16,7 +20,7 @@ const JS_HOOKS = new Set(['typewriter']);
 
 let missingTotal = 0;
 for (const f of ['index.html', 'ar.html']) {
-  const html = fs.readFileSync(f, 'utf8');
+  const html = fs.readFileSync(at(f), 'utf8');
   const inlineCss = [...html.matchAll(/<style>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join('\n');
 
   const used = new Set();

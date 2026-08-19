@@ -6,7 +6,7 @@
  *
  * Rebuild after changing markup:
  *   npm install --no-save tailwindcss@3.4.17
- *   ./node_modules/.bin/tailwindcss -i tailwind.src.css -o tailwind.css --minify
+ *   ./node_modules/.bin/tailwindcss -c tools/tailwind.config.js \n *     -i tailwind.src.css -o tailwind.css --minify
  *
  * Call the local binary, NOT `npx tailwindcss`: this machine has a global
  * @tailwindcss/cli v4 that npx picks first, and v4 ignores this v3-style config
@@ -15,8 +15,11 @@
  * Keep the theme tokens identical to what the CDN config declared, or the
  * rendered colours and fonts will shift.
  */
+const path = require('path');
+const root = path.join(__dirname, '..');
+
 module.exports = {
-  content: ['./index.html', './ar.html', './404.html'],
+  content: [path.join(root, 'index.html'), path.join(root, 'ar.html'), path.join(root, '404.html')],
   theme: {
     extend: {
       colors: {

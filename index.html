@@ -9,6 +9,14 @@
   <meta charset="UTF-8" />
     <!-- Makes the page mobile-friendly by matching the viewport width to device pixels -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Security headers, meta-equivalent. GitHub Pages cannot set HTTP response
+         headers, so these are declared here instead. X-Frame-Options and HSTS
+         are deliberately absent: neither works via <meta> and both need a real
+         header (see the Hosting limits section in README). frame-src must keep
+         allowing maps.google.com or the two branch map embeds break. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src https://maps.google.com https://www.google.com; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
     <!-- Browser tab title + Google search result headline -->
   <title>Paccino's Café Minya | Coffee, Italian Food &amp; Menu</title>
     <!-- SEO snippet shown under the page title in search results -->
@@ -1099,13 +1107,13 @@
       "https://www.google.com/maps/search/?api=1&query=Corner+Plaza+Mall+New+Minya+Egypt"
     ],
     "hasMenu": "https://pacinos.engaz.tech/#menu",
-    "acceptsReservations": "False",
+    "acceptsReservations": false,
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "584",
-      "bestRating": "5",
-      "worstRating": "1"
+      "ratingValue": 5,
+      "reviewCount": 3,
+      "bestRating": 5,
+      "worstRating": 1
     },
     "review": [
       {
@@ -1113,14 +1121,14 @@
         "author": { "@type": "Person", "name": "Miral Robert" },
         "datePublished": "2025-11-14",
         "publisher": { "@type": "Organization", "name": "Facebook" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
+        "reviewRating": { "@type": "Rating", "ratingValue": 5, "bestRating": 5, "worstRating": 1 },
         "reviewBody": "One of the best places — high quality food with reasonable prices. The staff is so friendly, and the portions are generous. Always my favorite place."
       },
       {
         "@type": "Review",
         "author": { "@type": "Person", "name": "A visitor from Minya" },
         "datePublished": "2026-06-21",
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
+        "reviewRating": { "@type": "Rating", "ratingValue": 5, "bestRating": 5, "worstRating": 1 },
         "reviewBody": "Tried the Watermelon Blast refresher on a hot day and it did not disappoint. Super refreshing!"
       },
       {
@@ -1128,7 +1136,7 @@
         "author": { "@type": "Person", "name": "عميل دائم" },
         "datePublished": "2026-03-02",
         "inLanguage": "ar",
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
+        "reviewRating": { "@type": "Rating", "ratingValue": 5, "bestRating": 5, "worstRating": 1 },
         "reviewBody": "القهوة عندهم ممتازة والمكان نظيف والخدمة سريعة — أنصح بيه جدًا."
       }
     ],
@@ -1274,7 +1282,7 @@
       {
         "@type": "LocalBusiness",
         "@id": "https://pacinos.engaz.tech/#localbusiness",
-        "@parent": { "@id": "https://pacinos.engaz.tech/#restaurant" },
+        "parentOrganization": { "@id": "https://pacinos.engaz.tech/#restaurant" },
         "name": "Paccino's",
         "alternateName": ["باتشينوس", "Paccinos"],
         "image": "https://pacinos.engaz.tech/images/paccino-12.jpg",

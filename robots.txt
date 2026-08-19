@@ -1,15 +1,12 @@
 # robots.txt for pacinos.engaz.tech
 # Tells well-behaved crawlers what they may index and where the sitemap lives.
-# The few Disallow entries below are for internal / temp files that may exist
-# in the repo during development but should never appear in search results.
 
 User-agent: *
 Allow: /
-Disallow: /server.log
-Disallow: /server.js
-Disallow: /setup-domain.ps1
-Disallow: /paccinos-data.json
-Disallow: /*.js$
+
+# Build-time scripts and the raw business data. They are not part of the site;
+# keeping them out of search results avoids indexing source files as content.
+Disallow: /tools/
 
 # Crawl-delay for the noisiest bots (be polite to the server)
 User-agent: AhrefsBot
@@ -19,11 +16,3 @@ Crawl-delay: 10
 
 # Sitemap — Google & Bing read this to discover every page.
 Sitemap: https://pacinos.engaz.tech/sitemap.xml
-
-# Add your Google Search Console verification token below:
-# https://search.google.com/search-console → URL Prefix → HTML tag
-# Example: google-site-verification: abc123def456
-
-# Add your Bing Webmaster verification token below:
-# https://www.bing.com/webmasters → Verify Ownership → HTML <meta> tag
-# Example: msvalidate.01 = ABC123DEF456
