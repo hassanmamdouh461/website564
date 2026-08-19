@@ -33,7 +33,7 @@
     <!-- Hreflang signals: each language version is for users in that language -->
   <link rel="alternate" hreflang="ar" href="https://pacinos.engaz.tech/ar.html" />
   <link rel="alternate" hreflang="en" href="https://pacinos.engaz.tech/" />
-  <link rel="alternate" hreflang="x-default" href="https://pacinos.engaz.tech/" />
+  <link rel="alternate" hreflang="x-default" href="https://pacinos.engaz.tech/ar.html" />
 
     <!-- ===== Open Graph (Facebook / WhatsApp / LinkedIn preview cards) ===== -->
   <meta property="og:type" content="restaurant.restaurant" />
@@ -1406,26 +1406,88 @@
         "@id": "https://pacinos.engaz.tech/#website",
         "url": "https://pacinos.engaz.tech/",
         "name": "Paccino's",
+        "alternateName": [
+          "باتشينوس",
+          "Paccino's Café",
+          "Paccino's Minya"
+        ],
         "inLanguage": "en",
         "description": "Italian restaurant & specialty coffee shop in Minya, Egypt since 2010.",
-        "publisher": { "@id": "https://pacinos.engaz.tech/#restaurant" }
+        "publisher": {
+          "@id": "https://pacinos.engaz.tech/#organization"
+        }
       },
       {
         "@type": "LocalBusiness",
         "@id": "https://pacinos.engaz.tech/#localbusiness",
-        "parentOrganization": { "@id": "https://pacinos.engaz.tech/#restaurant" },
+        "parentOrganization": {
+          "@id": "https://pacinos.engaz.tech/#organization"
+        },
         "name": "Paccino's",
-        "alternateName": ["باتشينوس", "Paccinos"],
+        "alternateName": [
+          "باتشينوس",
+          "Paccinos"
+        ],
         "image": "https://pacinos.engaz.tech/images/paccino-12.jpg",
         "logo": "https://pacinos.engaz.tech/images/icon-512.png",
         "telephone": "+201228784569",
         "email": "paccinoscafe@gmail.com",
         "url": "https://pacinos.engaz.tech/",
-        "address": { "@type": "PostalAddress", "addressLocality": "Minya", "addressRegion": "Minya", "addressCountry": "EG" },
-        "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "23:59"}],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Minya",
+          "addressRegion": "Minya",
+          "addressCountry": "EG"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Sunday",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ],
+            "opens": "09:00",
+            "closes": "23:59"
+          }
+        ],
         "priceRange": "$$",
         "paymentAccepted": "Cash, Credit Card",
         "currenciesAccepted": "EGP"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://pacinos.engaz.tech/#organization",
+        "name": "Paccino's",
+        "alternateName": [
+          "باتشينوس",
+          "Paccino's Café Minya"
+        ],
+        "description": "Italian restaurant and specialty coffee shop in Minya, Egypt, open since 2010 with two branches.",
+        "url": "https://pacinos.engaz.tech/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://pacinos.engaz.tech/images/icon-512.png",
+          "width": 512,
+          "height": 512,
+          "caption": "Paccino's"
+        },
+        "image": "https://pacinos.engaz.tech/images/paccino-12.jpg",
+        "email": "paccinoscafe@gmail.com",
+        "telephone": "+201228784569",
+        "foundingDate": "2010",
+        "areaServed": {
+          "@type": "City",
+          "name": "Minya"
+        },
+        "sameAs": [
+          "https://www.facebook.com/PaccinosCoffee",
+          "https://www.instagram.com/paccino_s"
+        ]
       }
     ]
   }
