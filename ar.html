@@ -81,6 +81,23 @@
   <script>
     try{ if(localStorage.getItem('pac_lang')==='en' && location.pathname.indexOf('ar.html')!==-1){ location.replace('/'+location.hash); } }catch(e){}
   </script>
+  <!-- Reload starts at the top. Browsers restore the previous scroll offset on
+       refresh, which lands the visitor mid-page and skips the intro animation.
+       scrollRestoration is set before first paint; the pageshow reset also covers
+       back/forward-cache restores, where Chrome and Safari otherwise reapply the
+       saved offset. A real #hash in the URL is left alone so deep links work.
+       الريفرش بيبدأ من فوق زي أول مرة. -->
+  <script>
+    try{
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      if (!location.hash) {
+        window.addEventListener("pageshow", function(){
+          // instant, not smooth: scroll-smooth on <html> would animate this.
+          window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+        });
+      }
+    }catch(e){}
+  </script>
 
   <!-- ================= تحميل الخطوط من Google Fonts ================= -->
 
