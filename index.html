@@ -387,36 +387,6 @@
       .marquee__track { animation: none; }
     }
 
-    /* === FAQ accordion. <details> is styled directly so the section needs no
-       JavaScript; the marker is replaced with a rotating chevron drawn in CSS. === */
-    .faq-item {
-      background: #fff; border: 1px solid rgba(92,20,37,.12);
-      border-radius: 0.85rem; padding: 1.15rem 1.4rem;
-      box-shadow: 0 1px 3px rgba(61,10,23,.06);
-      transition: box-shadow .25s ease, border-color .25s ease;
-    }
-    .faq-item[open] { box-shadow: 0 6px 18px rgba(61,10,23,.10); border-color: rgba(92,20,37,.22); }
-    .faq-item summary {
-      cursor: pointer; list-style: none; font-weight: 600; color: #5C1425;
-      font-size: 1.08rem; display: flex; align-items: center; gap: .75rem;
-    }
-    /* Hide the native disclosure triangle in both engines. */
-    .faq-item summary::-webkit-details-marker { display: none; }
-    .faq-item summary::marker { content: ""; }
-    /* Chevron drawn from two borders, rotated when the item is open. */
-    .faq-item summary::after {
-      content: ""; margin-inline-start: auto; flex: 0 0 auto;
-      width: .5rem; height: .5rem;
-      border-right: 2px solid #A98A4B; border-bottom: 2px solid #A98A4B;
-      transform: rotate(45deg); transition: transform .25s ease;
-    }
-    .faq-item[open] summary::after { transform: rotate(-135deg); }
-    .faq-item p {
-      margin: .9rem 0 0; color: #3D0A17; opacity: .82; line-height: 1.85;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .faq-item, .faq-item summary::after { transition: none; }
-    }
   </style>
 </head>
   <!-- Page body: Tailwind base styles (font, bg, text colors, antialiased) on top of our custom CSS. -->
@@ -450,7 +420,6 @@
         <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">Menu</a></li>
         <li><a href="#gallery" class="hover:text-caramel transition-colors duration-300">Gallery</a></li>
         <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">Reviews</a></li>
-        <li><a href="#faq" class="hover:text-caramel transition-colors duration-300">FAQ</a></li>
         <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">Contact</a></li>
       </ul>
 
@@ -495,7 +464,6 @@
       <li><a href="#menu" data-close>Menu</a></li>
       <li><a href="#gallery" data-close>Gallery</a></li>
       <li><a href="#reviews" data-close>Reviews</a></li>
-      <li><a href="#faq" data-close>FAQ</a></li>
       <li><a href="#contact" data-close>Contact</a></li>
       <li><a href="ar.html" onclick="try{localStorage.setItem('pac_lang','ar')}catch(e){}" data-close>Switch to Arabic</a></li>
     </ul>
@@ -654,19 +622,8 @@
   <!-- About -->
   <section id="about" class="bg-espresso text-white py-24 px-6">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold mb-4">About Paccino's — Café &amp; Italian Restaurant in Minya</h2>
+      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold mb-4">About Paccino's</h2>
       <div class="reveal w-20 h-1 bg-caramel mx-auto mb-10 rounded-full"></div>
-      <p class="reveal reveal-delay-1 text-lg md:text-xl leading-relaxed text-cream/85 mb-6">
-        Paccino's is a café and Italian restaurant in Minya, open since 2010. It started
-        from a love of good food, and every dish that leaves the kitchen carries the work and
-        the experiments behind it. We prepare our specialty coffee in house, and the pasta and
-        pizza are made fresh every day.
-      </p>
-      <p class="reveal reveal-delay-2 text-lg md:text-xl leading-relaxed text-cream/85 mb-10">
-        There is indoor and outdoor seating that suits long sittings, working and studying, and
-        we deliver across Minya. Both branches — Taha Hussein Street and New Minya — serve the
-        full menu.
-      </p>
       <!-- Two-column grid: each branch gets a card with name, address, and delivery phone. -->
       <div class="reveal reveal-delay-3 grid gap-6 md:grid-cols-2 text-left mt-10">
         <div class="bg-white/5 rounded-xl p-6 border border-white/10">
@@ -825,49 +782,6 @@
     </div>  </section>
 
   <!-- ====================================================================
-       FAQ — the wording here is character-for-character identical to the
-       FAQPage JSON-LD below. Google requires every question in structured data
-       to be visible on the page; markup without a visible counterpart loses the
-       rich result. Edit both together, never one alone.
-       <details>/<summary> rather than JavaScript: the browser handles the
-       open/close, and the answer text ships in the HTML so crawlers read it
-       without executing anything.
-       ==================================================================== -->
-  <section id="faq" class="bg-cream py-24 px-6">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="reveal font-heading text-4xl md:text-5xl font-bold text-center mb-4">Frequently Asked Questions</h2>
-      <div class="reveal w-20 h-1 bg-caramel mx-auto mb-14 rounded-full"></div>
-      <div class="reveal space-y-4">
-
-        <details class="faq-item">
-          <summary>Where is Paccino's Coffee located in Minya?</summary>
-          <p>Paccino's has two branches in Minya, Egypt. The first is on Taha Hussein Street (in front of Wabour El-Nour) and the second is in the New Minya 3rd District at Corner Plaza Mall. Both branches serve the full menu and offer delivery.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Does Paccino's offer delivery in Minya?</summary>
-          <p>Yes. Paccino's offers delivery across Minya. Order via WhatsApp at +20 10 07811378 (Taha Hussein branch) or +20 10 3377117 (New Minya branch). The full Italian menu is available for delivery, including specialty coffee, pasta, and pizza.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>What does Paccino's Coffee serve?</summary>
-          <p>Paccino's serves specialty Italian coffee (Paccino's Latte, Mocha, Vanilla, Spanish Latte) and a full Italian kitchen menu including Fettuccine Alfredo, Penne Arrabbiata, Margherita Pizza, and a house-special Paccino's Pizza. Everything is made fresh daily.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>What are Paccino's opening hours?</summary>
-          <p>Paccino's is open daily from 9:00 AM to 11:59 PM, including weekends and most holidays. Both the Taha Hussein and New Minya Corner Plaza branches follow the same schedule.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>How can I leave a review for Paccino's?</summary>
-          <p>You can rate Paccino's on Google Maps, Facebook, Tripadvisor, Yelp, Foursquare, or Talabat. Search for Paccino's Minya on any of them — both the Taha Hussein and New Minya Corner Plaza branches are listed.</p>
-        </details>
-
-      </div>
-    </div>  </section>
-
-  <!-- ====================================================================
        CONTACT — two-column layout: left = address + phone + CTAs, right = two maps.
        One embedded Google Map per branch (Taha Hussein + New Minya).
        ==================================================================== -->
@@ -949,7 +863,6 @@
             <li><a href="#home" class="hover:text-caramel transition-colors duration-300">Home</a></li>
             <li><a href="#menu" class="hover:text-caramel transition-colors duration-300">Menu</a></li>
             <li><a href="#reviews" class="hover:text-caramel transition-colors duration-300">Reviews</a></li>
-            <li><a href="#faq" class="hover:text-caramel transition-colors duration-300">FAQ</a></li>
             <li><a href="#contact" class="hover:text-caramel transition-colors duration-300">Contact</a></li>
             <li><a href="ar.html" class="hover:text-caramel transition-colors duration-300">النسخة العربية</a></li>
           </ul>
@@ -1342,66 +1255,11 @@
       { "@type": "ListItem", "position": 3, "name": "Menu",  "item": "https://pacinos.engaz.tech/#menu" },
       { "@type": "ListItem", "position": 4, "name": "Gallery","item": "https://pacinos.engaz.tech/#gallery" },
       { "@type": "ListItem", "position": 5, "name": "Reviews","item": "https://pacinos.engaz.tech/#reviews" },
-      { "@type": "ListItem", "position": 6, "name": "FAQ",    "item": "https://pacinos.engaz.tech/#faq" },
-      { "@type": "ListItem", "position": 7, "name": "Contact","item": "https://pacinos.engaz.tech/#contact" }
+      { "@type": "ListItem", "position": 6, "name": "Contact","item": "https://pacinos.engaz.tech/#contact" }
     ]
   }
   </script>
 
-  <!-- ======================================================================
-       JSON-LD: FAQPage schema — surfaces questions directly in Google search
-       results as expandable rich results. Targets long-tail keywords.
-       ====================================================================== -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Where is Paccino's Coffee located in Minya?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Paccino's has two branches in Minya, Egypt. The first is on Taha Hussein Street (in front of Wabour El-Nour) and the second is in the New Minya 3rd District at Corner Plaza Mall. Both branches serve the full menu and offer delivery."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does Paccino's offer delivery in Minya?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Paccino's offers delivery across Minya. Order via WhatsApp at +20 10 07811378 (Taha Hussein branch) or +20 10 3377117 (New Minya branch). The full Italian menu is available for delivery, including specialty coffee, pasta, and pizza."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does Paccino's Coffee serve?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Paccino's serves specialty Italian coffee (Paccino's Latte, Mocha, Vanilla, Spanish Latte) and a full Italian kitchen menu including Fettuccine Alfredo, Penne Arrabbiata, Margherita Pizza, and a house-special Paccino's Pizza. Everything is made fresh daily."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What are Paccino's opening hours?",
-        "answerCount": 1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Paccino's is open daily from 9:00 AM to 11:59 PM, including weekends and most holidays. Both the Taha Hussein and New Minya Corner Plaza branches follow the same schedule."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How can I leave a review for Paccino's?",
-        "answerCount": 1,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "You can rate Paccino's on Google Maps, Facebook, Tripadvisor, Yelp, Foursquare, or Talabat. Search for Paccino's Minya on any of them — both the Taha Hussein and New Minya Corner Plaza branches are listed."
-        }
-      }
-    ]
-  }
-  </script>
 
 
 
