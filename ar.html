@@ -77,10 +77,10 @@
   <meta name="msapplication-TileImage" content="images/icon-192.png" />
   <link rel="dns-prefetch" href="https://maps.google.com" />
     <!-- Language preference redirect: if the visitor has explicitly chosen English,
-         take them to index.html. Otherwise, stay here (Arabic). -->
+         take them to the canonical root URL. Otherwise, stay here (Arabic). -->
   <!-- نتذكر اختيار اللغة -->
   <script>
-    try{ if(localStorage.getItem('pac_lang')==='en' && location.pathname.indexOf('ar.html')!==-1){ location.replace('index.html'+location.hash); } }catch(e){}
+    try{ if(localStorage.getItem('pac_lang')==='en' && location.pathname.indexOf('ar.html')!==-1){ location.replace('/'+location.hash); } }catch(e){}
   </script>
 
     <!-- SEO snippet shown under the page title in search results -->
@@ -436,7 +436,7 @@
            localStorage so subsequent visits load the chosen language. The link is
            hidden on mobile (the side menu has its own switcher). -->
       <!-- زر تغيير اللغة → English (النسخة الإنجليزية هي الافتراضية) -->
-      <a href="index.html" onclick="try{localStorage.setItem('pac_lang','en')}catch(e){}"
+      <a href="/" onclick="try{localStorage.setItem('pac_lang','en')}catch(e){}"
          class="hidden lg:flex items-center gap-1.5 text-white/85 hover:text-caramel transition-colors duration-300 text-sm font-semibold border border-white/25 hover:border-caramel rounded-full px-4 py-2" aria-label="Switch to English">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a15.3 15.3 0 0 1 0 18M12 3a15.3 15.3 0 0 0 0 18"/></svg>
         EN
@@ -476,7 +476,7 @@
       <li><a href="#gallery" data-close>الصور</a></li>
       <li><a href="#reviews" data-close>آراء الناس</a></li>
       <li><a href="#contact" data-close>كلمنا</a></li>
-      <li><a href="index.html" onclick="try{localStorage.setItem('pac_lang','en')}catch(e){}" data-close>English Version</a></li>
+      <li><a href="/" onclick="try{localStorage.setItem('pac_lang','en')}catch(e){}" data-close>English Version</a></li>
     </ul>
     <a href="https://wa.me/201228784569" target="_blank" rel="noopener noreferrer" class="sideCta">اطلب واتساب</a>
   <!-- End of side menu drawer -->
