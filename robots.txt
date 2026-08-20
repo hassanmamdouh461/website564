@@ -1,18 +1,22 @@
 # robots.txt for pacinos.engaz.tech
 # Tells well-behaved crawlers what they may index and where the sitemap lives.
 
+# Default group — applies to any crawler without its own group below.
 User-agent: *
 Allow: /
-
 # Build-time scripts and the raw business data. They are not part of the site;
 # keeping them out of search results avoids indexing source files as content.
 Disallow: /tools/
 
-# Crawl-delay for the noisiest bots (be polite to the server)
+# SEO crawlers get their own groups, so the rules above do not reach them unless
+# repeated here. Each group must restate its own Disallow.
 User-agent: AhrefsBot
 Crawl-delay: 10
+Disallow: /tools/
+
 User-agent: SemrushBot
 Crawl-delay: 10
+Disallow: /tools/
 
 # Sitemap — Google & Bing read this to discover every page.
 Sitemap: https://pacinos.engaz.tech/sitemap.xml
