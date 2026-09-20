@@ -383,11 +383,6 @@
       animation: marquee-scroll 28s linear infinite;
       will-change: transform;
     }
-    /* Pause on hover — real mouse devices only. On touch, :hover sticks after a tap
-       and would freeze the ticker permanently. */
-    @media (hover: hover) {
-      .marquee:hover .marquee__track { animation-play-state: paused; }
-    }
     .marquee__item {
       color: var(--color-accent); font-size: 1.05rem; font-weight: 600;
       letter-spacing: 0.06em; text-transform: uppercase;
@@ -397,9 +392,6 @@
     @keyframes marquee-scroll {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .marquee__track { animation: none; }
     }
 
   </style>
